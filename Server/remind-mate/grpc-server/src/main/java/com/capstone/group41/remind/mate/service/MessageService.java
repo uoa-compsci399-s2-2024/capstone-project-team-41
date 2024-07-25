@@ -1,4 +1,4 @@
-package grpcserver;
+package com.capstone.group41.remind.mate.service;
 
 
 import io.grpc.stub.StreamObserver;
@@ -15,7 +15,7 @@ public class MessageService extends MessageServiceGrpc.MessageServiceImplBase {
     public void send(Message request, StreamObserver<Message> responseObserver) {
         // create response
         Message message = Message.newBuilder()
-                .setMessage("gRPC server received your message: Ur message is: " + request.getMessage())
+                .setMessage("gRPC server received your message: " + request.getMessage())
                 .build();
 
         // add to stream observer
