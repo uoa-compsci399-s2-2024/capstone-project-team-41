@@ -3,18 +3,15 @@ syntax = "proto3";
 package remind.mate.grpc;
 
 option java_multiple_files = true;
-// add other options
 
-message Message {
-  string message = 1;
+message ExampleRequest {
+  string request = 1;
 }
 
-message GiveMeTrueRequest {}
-message GiveMeTrueResponse {
-  bool true = 1;
+message ExampleResponse {
+  string response = 1;
 }
 
-service MessageService {
-  rpc send(Message) returns (Message) {}
-  rpc giveMeTrue (GiveMeTrueRequest) returns (GiveMeTrueResponse) {}
+service ExampleService {
+  rpc example(ExampleRequest) returns (ExampleResponse) {}
 }

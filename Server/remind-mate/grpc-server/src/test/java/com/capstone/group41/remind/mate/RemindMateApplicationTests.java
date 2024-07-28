@@ -1,4 +1,4 @@
-package remind.mate;
+package com.capstone.group41.remind.mate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
