@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:untitled/Features/Main/Models/UIOAppState.dart';
+import 'Models/UIOAppState.dart';
 
 class AppState {
   static final AppState _singleton = AppState._internal();
