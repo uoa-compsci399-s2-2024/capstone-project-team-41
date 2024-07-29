@@ -1,6 +1,6 @@
+import 'package:RemindMate/Features/Main/MainViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/Features/Main/MainViewModel.dart';
 
 import 'Features/Main/MainView.dart';
 

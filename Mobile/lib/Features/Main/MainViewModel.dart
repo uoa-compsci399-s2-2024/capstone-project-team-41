@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:RemindMate/Features/Main/AppState.dart';
+import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/Features/Main/AppState.dart';
-import 'package:untitled/Features/Main/Models/UIOAppState.dart';
 
 class MainViewModel extends ChangeNotifier {
   late UIOAppState _appState;
@@ -24,7 +24,6 @@ class MainViewModel extends ChangeNotifier {
   void updateAppState() {
     streamSubscription =
         AppState().appStateController.stream.listen((appState) {
-      print(appState);
       _appState = appState;
       notifyListeners();
     });

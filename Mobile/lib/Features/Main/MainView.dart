@@ -1,10 +1,10 @@
+import 'package:RemindMate/Features/Home/HomeView.dart';
+import 'package:RemindMate/Features/Login/LoginView.dart';
+import 'package:RemindMate/Features/Main/MainViewModel.dart';
+import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Splash/SplashView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled/Features/Home/HomeView.dart';
-import 'package:untitled/Features/Login/LoginView.dart';
-import 'package:untitled/Features/Main/MainViewModel.dart';
-import 'package:untitled/Features/Main/Models/UIOAppState.dart';
-import 'package:untitled/Features/Splash/SplashView.dart';
 
 class MainView extends StatelessWidget {
   @override
