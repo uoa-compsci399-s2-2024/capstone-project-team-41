@@ -44,7 +44,7 @@ class MainViewModel extends ChangeNotifier {
           .instance.exampleServiceClient
           .example(request,
               options: new CallOptions(
-                  metadata: {"authorization": credentials.accessToken}));
+                  metadata: {"authorization": credentials.idToken}));
       print(response.response);
     } on GrpcError catch (e) {
       print(e);
