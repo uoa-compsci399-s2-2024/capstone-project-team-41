@@ -3,6 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>com.apple.developer.associated-domains</key>
-	<array/>
+	<array>
+		<string>webcredentials:dev-omhf4f5ly70nx3i0.us.auth0.com</string>
+	</array>
 </dict>
 </plist>
