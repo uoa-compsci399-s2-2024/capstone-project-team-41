@@ -2,9 +2,13 @@ import 'package:RemindMate/Features/Main/MainViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Domain/GrpcConnector/ExampleGrpcConnector.dart';
 import 'Features/Main/MainView.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  //Always initialize the grpc connector
+  ExampleGrpcConnector().init();
   runApp(const MyApp());
 }
 

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package remind.mate.grpc;
+
+option java_multiple_files = true;
+
+message ExampleRequest {
+  string request = 1;
+}
+
+message ExampleResponse {
+  string response = 1;
+}
+
+service ExampleService {
+  rpc example(ExampleRequest) returns (ExampleResponse) {}
+}
