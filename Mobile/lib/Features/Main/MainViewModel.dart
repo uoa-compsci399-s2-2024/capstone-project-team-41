@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/GrpcConnector/ExampleGrpcConnector.dart';
 import 'package:RemindMate/Domain/GrpcConnector/Message.pbgrpc.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
@@ -16,7 +17,7 @@ class MainViewModel extends ChangeNotifier {
   MainViewModel() {
     _appState = AppState().appState;
     updateAppState();
-    exampleRequest();
+    checkAuthState();
   }
 
   @override
@@ -35,17 +36,30 @@ class MainViewModel extends ChangeNotifier {
 
   Future<void> exampleRequest() async {
     try {
+      final credentials =
+          await Auth0Connector.instance.auth0.credentialsManager.credentials();
       ExampleRequest request = ExampleRequest();
       request.request = "test";
       ExampleResponse response = await ExampleGrpcConnector
           .instance.exampleServiceClient
           .example(request,
-              options: new CallOptions(metadata: {"authorization": "test"}));
+              options: new CallOptions(
+                  metadata: {"authorization": credentials.idToken}));
       print(response.response);
     } on GrpcError catch (e) {
       print(e);
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<void> checkAuthState() async {
+    if (await Auth0Connector.instance.auth0.credentialsManager
+        .hasValidCredentials()) {
+      AppState().setAppState(UIOAppState.home);
+      exampleRequest();
+    } else {
+      AppState().setAppState(UIOAppState.login);
     }
   }
 }

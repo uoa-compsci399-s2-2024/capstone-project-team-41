@@ -1,5 +1,7 @@
 package com.capstone.group41.remind.mate.config;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.capstone.group41.remind.mate.security.TokenVerifier;
 import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.interceptor.GrpcGlobalServerInterceptor;
@@ -11,6 +13,7 @@ public class GrpcInterceptor implements ServerInterceptor {
 
 
     public static final Context.Key<Object> AUTHORIZATION = Context.key(AUTHORIZATION_HEADER_KEY);
+    private static final TokenVerifier tokenVerifier = new TokenVerifier();
 
     @Override
     public <ReqT, RespT> io.grpc.ServerCall.Listener<ReqT> interceptCall(
@@ -23,6 +26,11 @@ public class GrpcInterceptor implements ServerInterceptor {
 
         if(authorizationToken == null) {
             call.close(Status.UNAUTHENTICATED.withDescription("Authorization token is missing"), new Metadata());
+        }
+        try {
+            tokenVerifier.verifyToken(authorizationToken);
+        } catch (JWTVerificationException exception) {
+            call.close(Status.UNAUTHENTICATED.withDescription(exception.getLocalizedMessage()), new Metadata());
         }
 
         ctx = ctx.withValue(AUTHORIZATION, authorizationToken);

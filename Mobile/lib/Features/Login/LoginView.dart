@@ -1,4 +1,6 @@
+import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -11,9 +13,10 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: (
-            Text('Login View')
-        )
-    );
+        body: Consumer<LoginViewModel>(builder: (context, viewModel, child) {
+      return Center(
+          child: ElevatedButton(
+              child: Text("Login"), onPressed: () => viewModel.login()));
+    }));
   }
 }

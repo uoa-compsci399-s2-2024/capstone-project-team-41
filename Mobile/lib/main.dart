@@ -1,3 +1,5 @@
+import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
+import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   //Always initialize the grpc connector
   ExampleGrpcConnector().init();
+  Auth0Connector().init();
   runApp(const MyApp());
 }
 
@@ -21,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => MainViewModel()),
+          ChangeNotifierProvider(create: (context) => LoginViewModel())
         ],
         child: MaterialApp(
           title: 'Remind Mate',
