@@ -2,7 +2,7 @@ import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/Images.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 
 class ReminderCard extends StatelessWidget {
   final UIOReminderCard uio;
@@ -39,12 +39,12 @@ class ReminderCard extends StatelessWidget {
                 Row(
                   children: [
                     Image.asset(Images.calenderIcon),
-                    Text(DateFormat('dd MMM').format(uio.dateTime)),
+                    Text(uio.getDateTimeAsString("dd MMM")),
                     uio.showTime
                         ? Row(
                             children: [
                               Image.asset(Images.clockIcon),
-                              Text(DateFormat('HH.mm').format(uio.dateTime))
+                              Text(uio.getDateTimeAsString("dd MMM"))
                             ],
                           )
                         : Container()

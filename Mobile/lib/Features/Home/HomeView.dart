@@ -11,20 +11,40 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  
+  // TEMPORARY
+  UIOReminderCard cardBuilder(String title) {
+      return UIOReminderCard(
+      cardType: UIOReminderCardType.calender,
+      title: title,
+      dateTime: DateTime.now(),
+      showTime: false,
+      friends: []);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      child: (Center(
-        child: ReminderCard(
-            uio: UIOReminderCard(
-                cardType: UIOReminderCardType.calender,
-                title: "Mother's Day",
-                dateTime: DateTime.now(),
-                showTime: false,
-                friends: [])),
-      )),
-    ));
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ReminderCard(uio: cardBuilder("Mother's Day")),
+                    const Padding(padding: EdgeInsets.only(bottom: 20)),
+                    ReminderCard(uio: cardBuilder("Tom's Birthday")),
+                    const Padding(padding: EdgeInsets.only(bottom: 20)),
+                    ReminderCard(uio: cardBuilder("Nana's Funeral :(")),
+                    const Padding(padding: EdgeInsets.only(bottom: 20)),
+                ],)
+              ),]
+          )
+        ),
+    );
   }
 }
