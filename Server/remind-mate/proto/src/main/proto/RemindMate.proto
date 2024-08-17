@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package remind.mate.grpc;
+
+option java_multiple_files = true;
+
+message GetMyDataRequest {
+
+}
+
+message GetMyDataResponse {
+  repeated Friend friends = 1;
+}
+
+enum ReminderType {
+  EVENT = 0;
+}
+
+message FriendReminders {
+  string title = 1;
+  string dateTime = 2;
+  bool showTime = 3;
+  ReminderType reminderType = 4;
+}
+
+enum RelationshipType {
+  FRIEND = 0;
+}
+
+message Friend {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  RelationshipType relationship = 4;
+  string timezone = 5;
+  string birthday = 6;
+  string notes = 7;
+  repeated FriendReminders reminders = 8;
+}
+
+message UpdateMyDataRequest {
+  repeated Friend friends = 1;
+}
+
+message UpdateMyDataResponse {
+
+}
+
+
+service RemindMateService {
+  rpc getMyData(GetMyDataRequest) returns (GetMyDataResponse) {}
+}
+
+service updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
