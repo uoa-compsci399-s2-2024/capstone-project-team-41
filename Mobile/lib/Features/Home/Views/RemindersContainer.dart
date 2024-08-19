@@ -9,10 +9,17 @@ class ReminderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: 100,
-      itemBuilder: (BuildContext context, int index) => ReminderCard(uio: carduio),
-      separatorBuilder: (context, index) => const Padding(padding: EdgeInsets.only(bottom: 10)),
+    return MediaQuery.removePadding(
+      context: context, 
+      removeTop: true,
+      child: Scrollbar(
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) => ReminderCard(uio: carduio),
+          separatorBuilder: (context, index) => const Padding(padding: EdgeInsets.only(bottom: 10)),
+        ),
+      )
     );
   }
 }

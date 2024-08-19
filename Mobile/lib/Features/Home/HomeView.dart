@@ -1,7 +1,8 @@
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCardType.dart';
-import 'package:RemindMate/Features/Home/Views/HomeNavButton.dart';
+import 'package:RemindMate/Features/Home/Views/HomeNavContainer.dart';
 import 'package:RemindMate/Features/Home/Views/RemindersContainer.dart';
+import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -24,28 +25,32 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.only(top: 0, bottom: 0, left: 32, right: 32),
+        padding: const EdgeInsets.only(top: 300, bottom: 0, left: 20, right: 20),
         child: Column(
           children: [
-            const SizedBox(
-              height: 500,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  HomeNavButton(),
-                  Row(
-                    children: [
-                      Expanded(child: HomeNavButton(),),
-                      Expanded(child: HomeNavButton(),),
-                    ],
-                  )
-                ],
-              )
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: const HomeNavContainer(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40, bottom: 15),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Weekly Reminders", style: Textstyles.P1,),
+                    Text("Your upcoming Reminders", style: Textstyles.S1)
+                  ],
+                )
+              ),
             ),
             Flexible(
-              child: ReminderContainer(carduio: sampleUIO,)
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: ReminderContainer(carduio: sampleUIO,)
+              ) 
             )
           ],
         )
