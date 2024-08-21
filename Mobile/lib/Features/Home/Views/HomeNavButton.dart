@@ -24,7 +24,7 @@ class HomeNavButton extends StatelessWidget {
           Image.asset(Images.calenderIcon),
           const Padding(padding: EdgeInsets.only(right: 5)),
           Text(buttonTitle,
-            style: Textstyles.H3,
+            style: Textstyles.buttonStyle,
           )
         ],
       ),
