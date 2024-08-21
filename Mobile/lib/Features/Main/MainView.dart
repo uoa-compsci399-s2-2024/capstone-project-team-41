@@ -1,3 +1,4 @@
+import 'package:RemindMate/Features/Friends/FriendsView.dart';
 import 'package:RemindMate/Features/Home/HomeView.dart';
 import 'package:RemindMate/Features/Login/LoginView.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
@@ -18,6 +19,8 @@ class MainView extends StatelessWidget {
           return LoginView();
         case UIOAppState.home:
           return HomeView();
+        case UIOAppState.friends:
+          return FriendsView();
       }
     }));
   }
