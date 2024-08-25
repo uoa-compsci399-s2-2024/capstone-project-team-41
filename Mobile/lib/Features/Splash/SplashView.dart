@@ -10,6 +10,6 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: (Center(child: Text("Loading"))));
+    return const Scaffold(body: (Center(child: Text("Loading"))));
   }
 }

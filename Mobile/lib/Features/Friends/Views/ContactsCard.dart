@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:RemindMate/Features/Friends/Models/UIOContactsCard.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
-import 'package:RemindMate/Features/Views/Images.dart';
 
 class ContactsCard extends StatelessWidget {
   final UIOContactsCard uio;
@@ -38,19 +37,19 @@ class ContactsCard extends StatelessWidget {
               children: [
                 Text(
                   uio.title, 
-                  style: TextStyle(
-                    color: const Color(0xFF575757),
+                  style: const TextStyle(
+                    color: Color(0xFF575757),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   "Birthday: ${uio.getDateTimeAsString("dd MMM")}",
-                  style: TextStyle(
-                    color: const Color(0xFF575757),
+                  style: const TextStyle(
+                    color: Color(0xFF575757),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
                     ElevatedButton(
@@ -63,7 +62,7 @@ class ContactsCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text("Set Reminder"),
+                      child: const Text("Set Reminder"),
                     ),
                   ],
                 ),

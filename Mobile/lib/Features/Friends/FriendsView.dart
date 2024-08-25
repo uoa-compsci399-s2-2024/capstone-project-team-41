@@ -49,8 +49,8 @@ class _FriendsViewState extends State<FriendsView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
+            const Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -85,7 +85,7 @@ class _FriendsViewState extends State<FriendsView> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
                     initial,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,

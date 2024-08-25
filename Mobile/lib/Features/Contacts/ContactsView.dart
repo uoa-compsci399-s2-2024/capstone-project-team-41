@@ -17,7 +17,7 @@ class _ContactsViewState extends State<ContactsView> {
     return Scaffold(
         body: Consumer<ContactsViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

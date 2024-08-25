@@ -33,7 +33,7 @@ class ContactCardView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${uio.firstName} ${uio.lastName}",
+                        uio.name,
                         style: Textstyles.P1,
                       ),
                       Text(
@@ -45,22 +45,22 @@ class ContactCardView extends StatelessWidget {
                 )
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8),
                     child: Icon(Icons.calendar_month),
                   ),
                   Text(
                     uio.getTimeZoneDate(),
                     style: Textstyles.B2,
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8),
+                  const Spacer(),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8),
                     child: Icon(Icons.timer_outlined),
                   ),
                   Text(
@@ -70,7 +70,7 @@ class ContactCardView extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             uio.hasNewReminder
                 ? Row(
                     children: [
@@ -81,7 +81,7 @@ class ContactCardView extends StatelessWidget {
                     ],
                   )
                 : Container(),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

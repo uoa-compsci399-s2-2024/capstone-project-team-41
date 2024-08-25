@@ -28,9 +28,9 @@ class _HomeViewState extends State<HomeView> {
               const EdgeInsets.only(top: 300, bottom: 120, left: 20, right: 20),
           child: Column(
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: const HomeNavContainer(),
+                child: HomeNavContainer(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 40, bottom: 15),

@@ -21,7 +21,7 @@ class ContactContainerView extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(uio.contactChar, style: Textstyles.P1),
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
           Divider(

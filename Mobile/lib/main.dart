@@ -1,4 +1,5 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
+import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Features/Contacts/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
@@ -12,6 +13,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   //Always initialize the grpc connector
   ExampleGrpcConnector().init();
+  DatabaseConnector().init();
   Auth0Connector().init();
   runApp(const MyApp());
 }
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: MainView(),
+          home: const MainView(),
         ));
   }
 }

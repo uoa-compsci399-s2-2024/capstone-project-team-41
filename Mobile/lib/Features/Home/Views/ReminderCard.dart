@@ -35,7 +35,7 @@ class ReminderCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(uio.title),
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
                     Image.asset(Images.calenderIcon),

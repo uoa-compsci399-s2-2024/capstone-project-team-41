@@ -1,29 +1,34 @@
+import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
+import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
-import 'package:RemindMate/Features/Contacts/Models/UIOContactType.dart';
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 
 class ContactsViewModel extends ChangeNotifier {
   List<UIOContact> contacts = [];
 
   ContactsViewModel() {
-    contacts.add(UIOContact(
-        firstName: "Jack",
-        lastName: "Bond",
-        type: UIOContactType.friend,
-        timeZone: "PDT",
-        hasNewReminder: true));
+    populateFromDatabase();
+  }
+
+  Future<void> populateFromDatabase() async {
+    final database = DatabaseConnector.instance.isar;
+    var dbContacts = await database.contacts.where().findAll();
+    for (final contact in dbContacts) {
+      contacts.add(UIOContact(contact));
+    }
+    notifyListeners();
   }
 
   Map<String, List<UIOContact>> contactMap() {
     var contactMap = <String, List<UIOContact>>{};
 
     for (var contact in contacts) {
-      if (!contactMap
-          .containsKey(contact.lastName.substring(0, 1).toUpperCase())) {
-        contactMap[contact.lastName.substring(0, 1).toUpperCase()] = [];
+      if (!contactMap.containsKey(contact.name.substring(0, 1).toUpperCase())) {
+        contactMap[contact.name.substring(0, 1).toUpperCase()] = [];
       }
 
-      contactMap[contact.lastName.substring(0, 1).toUpperCase()]?.add(contact);
+      contactMap[contact.name.substring(0, 1).toUpperCase()]?.add(contact);
     }
 
     return contactMap;
