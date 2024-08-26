@@ -1,0 +1,34 @@
+name: Build and Test gRPC
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17' # or the version you need
+
+    - name: Install Protocol Buffers Compiler
+      run: sudo apt-get install -y protobuf-compiler
+
+    - name: Install protoc-gen-grpc-java
+      run: |
+        mkdir -p ~/bin
+        curl -LO https://github.com/grpc/grpc-java/releases/download/v1.55.0/protoc-gen-grpc-java-1.55.0-linux-x86_64.zip
+        unzip protoc-gen-grpc-java-1.55.0-linux-x86_64.zip -d ~/bin
+        export PATH=$PATH:~/bin
+
+    - name: Generate Java code from .proto files
+      run: |
+        mkdir -p src/main/java
+        protoc --java_out=src/main/java --grpc-java_out=src/main/java -I./protos ./protos/*.proto
+
+    - name: Build with Maven
+      run: mvn clean install

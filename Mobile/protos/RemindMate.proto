@@ -51,4 +51,6 @@ service RemindMateService {
   rpc getMyData(GetMyDataRequest) returns (GetMyDataResponse) {}
 }
 
-service updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
+service UpdateMyDataService {
+  rpc updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
+}
