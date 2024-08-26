@@ -16,7 +16,7 @@ class _LoginViewState extends State<LoginView> {
         body: Consumer<LoginViewModel>(builder: (context, viewModel, child) {
       return Center(
           child: ElevatedButton(
-              child: Text("Login"), onPressed: () => viewModel.login()));
+              child: const Text("Login"), onPressed: () => viewModel.login()));
     }));
   }
 }

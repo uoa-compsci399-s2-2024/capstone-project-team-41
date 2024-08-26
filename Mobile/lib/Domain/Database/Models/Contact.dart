@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:RemindMate/Domain/Database/Models/ContactType.dart';
 import 'package:RemindMate/Domain/Database/Models/ReminderType.dart';
 import 'package:isar/isar.dart';

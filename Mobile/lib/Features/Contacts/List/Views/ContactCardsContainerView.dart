@@ -1,5 +1,5 @@
 import 'package:RemindMate/Features/Contacts/Models/UIOContantsContainer.dart';
-import 'package:RemindMate/Features/Contacts/Views/ContactCardView.dart';
+import 'package:RemindMate/Features/Contacts/List/Views/ContactCardView.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class ContactContainerView extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(uio.contactChar, style: Textstyles.P1),
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
           Divider(
