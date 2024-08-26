@@ -4,6 +4,7 @@ import 'package:instant/instant.dart';
 import 'package:intl/intl.dart';
 
 class UIOContact {
+  late int id;
   late String name;
   late UIOContactType type;
   late String timeZone;
@@ -15,6 +16,7 @@ class UIOContact {
   late String? profileImageUrl;
 
   UIOContact(Contact contact) {
+    id = contact.id;
     name = contact.name!;
     type = UIOContactType.fromDb(contact.type!);
     timeZone = contact.timezone!;

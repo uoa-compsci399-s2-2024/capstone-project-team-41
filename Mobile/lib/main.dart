@@ -1,6 +1,7 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
-import 'package:RemindMate/Features/Contacts/ContactsViewModel.dart';
+import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
+import 'package:RemindMate/Features/Contacts/List/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => MainViewModel()),
           ChangeNotifierProvider(create: (context) => LoginViewModel()),
-          ChangeNotifierProvider(create: (context) => ContactsViewModel())
+          ChangeNotifierProvider(create: (context) => ContactsViewModel()),
+          ChangeNotifierProvider(create: (context) => ContactViewModel())
         ],
         child: MaterialApp(
           title: 'Remind Mate',
