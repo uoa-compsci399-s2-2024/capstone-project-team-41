@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f310440e-78e1-4908-8685-ac24711a8329" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Mobile/lib/Features/Main/MainView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/lib/Features/Main/MainView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/lib/Features/Main/MainViewModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/lib/Features/Main/MainViewModel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/lib/Features/Main/Models/UIOAppState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/lib/Features/Main/Models/UIOAppState.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/pubspec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.config/test-revision1.JSON" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/.workflow/deploy.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/remind-mate/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Server/remind-mate/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,18 +21,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "bentigerashley"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bentigerashley&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/uoa-compsci399-s2-2024/capstone-project-team-41.git",
-    "accountId": "5ff2064a-b3d8-455f-82e5-21435540da5c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/uoa-compsci399-s2-2024/capstone-project-team-41.git&quot;,
+    &quot;accountId&quot;: &quot;5ff2064a-b3d8-455f-82e5-21435540da5c&quot;
   }
-}]]></component>
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
@@ -43,19 +45,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "adding-ecs",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -64,7 +69,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1723793197917</updated>
+      <workItem from="1724739270386" duration="244000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
