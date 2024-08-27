@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f310440e-78e1-4908-8685-ac24711a8329" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.config/test-revision1.JSON" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.github/.workflow/deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/remind-mate/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Server/remind-mate/Dockerfile" afterDir="false" />
-    </list>
+    <list default="true" id="f310440e-78e1-4908-8685-ac24711a8329" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,13 +49,28 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "adding-ecs",
+    "git-widget-placeholder": "adding-ecs-final",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="capstone-project-team-41" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="capstone-project-team-41" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -70,6 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1723793197917</updated>
       <workItem from="1724739270386" duration="244000" />
+      <workItem from="1724739568327" duration="48000" />
     </task>
     <servers />
   </component>
