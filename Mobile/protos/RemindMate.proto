@@ -18,9 +18,10 @@ enum ReminderType {
 
 message FriendReminders {
   string title = 1;
-  string dateTime = 2;
-  bool showTime = 3;
-  ReminderType reminderType = 4;
+  int64 startDateTime = 2;
+  int64 endDateTime = 3;
+  bool showTime = 4;
+  ReminderType reminderType = 5;
 }
 
 enum RelationshipType {
@@ -49,6 +50,5 @@ message UpdateMyDataResponse {
 
 service RemindMateService {
   rpc getMyData(GetMyDataRequest) returns (GetMyDataResponse) {}
+  rpc updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
 }
-
-service updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
