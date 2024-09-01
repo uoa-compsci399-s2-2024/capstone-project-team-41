@@ -39,6 +39,12 @@ class _ContactViewState extends State<ContactView> {
             viewModel.contact != null
                 ? ContactBodyView(uio: viewModel.contact!)
                 : Container(),
+            Row(
+              children: [
+                Text("${viewModel.contact?.name ?? ""}'s Upcoming Reminders"),
+                ElevatedButton(onPressed: () {}, child: Text("Add Reminder"))
+              ],
+            ),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
