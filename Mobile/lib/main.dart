@@ -1,5 +1,6 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
+import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
 import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/List/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Reminder/AddReminderViewModel.dart';
@@ -15,6 +16,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   //Always initialize the grpc connector
   ExampleGrpcConnector().init();
+  RemindMateGrpcConnector().init();
   DatabaseConnector().init();
   Auth0Connector().init();
   runApp(const MyApp());
