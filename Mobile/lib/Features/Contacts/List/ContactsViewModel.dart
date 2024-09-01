@@ -11,7 +11,15 @@ class ContactsViewModel extends ChangeNotifier {
     populateFromDatabase();
   }
 
-  Future<void> populateFromDatabase() async {
+  watchChanges() {
+    final database = DatabaseConnector.instance.isar;
+    Stream<void> contactsChanged = database.contacts.watchLazy();
+    contactsChanged.listen((contacts) {
+      populateFromDatabase();
+    });
+  }
+
+  Future<void>? populateFromDatabase() async {
     final database = DatabaseConnector.instance.isar;
     var dbContacts = await database.contacts.where().findAll();
     for (final contact in dbContacts) {
