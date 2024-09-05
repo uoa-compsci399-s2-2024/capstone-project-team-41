@@ -69,20 +69,7 @@ class MainViewModel extends ChangeNotifier {
         ..notes = "Works at TechCorp"
         ..timezone = "PST"
         ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
+        ..reminders = List.of([]));
 
       await database.contacts.put(Contact()
         ..birthday = "1985-11-02"

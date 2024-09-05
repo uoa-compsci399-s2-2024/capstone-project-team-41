@@ -42,7 +42,11 @@ class _ContactViewState extends State<ContactView> {
             Row(
               children: [
                 Text("${viewModel.contact?.name ?? ""}'s Upcoming Reminders"),
-                ElevatedButton(onPressed: () {}, child: Text("Add Reminder"))
+                ElevatedButton(
+                    onPressed: () {
+                      AppState().setAppState(UIOAppState.addReminder);
+                    },
+                    child: Text("Add Reminder"))
               ],
             ),
             ListView.builder(
