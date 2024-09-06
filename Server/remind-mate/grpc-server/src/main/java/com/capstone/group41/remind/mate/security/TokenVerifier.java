@@ -22,7 +22,6 @@ public class TokenVerifier {
     private static final JwkProvider provider = new JwkProviderBuilder("https://dev-omhf4f5ly70nx3i0.us.auth0.com/")
             .cached(10, 24, TimeUnit.HOURS)
             .build();
-    private final AppConfig appConfig;
 
     private static final RSAKeyProvider keyProvider = new RSAKeyProvider() {
         @Override
@@ -51,7 +50,7 @@ public class TokenVerifier {
 
 
     public void verifyToken(String token) {
-        if(appConfig.isOverrideJwt()) {
+        if(false) {
             return;
         }
         verifier.verify(token);
