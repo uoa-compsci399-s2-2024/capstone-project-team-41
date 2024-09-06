@@ -48,7 +48,7 @@ message UpdateMyDataResponse {
 }
 
 message AddFcmTokenRequest {
-  string useId = 1;
+  string userId = 1;
   string fcmToken = 2;
 }
 

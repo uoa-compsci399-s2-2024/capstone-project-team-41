@@ -1,6 +1,6 @@
 package com.capstone.group41.remind.mate.service;
 
-import com.capstone.group41.remind.mate.
+import remind.mate.grpc.*;
 import org.springframework.stereotype.Service;
 
 import remind.mate.grpc.*;
@@ -24,7 +24,8 @@ public class UserService {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document user = collection.find(new Document("userId", request.getUserId())).first();
+            String userId = request.getUserId();
+            Document user = collection.find(new Document("userId", userId)).first();
 
             if (user != null) {
                 List<String> fcmTokens = (List<String>) user.get("fcmTokens");
@@ -43,7 +44,6 @@ public class UserService {
                 return AddFcmTokenResponse.newBuilder()
                         .setSuccess(false)
                         .build();
-                }
             }
         }
     }
