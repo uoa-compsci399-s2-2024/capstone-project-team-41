@@ -19,7 +19,7 @@ public class UserService {
     private static final String DATABASE_NAME = "MyDatabase";
     private static final String COLLECTION_NAME = "users";
 
-    public AddFcmTokenResponse AddFcmToken(AddFcmTokenRequest request) {
+    public AddFcmTokenResponse addFcmToken(AddFcmTokenRequest request) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
