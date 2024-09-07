@@ -4,6 +4,7 @@ import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
 import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/List/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Reminder/AddReminderViewModel.dart';
+import 'package:RemindMate/Features/Home/HomeViewModel.dart';
 import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => LoginViewModel()),
           ChangeNotifierProvider(create: (context) => ContactsViewModel()),
           ChangeNotifierProvider(create: (context) => ContactViewModel()),
-          ChangeNotifierProvider(create: (context) => AddRedminderViewModel())
+          ChangeNotifierProvider(create: (context) => AddRedminderViewModel()),
+          ChangeNotifierProvider(create: (context) => HomeViewModel()),
         ],
         child: MaterialApp(
           title: 'Remind Mate',
