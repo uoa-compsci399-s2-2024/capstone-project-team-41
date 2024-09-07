@@ -8,13 +8,20 @@ import 'package:isar/isar.dart';
 class HomeViewModel extends ChangeNotifier {
   List<UIOReminderCard> upcomingReminders = [];
 
-
   HomeViewModel() {
     populateFromDatabase();
+    watchChanges();
   }
 
-  Future<void>? populateFromDatabase() async {
+  void watchChanges() {
+    final database = DatabaseConnector.instance.isar;
+    Stream<void> contactsChanged = database.contacts.watchLazy();
+    contactsChanged.listen((contacts) {
+      populateFromDatabase();
+    });
+  }
 
+  Future<void> populateFromDatabase() async {
     final database = DatabaseConnector.instance.isar;
     var dbcontacts = await database.contacts.where().findAll();
 
