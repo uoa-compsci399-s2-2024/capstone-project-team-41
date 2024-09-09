@@ -5,8 +5,10 @@ final class Textstyles {
       TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.w400);
   static const TextStyle H3 =
       TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
-  static const TextStyle P0 =
-      TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w500);
+  static const TextStyle P0 = TextStyle(
+      color: Color.fromRGBO(0, 0, 0, 1),
+      fontSize: 24,
+      fontWeight: FontWeight.w500);
   static const TextStyle P1 =
       TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500);
   static const TextStyle B1 =

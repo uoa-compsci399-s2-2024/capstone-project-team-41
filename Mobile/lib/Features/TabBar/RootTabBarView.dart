@@ -1,3 +1,4 @@
+import 'package:RemindMate/Features/Calender/CalenderView.dart';
 import 'package:RemindMate/Features/Contacts/List/ContactsView.dart';
 import 'package:RemindMate/Features/Home/HomeView.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,13 @@ class RootTabBarView extends StatelessWidget {
             item: ItemConfig(
               icon: const Icon(Icons.home),
               title: "Contacts",
+            ),
+          ),
+          PersistentTabConfig(
+            screen: const CalenderView(),
+            item: ItemConfig(
+              icon: const Icon(Icons.home),
+              title: "Calender",
             ),
           )
         ],

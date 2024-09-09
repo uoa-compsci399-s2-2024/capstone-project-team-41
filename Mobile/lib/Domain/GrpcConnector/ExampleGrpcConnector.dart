@@ -2,8 +2,8 @@ import 'package:RemindMate/Domain/GrpcConnector/Message.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class ExampleGrpcConnector {
-
-  String baseUrl = const String.fromEnvironment("GRPC_BASE_URL", defaultValue: "localhost");
+  String baseUrl =
+      const String.fromEnvironment("GRPC_BASE_URL", defaultValue: "localhost");
   ExampleGrpcConnector.internal();
 
   static final ExampleGrpcConnector _instance = ExampleGrpcConnector.internal();
@@ -25,12 +25,11 @@ class ExampleGrpcConnector {
   _createChannel() {
     final channel = ClientChannel(
       baseUrl,
-      port: int.parse(const String.fromEnvironment("GPRC_PORT", defaultValue: "9191")),
+      port: int.parse(
+          const String.fromEnvironment("GPRC_PORT", defaultValue: "9191")),
       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
     );
 
     _exampleServiceClient = ExampleServiceClient(channel);
   }
-
-
 }

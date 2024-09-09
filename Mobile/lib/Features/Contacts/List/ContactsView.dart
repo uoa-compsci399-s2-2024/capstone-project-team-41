@@ -1,6 +1,8 @@
 import 'package:RemindMate/Features/Contacts/List/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Models/UIOContantsContainer.dart';
 import 'package:RemindMate/Features/Contacts/List/Views/ContactCardsContainerView.dart';
+import 'package:RemindMate/Features/Main/AppState.dart';
+import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,11 @@ class _ContactsViewState extends State<ContactsView> {
                 Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: GestureDetector(onTap: () {}, child: Icon(Icons.add)),
+                  child: GestureDetector(
+                      onTap: () {
+                        AppState().setAppState(UIOAppState.addContact);
+                      },
+                      child: Icon(Icons.add)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 16),
