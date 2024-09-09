@@ -16,7 +16,6 @@ public class RemindMateController extends RemindMateServiceGrpc.RemindMateServic
 
     private final GetMyDataService getMyDataService;
     private final UpdateMyDataService updateMyDataService;
-
     private final UserService userService;
 
     @Override
