@@ -1,6 +1,8 @@
 package com.capstone.group41.remind.mate.service;
 
+import com.auth0.jwt.JWT;
 import com.google.protobuf.InvalidProtocolBufferException;
+import io.grpc.Context;
 import org.springframework.stereotype.Service;
 import remind.mate.grpc.Friend;
 import remind.mate.grpc.FriendReminders;
@@ -17,8 +19,6 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 import software.amazon.awssdk.core.SdkBytes;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -26,7 +26,9 @@ public class GetMyDataService {
 
 
     public GetMyDataResponse getMyData(GetMyDataRequest request) {
-        String userId = "1234"; // need to figure out how to get this from the token
+        Context.Key<String> TOKEN_KEY = Context.key("userId");
+        String token = TOKEN_KEY.get();
+        String userId = JWT.decode(token).getSubject();
         String accessKeyId = "AKIAWBKIEPYFPAIMBUOW";
         String secretAccessKey = "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";
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
