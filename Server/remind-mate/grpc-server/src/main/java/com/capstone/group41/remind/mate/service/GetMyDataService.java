@@ -2,6 +2,8 @@ package com.capstone.group41.remind.mate.service;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.stereotype.Service;
+import remind.mate.grpc.Friend;
+import remind.mate.grpc.FriendReminders;
 import remind.mate.grpc.GetMyDataRequest;
 import remind.mate.grpc.GetMyDataResponse;
 
@@ -14,8 +16,10 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 import software.amazon.awssdk.core.SdkBytes;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 @Service
 public class GetMyDataService {
@@ -28,32 +32,29 @@ public class GetMyDataService {
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
         Region region = Region.AP_SOUTHEAST_2;
 
-        // Create the DynamoDbClient with credentials and region
+        // create dynamodb
         DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .region(region)
                 .build();
 
-        // Prepare the key to query
         Map<String, AttributeValue> key = new HashMap<>();
         key.put("key", AttributeValue.builder().s(userId).build());
 
-        // Create the GetItemRequest to query the DynamoDB table
         String tableName = "database";
         GetItemRequest getItemRequest = GetItemRequest.builder()
                 .tableName(tableName)
                 .key(key)
                 .build();
 
-        // Query DynamoDB
+
         GetItemResponse getItemResponse = dynamoDbClient.getItem(getItemRequest);
 
-        // Check if the item exists
         if (!getItemResponse.hasItem() || getItemResponse.item().isEmpty()) {
-            return GetMyDataResponse.newBuilder().build();  // Return an empty response if no data is found
+            return GetMyDataResponse.newBuilder().build();  // returns empty if it doesn't exist
         }
 
-        // Deserialize the FriendsList attribute into a list of Friend objects
+        // deserialize the binary string into our response
         SdkBytes friendsListBytes = getItemResponse.item().get("FriendsList").b();
         byte[] serializedFriendsList = friendsListBytes.asByteArray();
         GetMyDataResponse response = null;
@@ -62,7 +63,16 @@ public class GetMyDataService {
         } catch (InvalidProtocolBufferException e) {
             throw new RuntimeException(e);
         }
+        return cleanReminders(response);
+    }
 
+    public static GetMyDataResponse cleanReminders(GetMyDataResponse response) {
+        long currentEpochSeconds = Instant.now().getEpochSecond();
+        for (Friend friend : response.getFriendsList()) {
+            List<FriendReminders> modifiableReminders = new ArrayList<>(friend.getRemindersList());
+            modifiableReminders.removeIf(reminder -> currentEpochSeconds > reminder.getEndDateTime());
+            friend = friend.toBuilder().clearReminders().addAllReminders(modifiableReminders).build();
+        }
         return response;
     }
 
