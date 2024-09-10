@@ -22,6 +22,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> populateFromDatabase() async {
+    upcomingReminders = [];
     final database = DatabaseConnector.instance.isar;
     var dbcontacts = await database.contacts.where().findAll();
 
