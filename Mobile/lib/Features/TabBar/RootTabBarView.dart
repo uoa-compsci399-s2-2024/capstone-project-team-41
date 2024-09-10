@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class RootTabBarView extends StatelessWidget {
-  const RootTabBarView({super.key});
+  RootTabBarView({super.key});
+
+  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
+        controller: _controller,
         tabs: [
           PersistentTabConfig(
             screen: const HomeView(),
@@ -23,22 +26,22 @@ class RootTabBarView extends StatelessWidget {
           PersistentTabConfig(
             screen: const ContactsView(),
             item: ItemConfig(
-              icon: const Icon(Icons.home),
+              icon: const Icon(Icons.contacts, size: 24,),
               title: "Contacts",
             ),
           ),
           PersistentTabConfig(
             screen: const CalenderView(),
             item: ItemConfig(
-              icon: const Icon(Icons.home),
+              icon: const Icon(Icons.calendar_month),
               title: "Calender",
             ),
           ),
           PersistentTabConfig(
             screen: const RemindersView(),
             item: ItemConfig(
-              icon: const Icon(Icons.home),
-              title: "Reminders",
+              icon: const Icon(Icons.notifications),
+              title: "Notifications",
             ),
           )
         ],

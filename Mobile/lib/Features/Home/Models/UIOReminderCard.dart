@@ -9,6 +9,7 @@ final class UIOReminderCard {
   late UIOReminderCardType cardType;
   late List<UIOReminderCardFriend> friends;
   late DateTime dateTime;
+  late DateTime dateEndTime;
   late bool showTime;
 
   UIOReminderCard(
@@ -16,6 +17,7 @@ final class UIOReminderCard {
       required this.cardType,
       required this.friends,
       required this.dateTime,
+      required this.dateEndTime,
       required this.showTime});
 
   UIOReminderCard.db(ContactReminder reminder) {
@@ -29,10 +31,15 @@ final class UIOReminderCard {
 
     this.friends = [];
     this.dateTime = reminder.startTime!;
+    this.dateEndTime = reminder.endTime!;
     this.showTime = reminder.showTime!;
   }
 
-  String getDateTimeAsString(String format) {
+  String getStartDateTimeAsString(String format) {
     return DateFormat(format).format(dateTime);
+  }
+
+  String getEndDateTimeAsString(String format) {
+    return DateFormat(format).format(dateEndTime);
   }
 }

@@ -572,7 +572,10 @@ class MainViewModel extends ChangeNotifier {
       exampleRequest();
       populateDatabase();
     } else {
-      AppState().setAppState(UIOAppState.login);
+      //AppState().setAppState(UIOAppState.login);
+      exampleRequest();
+      populateDatabase();
+      AppState().setAppState(UIOAppState.home);
     }
   }
 }

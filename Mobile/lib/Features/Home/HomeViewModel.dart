@@ -1,12 +1,12 @@
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
-import 'package:RemindMate/Features/Home/Models/UIOReminderCardType.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 
 class HomeViewModel extends ChangeNotifier {
   List<UIOReminderCard> upcomingReminders = [];
+  int remindersLength = 0;
 
   HomeViewModel() {
     populateFromDatabase();
@@ -35,6 +35,9 @@ class HomeViewModel extends ChangeNotifier {
         }
       }
     }
+
+    remindersLength = upcomingReminders.length;
+
     notifyListeners();
   }
 }

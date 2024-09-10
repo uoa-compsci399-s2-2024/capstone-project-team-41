@@ -1,6 +1,7 @@
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/Images.dart';
+import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 
 
@@ -26,7 +27,7 @@ class ReminderCard extends StatelessWidget {
               decoration: BoxDecoration(
                   color: ColorPalette.primaryPink,
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
-              child: Image.asset(uio.cardType.mainIcon),
+              child: Icon(Icons.calendar_today, color: Colors.white, size: 20),
             ),
           ),
           Padding(
@@ -34,20 +35,29 @@ class ReminderCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(uio.title),
+                Text(uio.title, style: Textstyles.boldSmall,),
                 const Spacer(),
                 Row(
                   children: [
-                    Image.asset(Images.calenderIcon),
-                    Text(uio.getDateTimeAsString("dd MMM")),
-                    uio.showTime
-                        ? Row(
-                            children: [
-                              Image.asset(Images.clockIcon),
-                              Text(uio.getDateTimeAsString("dd MMM"))
-                            ],
-                          )
-                        : Container()
+                    Container(
+                      decoration: BoxDecoration(
+                        color: ColorPalette.secondaryGreen,
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      ),
+                      padding: EdgeInsets.all(2),
+                      child: Text(uio.getStartDateTimeAsString("dd MMM"), style: Textstyles.smallDate,)
+                    ),
+                    const Padding(padding: EdgeInsets.only(right:6)),
+                    const Text("at", style: Textstyles.smallDate),
+                    const Padding(padding: EdgeInsets.only(right:6)),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: ColorPalette.secondaryGreen,
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      ),
+                      padding: EdgeInsets.all(2),
+                      child: Text(uio.getStartDateTimeAsString("H:m"), style: Textstyles.smallDate,)
+                    ),
                   ],
                 ),
               ],
