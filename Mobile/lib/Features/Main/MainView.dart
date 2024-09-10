@@ -1,3 +1,4 @@
+import 'package:RemindMate/Features/Contacts/AddContact/AddContactView.dart';
 import 'package:RemindMate/Features/Contacts/Contact/ContactView.dart';
 import 'package:RemindMate/Features/Contacts/Reminder/AddReminderView.dart';
 import 'package:RemindMate/Features/Login/LoginView.dart';
@@ -26,6 +27,8 @@ class MainView extends StatelessWidget {
           return const ContactView();
         case UIOAppState.addReminder:
           return const AddReminderView();
+        case UIOAppState.addContact:
+          return const AddContactView();
       }
     }));
   }

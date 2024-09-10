@@ -1,24 +1,26 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
+import 'package:RemindMate/Features/Calender/CalenderViewModel.dart';
+import 'package:RemindMate/Features/Contacts/AddContact/AddContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/List/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Reminder/AddReminderViewModel.dart';
 import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
+import 'package:RemindMate/Features/Reminders/RemindersViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Domain/GrpcConnector/ExampleGrpcConnector.dart';
 import 'Features/Main/MainView.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //Always initialize the grpc connector
-  ExampleGrpcConnector().init();
-  RemindMateGrpcConnector().init();
-  DatabaseConnector().init();
-  Auth0Connector().init();
+  await ExampleGrpcConnector().init();
+  await RemindMateGrpcConnector().init();
+  await DatabaseConnector().init();
+  await Auth0Connector().init();
   runApp(const MyApp());
 }
 
@@ -34,7 +36,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => LoginViewModel()),
           ChangeNotifierProvider(create: (context) => ContactsViewModel()),
           ChangeNotifierProvider(create: (context) => ContactViewModel()),
-          ChangeNotifierProvider(create: (context) => AddRedminderViewModel())
+          ChangeNotifierProvider(create: (context) => AddRedminderViewModel()),
+          ChangeNotifierProvider(create: (context) => AddContactViewModel()),
+          ChangeNotifierProvider(create: (context) => CalenderViewModel()),
+          ChangeNotifierProvider(create: (context) => RemindersViewModel())
         ],
         child: MaterialApp(
           title: 'Remind Mate',
