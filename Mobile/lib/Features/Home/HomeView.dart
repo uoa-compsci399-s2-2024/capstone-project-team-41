@@ -35,11 +35,11 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Good Morning,", style: Textstyles.H1),
-                    Text("Tori!", style: Textstyles.H1Bold),
+                    const Text("Good Morning,", style: Textstyles.H1),
+                    const Text("Tori!", style: Textstyles.H1Bold),
 
                     Text("You have $l upcoming events this week", style: TextStyle(color: ColorPalette.primaryOrange)),
-                    Padding(padding: EdgeInsets.only(bottom: 50)),
+                    const Padding(padding: EdgeInsets.only(bottom: 50)),
                     
                   ]
                 )

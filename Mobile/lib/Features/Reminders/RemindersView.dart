@@ -6,6 +6,7 @@ import 'package:RemindMate/Features/Home/Views/ReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:RemindMate/Features/Reminders/RemindersViewModel.dart';
+import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +25,15 @@ class _RemindersViewState extends State<RemindersView> {
     return Scaffold(body:
         Consumer<RemindersViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.only(top: 50),
         child: Column(
           children: [
-            Row(
-              children: [
-                Text(
-                  "Notifications",
-                  style: Textstyles.P0,
-                )
-              ],
+            const Padding(
+              padding: EdgeInsets.only(top: 50, bottom: 20, left: 16),
+              child: Row(
+                children: [
+                  Text("Notifications", style: Textstyles.H1,)
+                ],
+              ),
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -45,9 +44,19 @@ class _RemindersViewState extends State<RemindersView> {
                 final reminders = viewModel.eventMap[key];
                 return Column(
                   children: [
-                    Text(
-                      key,
-                      style: Textstyles.B1,
+                    Container(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(key, style: Textstyles.P1,),
+                          const Divider(
+                            height: 20,
+                            thickness: 3,
+                          )
+                        ]
+                      )
                     ),
                     ListView.builder(
                       shrinkWrap: true,
@@ -55,7 +64,10 @@ class _RemindersViewState extends State<RemindersView> {
                       itemCount: reminders!.length,
                       itemBuilder: (context, index) {
                         final reminder = reminders[index];
-                        return ReminderCard(uio: reminder);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                          child: ReminderCard(uio: reminder)
+                        );
                       },
                     ),
                   ],
@@ -64,7 +76,7 @@ class _RemindersViewState extends State<RemindersView> {
             ),
           ],
         ),
-      ));
+      );
     }));
   }
 }
