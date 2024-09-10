@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
@@ -9,6 +10,7 @@ import 'package:RemindMate/Domain/GrpcConnector/ExampleGrpcConnector.dart';
 import 'package:RemindMate/Domain/GrpcConnector/Message.pbgrpc.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Views/DateTimes.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 
@@ -58,6 +60,7 @@ class MainViewModel extends ChangeNotifier {
   }
 
   Future<void> populateDatabase() async {
+    sleep(Duration(seconds: 5));
     final database = DatabaseConnector.instance.isar;
     await database.writeTxn(() async {
       await database.clear();
@@ -82,20 +85,20 @@ class MainViewModel extends ChangeNotifier {
         ..reminders = List.of([
           ContactReminder()
             ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
+            ..startTime = DateTimes.daysAway2
+            ..endTime = DateTimes.daysAway3
             ..showTime = true
             ..reminderType = ReminderType.event,
           ContactReminder()
             ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
+            ..startTime = DateTimes.daysAway2
+            ..endTime = DateTimes.daysAway3
             ..showTime = false
             ..reminderType = ReminderType.event,
           ContactReminder()
             ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
+            ..startTime = DateTimes.daysAway2
+            ..endTime = DateTimes.daysAway3
             ..showTime = true
             ..reminderType = ReminderType.event,
         ]));

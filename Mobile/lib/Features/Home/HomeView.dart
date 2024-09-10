@@ -1,9 +1,11 @@
+import 'package:RemindMate/Features/Home/HomeViewModel.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCardType.dart';
 import 'package:RemindMate/Features/Home/Views/HomeNavContainer.dart';
 import 'package:RemindMate/Features/Home/Views/RemindersContainer.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -23,7 +25,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+          return Padding(
           padding:
               const EdgeInsets.only(top: 300, bottom: 120, left: 20, right: 20),
           child: Column(
@@ -51,10 +54,11 @@ class _HomeViewState extends State<HomeView> {
                   child: Padding(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: ReminderContainer(
-                        carduio: sampleUIO,
+                        uios: viewModel.upcomingReminders,
                       ))),
             ],
-          )),
-    );
+          ));
+      }
+    ));
   }
 }
