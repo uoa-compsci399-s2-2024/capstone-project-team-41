@@ -9,6 +9,7 @@ import 'package:RemindMate/Features/Reminders/RemindersViewModel.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -50,7 +51,7 @@ class _RemindersViewState extends State<RemindersView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(key, style: Textstyles.P1,),
+                          Text(DateFormat("MMMM").format(DateTime.parse("$key-01")), style: Textstyles.P1,),
                           const Divider(
                             height: 20,
                             thickness: 3,

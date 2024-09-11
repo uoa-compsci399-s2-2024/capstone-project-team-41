@@ -44,6 +44,10 @@ class RemindersViewModel extends ChangeNotifier {
       }
     }
 
+    for (String i in eventMap.keys) {
+      eventMap[i]!.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    }
+
     notifyListeners();
   }
 

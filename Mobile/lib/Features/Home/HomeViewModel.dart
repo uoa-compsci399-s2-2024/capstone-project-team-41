@@ -36,6 +36,8 @@ class HomeViewModel extends ChangeNotifier {
       }
     }
 
+    upcomingReminders.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
     remindersLength = upcomingReminders.length;
 
     notifyListeners();
