@@ -1,8 +1,11 @@
+import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:flutter/material.dart';
 
 final class Textstyles {
   static const TextStyle H1 =
       TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.w400);
+  static TextStyle H1Orange =
+      TextStyle(color: ColorPalette.primaryOrange, fontSize: 32, fontWeight: FontWeight.w400);
   static const TextStyle H1Bold =
       TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.w700);
   static const TextStyle H3 =

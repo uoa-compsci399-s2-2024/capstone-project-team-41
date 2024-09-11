@@ -28,7 +28,7 @@ class _RemindersViewState extends State<RemindersView> {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 50, bottom: 20, left: 16),
+              padding: EdgeInsets.only(top: 100, bottom: 0, left: 16),
               child: Row(
                 children: [
                   Text("Notifications", style: Textstyles.H1,)

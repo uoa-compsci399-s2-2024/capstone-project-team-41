@@ -21,15 +21,21 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       body: Consumer<HomeViewModel>(builder: (context, viewModel, child) {
-
+      
           int l = viewModel.remindersLength;
 
           return Padding(
           padding:
-              const EdgeInsets.only(top: 100, bottom: 60, left: 20, right: 20),
+              const EdgeInsets.only(top: 70, bottom: 60, left: 20, right: 20),
           child: Column(
             children: [
+              Container(
+                padding: const EdgeInsets.only(right: 10),
+                alignment: Alignment.topRight,
+                child: const Icon(Icons.settings, size: 35)
+              ),
               Container(
                 alignment: Alignment.topLeft,
                 child: Column(

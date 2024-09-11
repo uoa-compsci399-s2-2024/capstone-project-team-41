@@ -6,7 +6,7 @@ class UIOCalenderEvent {
   late DateTime endTime;
 
   UIOCalenderEvent(ContactReminder reminder) {
-    this.name = reminder.name!;
+    name = reminder.name!;
     startTime = reminder.startTime!;
     endTime = reminder.endTime!;
   }

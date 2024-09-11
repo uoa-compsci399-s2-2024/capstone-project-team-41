@@ -42,8 +42,8 @@ class _AddContactViewState extends State<AddContactView> {
                     onPressed: () {
                       AppState().setAppState(UIOAppState.home);
                     },
-                    icon: Icon(Icons.arrow_back)),
-                Text(
+                    icon: const Icon(Icons.arrow_back)),
+                const Text(
                   "Add A Friend",
                   style: Textstyles.P0,
                 ),
@@ -61,7 +61,7 @@ class _AddContactViewState extends State<AddContactView> {
                       showTitleActions: true,
                       minTime: DateTime(2018, 3, 5),
                       maxTime: DateTime(2019, 6, 7),
-                      theme: picker.DatePickerTheme(
+                      theme: const picker.DatePickerTheme(
                           headerColor: Colors.orange,
                           backgroundColor: Colors.blue,
                           itemStyle: TextStyle(
@@ -77,7 +77,7 @@ class _AddContactViewState extends State<AddContactView> {
                       currentTime: viewModel.birthDay,
                       locale: picker.LocaleType.en);
                 },
-                child: Text(
+                child: const Text(
                   'Birthday time',
                   style: TextStyle(color: Colors.blue),
                 )),
@@ -121,7 +121,7 @@ class _AddContactViewState extends State<AddContactView> {
                 onPressed: () {
                   viewModel.saveContact();
                 },
-                child: Text("Save"))
+                child: const Text("Save"))
           ],
         ),
       ));

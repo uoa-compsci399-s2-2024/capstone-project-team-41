@@ -4,7 +4,6 @@ import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Domain/Database/Models/ContactType.dart';
 import 'package:RemindMate/Domain/Database/Models/ReminderType.dart' as rt;
 import 'package:RemindMate/Domain/GrpcConnector/RemindMate.pb.dart';
-import 'package:RemindMate/Domain/GrpcConnector/RemindMate.pbenum.dart';
 import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
 import 'package:grpc/grpc.dart';
 import 'package:isar/isar.dart';

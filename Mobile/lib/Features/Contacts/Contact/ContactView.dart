@@ -30,7 +30,7 @@ class _ContactViewState extends State<ContactView> {
                     onPressed: () {
                       AppState().setAppState(UIOAppState.home);
                     },
-                    icon: Icon(Icons.arrow_back))
+                    icon: const Icon(Icons.arrow_back))
               ],
             ),
             viewModel.contact != null
@@ -46,7 +46,7 @@ class _ContactViewState extends State<ContactView> {
                     onPressed: () {
                       AppState().setAppState(UIOAppState.addReminder);
                     },
-                    child: Text("Add Reminder"))
+                    child: const Text("Add Reminder"))
               ],
             ),
             ListView.builder(

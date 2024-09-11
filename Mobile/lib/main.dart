@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Remind Mate',
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
           home: const MainView(),

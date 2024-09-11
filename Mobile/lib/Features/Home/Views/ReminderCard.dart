@@ -56,7 +56,7 @@ class ReminderCard extends StatelessWidget {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                       ),
                       padding: EdgeInsets.all(2),
-                      child: Text(uio.getStartDateTimeAsString("H:m"), style: Textstyles.smallDate,)
+                      child: Text(uio.getStartDateTimeAsString("HH:mm"), style: Textstyles.smallDate,)
                     ),
                   ],
                 ),
