@@ -1,50 +1,99 @@
 package com.capstone.group41.remind.mate.service;
 
+import com.auth0.jwt.JWT;
+import io.grpc.Context;
 import remind.mate.grpc.*;
 import org.springframework.stereotype.Service;
 
 import remind.mate.grpc.*;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
+import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
+import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
+import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private static final String CONNECTION_STRING = "mongodb://houseTargaryen:h0useTargaryen@docdb-2024-08-19-02-29-402.ci7bv0oxri6k.ap-southeast-2.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&retryWrites=false";
-    private static final String DATABASE_NAME = "MyDatabase";
-    private static final String COLLECTION_NAME = "users";
+    private final Region region = Region.AP_SOUTHEAST_2;
 
     public AddFcmTokenResponse addFcmToken(AddFcmTokenRequest request) {
-        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            String userId = request.getUserId();
-            Document user = collection.find(new Document("userId", userId)).first();
+        Context.Key<String> TOKEN_KEY = Context.key("userId");
+        String token = TOKEN_KEY.get();
+        String userId = JWT.decode(token).getSubject();
 
-            if (user != null) {
-                List<String> fcmTokens = (List<String>) user.get("fcmTokens");
-                if (!fcmTokens.contains(request.getFcmToken())) {
-                    fcmTokens.add(request.getFcmToken());
-                    collection.updateOne(
-                            new Document("userId", userId),
-                            new Document("$set", new Document("fcmTokens", fcmTokens))
-                    );
-                }
-                return AddFcmTokenResponse.newBuilder()
-                        .setSuccess(true)
-                        .build();
-            } else {
-                // user doesn't exist, this clause shouldn't be taken
-                return AddFcmTokenResponse.newBuilder()
-                        .setSuccess(false)
-                        .build();
+        // dynamodb
+        String accessKeyId = "AKIAWBKIEPYFPAIMBUOW";
+        String secretAccessKey = "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";
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
+        DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
+                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+                .region(region)
+                .build();
+
+        Map<String, AttributeValue> itemValues = new HashMap<>();
+        itemValues.put("key", AttributeValue.builder().s(userId).build());
+
+        GetItemRequest getItemRequest = GetItemRequest.builder()
+                .tableName("database")
+                .key(itemValues)
+                .build();
+
+        GetItemResponse getItemResponse = dynamoDbClient.getItem(getItemRequest);
+
+        if (!getItemResponse.hasItem() || getItemResponse.item().isEmpty()) {
+            // User does not exist, return false
+            return AddFcmTokenResponse.newBuilder()
+                    .setSuccess(false)
+                    .build();
+        }
+
+        // Extract the current FCM tokens (if any)
+        List<String> fcmTokens = new ArrayList<>();
+        if (getItemResponse.item().containsKey("fcmTokens")) {
+            for (AttributeValue fcmToken : getItemResponse.item().get("fcmTokens").l()) {
+                fcmTokens.add(fcmToken.s());
             }
         }
+
+        if (!fcmTokens.contains(request.getFcmToken())) {
+            fcmTokens.add(request.getFcmToken());
+
+            // Prepare the updated FCM tokens
+            List<AttributeValue> updatedFcmTokens = fcmTokens.stream()
+                    .map(fcmToken -> AttributeValue.builder().s(fcmToken).build())
+                    .toList();
+
+            // Update the user record with the new FCM tokens
+            Map<String, AttributeValueUpdate> updatedValues = new HashMap<>();
+            updatedValues.put("fcmTokens", AttributeValueUpdate.builder()
+                    .value(AttributeValue.builder().l(updatedFcmTokens).build())
+                    .action(AttributeAction.PUT)  // This tells DynamoDB to replace the existing value with this one
+                    .build());
+
+            UpdateItemRequest updateItemRequest = UpdateItemRequest.builder()
+                    .tableName("database")
+                    .key(itemValues)
+                    .attributeUpdates(updatedValues)
+                    .build();
+
+            UpdateItemResponse updateItemResponse = dynamoDbClient.updateItem(updateItemRequest);
+        }
+
+        return AddFcmTokenResponse.newBuilder()
+                .setSuccess(true)
+                .build();
     }
 }
