@@ -18,8 +18,8 @@ enum ReminderType {
 
 message FriendReminders {
   string title = 1;
-  string startDateTime = 2;
-  string endDateTime = 3;
+  int64 startDateTime = 2;
+  int64 endDateTime = 3;
   bool showTime = 4;
   ReminderType reminderType = 5;
 }
