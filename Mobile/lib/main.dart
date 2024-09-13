@@ -1,7 +1,6 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
-import 'package:RemindMate/Domain/Notifications/NotificationService.dart';
 import 'package:RemindMate/Features/Calender/CalenderViewModel.dart';
 import 'package:RemindMate/Features/Contacts/AddContact/AddContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
@@ -11,8 +10,6 @@ import 'package:RemindMate/Features/Home/HomeViewModel.dart';
 import 'package:RemindMate/Features/Login/LoginViewModel.dart';
 import 'package:RemindMate/Features/Main/MainViewModel.dart';
 import 'package:RemindMate/Features/Reminders/RemindersViewModel.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,13 +22,6 @@ Future<void> main() async {
   await RemindMateGrpcConnector().init();
   await DatabaseConnector().init();
   await Auth0Connector().init();
-  await Firebase.initializeApp();
-  NotificationService.initNotification();
-  await FirebaseMessaging.instance.getInitialMessage();
-  await FirebaseMessaging.instance.requestPermission();
-  await FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    print(("THIS IS EVENT :: :: $event"));
-  });
   runApp(const MyApp());
 }
 
