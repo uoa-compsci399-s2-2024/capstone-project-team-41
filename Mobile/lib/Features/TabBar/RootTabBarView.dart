@@ -2,16 +2,18 @@ import 'package:RemindMate/Features/Calender/CalenderView.dart';
 import 'package:RemindMate/Features/Contacts/List/ContactsView.dart';
 import 'package:RemindMate/Features/Home/HomeView.dart';
 import 'package:RemindMate/Features/Reminders/RemindersView.dart';
+import 'package:RemindMate/Features/TabBar/TabBarState.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class RootTabBarView extends StatelessWidget {
-  const RootTabBarView({super.key});
+  RootTabBarView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
+        controller: TabBarState().tabController,
         tabs: [
           PersistentTabConfig(
             screen: const HomeView(),
