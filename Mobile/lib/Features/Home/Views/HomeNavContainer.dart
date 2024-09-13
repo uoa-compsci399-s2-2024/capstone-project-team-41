@@ -18,13 +18,13 @@ class HomeNavContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(child: HomeNavButton(buttonTitle: "Calender", iconWidget: Icon(Icons.calendar_month, color: Colors.white,), appState: UIOAppState.calendar,)),
+                Expanded(child: HomeNavButton(buttonTitle: "Calender", iconWidget: Icon(Icons.calendar_month, color: Colors.white,), tabIndex: 2,)),
                 Padding(padding: EdgeInsets.only(right: 14)),
-                Expanded(child: HomeNavButton(buttonTitle: "Contacts", iconWidget: Icon(Icons.contacts, color: Colors.white), appState: UIOAppState.calendar),),
+                Expanded(child: HomeNavButton(buttonTitle: "Contacts", iconWidget: Icon(Icons.contacts, color: Colors.white), tabIndex: 1),),
               ],
             ),
             Padding(padding: EdgeInsets.only(bottom: 14)),
-            HomeNavButton(buttonTitle: "Notifications", iconWidget: Icon(Icons.notifications, color: Colors.white,), appState: UIOAppState.calendar),
+            HomeNavButton(buttonTitle: "Notifications", iconWidget: Icon(Icons.notifications, color: Colors.white,), tabIndex: 3),
           ],
         )
       )

@@ -1,6 +1,7 @@
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:RemindMate/Features/TabBar/RootTabBarView.dart';
+import 'package:RemindMate/Features/TabBar/TabBarState.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/Images.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
@@ -12,15 +13,15 @@ class HomeNavButton extends StatelessWidget {
 
   final String buttonTitle;
   final Icon iconWidget;
-  final UIOAppState appState;
+  final int tabIndex;
 
-  const HomeNavButton({super.key, required this.buttonTitle, required this.iconWidget, required this.appState});
+  const HomeNavButton({super.key, required this.buttonTitle, required this.iconWidget, required this.tabIndex});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => {
-        //AppState().setAppState(appState),
+        TabBarState().setTab(tabIndex)
       },
       child: Container(
         height: 64,
