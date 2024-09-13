@@ -22,7 +22,7 @@ class MainView extends StatelessWidget {
         case UIOAppState.login:
           return const LoginView();
         case UIOAppState.home:
-          return const RootTabBarView();
+          return RootTabBarView();
         case UIOAppState.contact:
           return const ContactView();
         case UIOAppState.addReminder:
