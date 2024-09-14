@@ -1,5 +1,6 @@
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
+import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
@@ -31,7 +32,7 @@ class HomeViewModel extends ChangeNotifier {
     for (Contact c in dbcontacts) {
       for (ContactReminder r in c.reminders!) {
         if (r.startTime!.compareTo(aWeekFromNow) <= 0) {
-          upcomingReminders.add(UIOReminderCard.db(r));
+          upcomingReminders.add(UIOReminderCard.db(r, UIOContact(c)));
         }
       }
     }

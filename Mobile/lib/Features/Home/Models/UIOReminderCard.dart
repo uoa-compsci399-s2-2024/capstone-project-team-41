@@ -1,13 +1,13 @@
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Domain/Database/Models/ReminderType.dart';
-import 'package:RemindMate/Features/Home/Models/UIOReminderCardFriend.dart';
+import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCardType.dart';
 import 'package:intl/intl.dart';
 
 final class UIOReminderCard {
   late String title;
   late UIOReminderCardType cardType;
-  late List<UIOReminderCardFriend> friends;
+  late UIOContact contact;
   late DateTime dateTime;
   late DateTime dateEndTime;
   late bool showTime;
@@ -15,12 +15,12 @@ final class UIOReminderCard {
   UIOReminderCard(
       {required this.title,
       required this.cardType,
-      required this.friends,
+      required this.contact,
       required this.dateTime,
       required this.dateEndTime,
       required this.showTime});
 
-  UIOReminderCard.db(ContactReminder reminder) {
+  UIOReminderCard.db(ContactReminder reminder, UIOContact uioContact) {
     this.title = reminder.name!;
     switch (reminder.reminderType) {
       case null:
@@ -29,7 +29,7 @@ final class UIOReminderCard {
         this.cardType = UIOReminderCardType.calender;
     }
 
-    this.friends = [];
+    this.contact = uioContact;
     this.dateTime = reminder.startTime!;
     this.dateEndTime = reminder.endTime!;
     this.showTime = reminder.showTime!;

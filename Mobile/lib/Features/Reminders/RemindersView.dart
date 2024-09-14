@@ -32,7 +32,15 @@ class _RemindersViewState extends State<RemindersView> {
               padding: EdgeInsets.only(top: 100, bottom: 0, left: 16),
               child: Row(
                 children: [
-                  Text("Notifications", style: Textstyles.H1,)
+                  Text("Notifications Hub", style: Textstyles.H1,),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: Row(
+                children: [
+                  Text("Your upcoming reminders", style: Textstyles.S1,),
                 ],
               ),
             ),
@@ -52,9 +60,10 @@ class _RemindersViewState extends State<RemindersView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(DateFormat("MMMM").format(DateTime.parse("$key-01")), style: Textstyles.P1,),
-                          const Divider(
+                          Divider(
                             height: 20,
                             thickness: 3,
+                            color: ColorPalette.primaryPink,
                           )
                         ]
                       )
@@ -71,6 +80,7 @@ class _RemindersViewState extends State<RemindersView> {
                         );
                       },
                     ),
+                    Padding(padding: EdgeInsets.only(bottom: 50))
                   ],
                 );
               },
