@@ -91,7 +91,7 @@ class MainViewModel extends ChangeNotifier {
             ..endTime = DateTimes.sept20.add(Duration(hours: 1))
             ..showTime = true
             ..reminderType = ReminderType.event,
-      ]));
+        ]));
 
       await database.contacts.put(Contact()
         ..birthday = "1964-07-13"
@@ -120,7 +120,7 @@ class MainViewModel extends ChangeNotifier {
             ..endTime = DateTimes.sept24.add(Duration(days: 1, hours: 2))
             ..showTime = true
             ..reminderType = ReminderType.event,
-      ]));
+        ]));
 
       await database.contacts.put(Contact()
         ..birthday = "1985-11-02"
@@ -149,7 +149,7 @@ class MainViewModel extends ChangeNotifier {
             ..endTime = DateTimes.daysAway2.add(Duration(hours: 1))
             ..showTime = true
             ..reminderType = ReminderType.event,
-      ]));
+        ]));
     });
   }
 
@@ -160,10 +160,9 @@ class MainViewModel extends ChangeNotifier {
       exampleRequest();
       populateDatabase();
     } else {
-      //AppState().setAppState(UIOAppState.login);
+      AppState().setAppState(UIOAppState.login);
       exampleRequest();
       populateDatabase();
-      AppState().setAppState(UIOAppState.home);
     }
   }
 }

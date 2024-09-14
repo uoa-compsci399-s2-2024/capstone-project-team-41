@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "342176538089",
+    "project_id": "remindmate-c4d5b",
+    "storage_bucket": "remindmate-c4d5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342176538089:android:b93f413f00ab0801c7ff78",
+        "android_client_info": {
+          "package_name": "com.uoa.capstone.team41.untitled"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHZ6FUDb5gkO-_4XLRGQcb3sRtaasF6XU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
