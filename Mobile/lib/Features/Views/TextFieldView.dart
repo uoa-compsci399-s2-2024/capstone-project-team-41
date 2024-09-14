@@ -6,12 +6,14 @@ class Textfieldview extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String> onChange;
   final String hintText;
+  final bool tall;
 
   const Textfieldview(
       {super.key,
       required this.controller,
       required this.onChange,
-      required this.hintText});
+      required this.hintText,
+      this.tall = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +29,24 @@ class Textfieldview extends StatelessWidget {
               ),
             ],
           ),
-          TextField(
-            controller: controller,
-            onChanged: onChange,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              filled: true,
-              fillColor: ColorPalette.midGray,
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: TextField(
+              minLines: tall ? 3 : 1,
+              maxLines: tall ? 3 : 1,
+              controller: controller,
+              onChanged: onChange,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
+                ),
+                filled: true,
+                fillColor: ColorPalette.midGray,
+              ),
             ),
           ),
         ],
