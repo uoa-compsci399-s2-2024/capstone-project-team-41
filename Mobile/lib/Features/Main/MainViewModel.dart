@@ -60,23 +60,13 @@ class MainViewModel extends ChangeNotifier {
   }
 
   Future<void> populateDatabase() async {
-    sleep(Duration(seconds: 5));
     final database = DatabaseConnector.instance.isar;
     await database.writeTxn(() async {
       await database.clear();
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([]));
 
       await database.contacts.put(Contact()
         ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
+        ..email = "dummy1@example.com"
         ..name = "Bob Johnson"
         ..phoneNumber = "+44 777-5678"
         ..notes = "Loves hiking"
@@ -84,484 +74,82 @@ class MainViewModel extends ChangeNotifier {
         ..type = ContactType.friend
         ..reminders = List.of([
           ContactReminder()
-            ..name = "Dinner with family"
+            ..name = "Peer Coding session"
             ..startTime = DateTimes.daysAway2
-            ..endTime = DateTimes.daysAway3
+            ..endTime = DateTimes.daysAway2.add(Duration(hours: 1))
             ..showTime = true
             ..reminderType = ReminderType.event,
           ContactReminder()
             ..name = "Anniversary"
+            ..startTime = DateTimes.daysAway3
+            ..endTime = DateTimes.daysAway3.add(Duration(hours: 2))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+          ContactReminder()
+            ..name = "Hiking trip"
+            ..startTime = DateTimes.sept20
+            ..endTime = DateTimes.sept20.add(Duration(hours: 1))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+      ]));
+
+      await database.contacts.put(Contact()
+        ..birthday = "1964-07-13"
+        ..email = "dummy2@example.com"
+        ..name = "Peter Simpson"
+        ..phoneNumber = "+44 658-4467"
+        ..notes = "Hates being called on his birthday."
+        ..timezone = "GMT"
+        ..type = ContactType.friend
+        ..reminders = List.of([
+          ContactReminder()
+            ..name = "Work drinks"
+            ..startTime = DateTimes.oct12
+            ..endTime = DateTimes.oct12.add(Duration(hours: 1))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+          ContactReminder()
+            ..name = "IOU beers"
+            ..startTime = DateTimes.sept26
+            ..endTime = DateTimes.sept26.add(Duration(hours: 1))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+          ContactReminder()
+            ..name = "Rugby game"
+            ..startTime = DateTimes.sept24.add(Duration(days: 1))
+            ..endTime = DateTimes.sept24.add(Duration(days: 1, hours: 2))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+      ]));
+
+      await database.contacts.put(Contact()
+        ..birthday = "1985-11-02"
+        ..email = "dummy2@example.com"
+        ..name = "My Wife"
+        ..phoneNumber = "+44 777-5678"
+        ..notes = "Doesn't like arguing"
+        ..timezone = "GMT"
+        ..type = ContactType.friend
+        ..reminders = List.of([
+          ContactReminder()
+            ..name = "Dinner Date"
+            ..startTime = DateTimes.oct03
+            ..endTime = DateTimes.oct03.add(Duration(hours: 1))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+          ContactReminder()
+            ..name = "Anniversary"
+            ..startTime = DateTimes.oct01
+            ..endTime = DateTimes.oct01.add(Duration(hours: 1))
+            ..showTime = true
+            ..reminderType = ReminderType.event,
+          ContactReminder()
+            ..name = "Doctor Appointment"
             ..startTime = DateTimes.daysAway2
-            ..endTime = DateTimes.daysAway3
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTimes.daysAway2
-            ..endTime = DateTimes.daysAway3
+            ..endTime = DateTimes.daysAway2.add(Duration(hours: 1))
             ..showTime = true
             ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
-      await database.contacts.put(Contact()
-        ..birthday = "1990-05-15"
-        ..email = "dummy1@example.com"
-        ..name = "Alice Smith"
-        ..phoneNumber = "+1 555-1234"
-        ..notes = "Works at TechCorp"
-        ..timezone = "PST"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Team Meeting"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727712000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727722800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Project Deadline"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-        ]));
-
-      await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "Bob Johnson"
-        ..phoneNumber = "+44 777-5678"
-        ..notes = "Loves hiking"
-        ..timezone = "GMT"
-        ..type = ContactType.friend
-        ..reminders = List.of([
-          ContactReminder()
-            ..name = "Dinner with family"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727798400000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727805600000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727812800000)
-            ..showTime = false
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Doctor Appointment"
-            ..startTime = DateTime.fromMillisecondsSinceEpoch(1727820000000)
-            ..endTime = DateTime.fromMillisecondsSinceEpoch(1727830800000)
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-        ]));
+      ]));
     });
   }
 
@@ -572,7 +160,10 @@ class MainViewModel extends ChangeNotifier {
       exampleRequest();
       populateDatabase();
     } else {
-      AppState().setAppState(UIOAppState.login);
+      //AppState().setAppState(UIOAppState.login);
+      exampleRequest();
+      populateDatabase();
+      AppState().setAppState(UIOAppState.home);
     }
   }
 }

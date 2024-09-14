@@ -43,7 +43,7 @@ class ContactViewModel extends ChangeNotifier {
 
     reminders = [];
     for (final reminder in dbContact.reminders!) {
-      reminders.add(UIOReminderCard.db(reminder));
+      reminders.add(UIOReminderCard.db(reminder, contact!));
     }
 
     notifyListeners();

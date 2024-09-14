@@ -19,13 +19,14 @@ class _ContactsViewState extends State<ContactsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[50],
         body: Consumer<ContactsViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50, left: 16),
+            const Padding(
+              padding: EdgeInsets.only(top: 50, left: 16),
               child: Row(
                 children: [
                   Text(
@@ -37,18 +38,18 @@ class _ContactsViewState extends State<ContactsView> {
             ),
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
                   child: GestureDetector(
                       onTap: () {
                         AppState().setAppState(UIOAppState.addContact);
                       },
-                      child: Icon(Icons.add)),
+                      child: const Icon(Icons.add)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 16),
-                  child: GestureDetector(onTap: () {}, child: Icon(Icons.list)),
+                  child: GestureDetector(onTap: () {}, child: const Icon(Icons.list)),
                 )
               ],
             ),

@@ -10,17 +10,17 @@ class ContactBodyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(left: 32),
+        padding: const EdgeInsets.only(left: 32),
         child: Column(
           children: [
             Row(
               children: [
                 Column(
-                  children: [Text("Relationship Type"), Text(uio.type.title)],
+                  children: [const Text("Relationship Type"), Text(uio.type.title)],
                 ),
                 Column(
                   children: [
-                    Text("Birthday"),
+                    const Text("Birthday"),
                     Row(
                       children: [Text(uio.birthday)],
                     )
@@ -28,11 +28,11 @@ class ContactBodyView extends StatelessWidget {
                 )
               ],
             ),
-            Text("Phone"),
+            const Text("Phone"),
             Text(uio.phoneNumber),
-            Text("Email"),
+            const Text("Email"),
             Text(uio.email),
-            Text("Notes"),
+            const Text("Notes"),
             Text(uio.notes)
           ],
         ));

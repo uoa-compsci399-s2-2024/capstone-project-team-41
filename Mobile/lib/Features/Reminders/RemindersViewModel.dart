@@ -1,5 +1,6 @@
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
+import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
@@ -40,8 +41,12 @@ class RemindersViewModel extends ChangeNotifier {
                 .toIso8601String()
                 .split("T")[0]
                 .substring(0, 7)]
-            ?.add(UIOReminderCard.db(reminder));
+            ?.add(UIOReminderCard.db(reminder, UIOContact(contact)));
       }
+    }
+
+    for (String i in eventMap.keys) {
+      eventMap[i]!.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     }
 
     notifyListeners();

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:RemindMate/Domain/Contact/SelectedContactRepo.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';

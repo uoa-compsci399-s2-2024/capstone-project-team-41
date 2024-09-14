@@ -1,5 +1,7 @@
 import 'package:RemindMate/Features/Home/Views/HomeNavButton.dart';
+import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 
 class HomeNavContainer extends StatelessWidget {
@@ -16,13 +18,13 @@ class HomeNavContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(child: HomeNavButton(buttonTitle: "Calender")),
+                Expanded(child: HomeNavButton(buttonTitle: "Calender", iconWidget: Icon(Icons.calendar_month, color: Colors.white,), tabIndex: 2,)),
                 Padding(padding: EdgeInsets.only(right: 14)),
-                Expanded(child: HomeNavButton(buttonTitle: "Contacts"),),
+                Expanded(child: HomeNavButton(buttonTitle: "Contacts", iconWidget: Icon(Icons.contacts, color: Colors.white), tabIndex: 1),),
               ],
             ),
             Padding(padding: EdgeInsets.only(bottom: 14)),
-            HomeNavButton(buttonTitle: "Notifications"),
+            HomeNavButton(buttonTitle: "Notifications", iconWidget: Icon(Icons.notifications, color: Colors.white,), tabIndex: 3),
           ],
         )
       )

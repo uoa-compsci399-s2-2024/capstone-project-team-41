@@ -5,6 +5,7 @@ import 'package:RemindMate/Features/Contacts/Contact/Views/ContactTitleView.dart
 import 'package:RemindMate/Features/Home/Views/ReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,13 +22,14 @@ class _CalenderViewwState extends State<CalenderView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Consumer<CalenderViewModel>(builder: (context, viewModel, child) {
-      return SingleChildScrollView(
+      backgroundColor: Colors.grey[50],
+      body: Consumer<CalenderViewModel>(builder: (context, viewModel, child) {
+        return SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.only(top: 50),
         child: Column(
           children: [
-            Row(
+            const Row(
               children: [
                 Text(
                   "Calender",
@@ -43,16 +45,40 @@ class _CalenderViewwState extends State<CalenderView> {
                       dateRangePickerSelectionChangedArgs.value;
                 });
               },
+              monthViewSettings: DateRangePickerMonthViewSettings(
+                specialDates: viewModel.uniqueDates
+              ),
+              monthCellStyle: DateRangePickerMonthCellStyle(
+                specialDatesDecoration: BoxDecoration(
+                  border: Border.all(color: ColorPalette.primaryOrange, width: 2),
+                  shape: BoxShape.circle
+                ),
+                todayCellDecoration: BoxDecoration(
+                  border: Border.all(color: ColorPalette.primaryPink, width: 2),
+                  shape: BoxShape.circle
+                ),
+                todayTextStyle: TextStyle(color: ColorPalette.primaryPink)
+              ),
+              yearCellStyle: DateRangePickerYearCellStyle(
+                todayCellDecoration: BoxDecoration(
+                  border: Border.all(color: ColorPalette.primaryPink, width: 2),
+                  shape: BoxShape.circle
+                ),
+                todayTextStyle: TextStyle(color: ColorPalette.primaryPink)
+              ),
+              selectionTextStyle: const TextStyle(color: Colors.black),
+              selectionColor: ColorPalette.primaryPink,
+              backgroundColor: ColorPalette.lightGray,
+              headerStyle: DateRangePickerHeaderStyle(backgroundColor: ColorPalette.lightGray),
             ),
+            viewModel.getLength() == 0 ? Container(
+              padding: const EdgeInsets.all(20),
+              child: const Text("No Reminders", style: Textstyles.B1)
+            ) : Container(),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: viewModel
-                      .eventMap[viewModel.selectedTime
-                          .toIso8601String()
-                          .split("T")[0]]
-                      ?.length ??
-                  0,
+              itemCount: viewModel.getLength(),
               itemBuilder: (context, index) {
                 final reminder = viewModel.eventMap[viewModel.selectedTime
                     .toIso8601String()
