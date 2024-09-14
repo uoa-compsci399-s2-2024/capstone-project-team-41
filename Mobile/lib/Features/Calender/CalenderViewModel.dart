@@ -49,6 +49,6 @@ class CalenderViewModel extends ChangeNotifier {
   }
 
   int getLength() {
-    return eventMap[selectedTime.toIso8601String().split("T")[0]]?.length??0;
+    return eventMap[selectedTime.toIso8601String().split("T")[0]]?.length ?? 0;
   }
 }
