@@ -2,6 +2,7 @@ import 'package:RemindMate/Features/Contacts/AddContact/AddContactViewModel.dart
 import 'package:RemindMate/Features/Contacts/Reminder/AddReminderViewModel.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Views/SaveButton.dart';
 import 'package:RemindMate/Features/Views/TextFieldView.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -55,46 +56,85 @@ class _AddContactViewState extends State<AddContactView> {
                   viewModel.name = value;
                 },
                 hintText: "Name"),
-            TextButton(
-                onPressed: () {
-                  picker.DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime(2018, 3, 5),
-                      maxTime: DateTime(2019, 6, 7),
-                      theme: const picker.DatePickerTheme(
-                          headerColor: Colors.orange,
-                          backgroundColor: Colors.blue,
-                          itemStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          doneStyle:
-                              TextStyle(color: Colors.white, fontSize: 16)),
-                      onChanged: (date) {
-                    viewModel.birthDay = date;
-                  },
-                      onConfirm: (date) {},
-                      currentTime: viewModel.birthDay,
-                      locale: picker.LocaleType.en);
-                },
-                child: const Text(
-                  'Birthday time',
-                  style: TextStyle(color: Colors.blue),
-                )),
-            DropdownButton(
-              value: viewModel.timeZone,
-              icon: const Icon(Icons.keyboard_arrow_down),
-              items: timeZoneOffsets.keys.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  viewModel.timeZone = newValue!;
-                });
-              },
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Column(children: [
+                Row(
+                  children: [
+                    Text(
+                      "Birthday",
+                      style: Textstyles.P1,
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              picker.DatePicker.showDatePicker(context,
+                                  showTitleActions: true,
+                                  minTime: DateTime(1900, 0, 0),
+                                  maxTime: DateTime(2025, 0, 0),
+                                  theme: const picker.DatePickerTheme(
+                                      headerColor: Colors.orange,
+                                      backgroundColor: Colors.blue,
+                                      itemStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                      doneStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16)), onChanged: (date) {
+                                viewModel.birthDay = date;
+                              },
+                                  onConfirm: (date) {},
+                                  currentTime: viewModel.birthDay,
+                                  locale: picker.LocaleType.en);
+                            },
+                            child: Text(
+                              viewModel.birthDay.toString().split(" ")[0],
+                              style:
+                                  TextStyle(color: Colors.blue, fontSize: 21),
+                            )),
+                      ],
+                    ))
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Column(children: [
+                Row(
+                  children: [
+                    Text(
+                      "Timezone",
+                      style: Textstyles.P1,
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        DropdownButton(
+                          value: viewModel.timeZone,
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items: timeZoneOffsets.keys.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(items),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              viewModel.timeZone = newValue!;
+                            });
+                          },
+                        ),
+                      ],
+                    ))
+              ]),
             ),
             Textfieldview(
               controller: phoneTextEditingController,
@@ -116,12 +156,14 @@ class _AddContactViewState extends State<AddContactView> {
                 viewModel.notes = value;
               },
               hintText: "Nates",
+              tall: true,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  viewModel.saveContact();
-                },
-                child: const Text("Save"))
+            Padding(
+              padding: const EdgeInsets.only(left: 32, right: 32),
+              child: SaveButtonView(onPress: () {
+                viewModel.saveContact();
+              }),
+            ),
           ],
         ),
       ));

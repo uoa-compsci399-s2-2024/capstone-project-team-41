@@ -20,7 +20,8 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> getAuthDetails() async {
     final credentials =
         await Auth0Connector.instance.auth0.credentialsManager.credentials();
-    username = credentials.user.givenName ?? "";
+    username = credentials.user.name ?? "";
+    notifyListeners();
   }
 
   void watchChanges() {
