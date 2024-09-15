@@ -29,4 +29,9 @@ class AddContactViewModel extends ChangeNotifier {
     });
     AppState().setAppState(UIOAppState.home);
   }
+
+  Null setBirthday(DateTime date) {
+    birthDay = date;
+    notifyListeners();
+  }
 }

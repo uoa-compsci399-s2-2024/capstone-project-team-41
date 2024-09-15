@@ -65,7 +65,7 @@ class MainViewModel extends ChangeNotifier {
       await database.clear();
 
       await database.contacts.put(Contact()
-        ..birthday = "1985-11-02"
+        ..birthday = "1991-03-14"
         ..email = "dummy1@example.com"
         ..name = "Bob Johnson"
         ..phoneNumber = "+44 777-5678"
@@ -77,12 +77,6 @@ class MainViewModel extends ChangeNotifier {
             ..name = "Peer Coding session"
             ..startTime = DateTimes.daysAway2
             ..endTime = DateTimes.daysAway2.add(Duration(hours: 1))
-            ..showTime = true
-            ..reminderType = ReminderType.event,
-          ContactReminder()
-            ..name = "Anniversary"
-            ..startTime = DateTimes.daysAway3
-            ..endTime = DateTimes.daysAway3.add(Duration(hours: 2))
             ..showTime = true
             ..reminderType = ReminderType.event,
           ContactReminder()
@@ -124,17 +118,17 @@ class MainViewModel extends ChangeNotifier {
 
       await database.contacts.put(Contact()
         ..birthday = "1985-11-02"
-        ..email = "dummy2@example.com"
-        ..name = "My Wife"
+        ..email = "dummy3@example.com"
+        ..name = "Wife"
         ..phoneNumber = "+44 777-5678"
-        ..notes = "Doesn't like arguing"
+        ..notes = ""
         ..timezone = "GMT"
         ..type = ContactType.friend
         ..reminders = List.of([
           ContactReminder()
             ..name = "Dinner Date"
-            ..startTime = DateTimes.oct03
-            ..endTime = DateTimes.oct03.add(Duration(hours: 1))
+            ..startTime = DateTimes.oct01.add(Duration(hours: 6))
+            ..endTime = DateTimes.oct01.add(Duration(hours: 8))
             ..showTime = true
             ..reminderType = ReminderType.event,
           ContactReminder()

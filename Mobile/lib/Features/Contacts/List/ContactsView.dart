@@ -25,32 +25,29 @@ class _ContactsViewState extends State<ContactsView> {
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 50, left: 16),
-              child: Row(
-                children: [
-                  Text(
-                    "Contacts",
-                    style: Textstyles.H1,
-                  )
-                ],
-              ),
-            ),
+            const Padding(padding: EdgeInsets.only(top: 70)),
             Row(
               children: [
-                const Spacer(),
+                const Padding(
+                  padding: EdgeInsets.only(top: 0, left: 16),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Contacts",
+                        style: Textstyles.H1,
+                      )
+                    ],
+                  ),
+                ),
+                Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.only(right: 25),
                   child: GestureDetector(
                       onTap: () {
                         AppState().setAppState(UIOAppState.addContact);
                       },
-                      child: const Icon(Icons.add)),
+                      child: Icon(Icons.add_circle_outline, size: 30)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: GestureDetector(onTap: () {}, child: const Icon(Icons.list)),
-                )
               ],
             ),
             ListView.builder(

@@ -23,6 +23,8 @@ class ContactsViewModel extends ChangeNotifier {
   }
 
   Future<void>? populateFromDatabase() async {
+    contacts = [];
+
     final database = DatabaseConnector.instance.isar;
     var dbContacts = await database.contacts.where().findAll();
     for (final contact in dbContacts) {

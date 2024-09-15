@@ -46,6 +46,8 @@ class ContactViewModel extends ChangeNotifier {
       reminders.add(UIOReminderCard.db(reminder, contact!));
     }
 
+    reminders.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
     notifyListeners();
   }
 }

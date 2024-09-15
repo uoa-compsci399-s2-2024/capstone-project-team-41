@@ -1,7 +1,7 @@
 import 'package:RemindMate/Features/Contacts/AddContact/AddContactViewModel.dart';
-import 'package:RemindMate/Features/Contacts/Reminder/AddReminderViewModel.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/SaveButton.dart';
 import 'package:RemindMate/Features/Views/TextFieldView.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
@@ -59,7 +59,7 @@ class _AddContactViewState extends State<AddContactView> {
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Column(children: [
-                Row(
+                const Row(
                   children: [
                     Text(
                       "Birthday",
@@ -77,17 +77,17 @@ class _AddContactViewState extends State<AddContactView> {
                                   showTitleActions: true,
                                   minTime: DateTime(1900, 0, 0),
                                   maxTime: DateTime(2025, 0, 0),
-                                  theme: const picker.DatePickerTheme(
-                                      headerColor: Colors.orange,
-                                      backgroundColor: Colors.blue,
-                                      itemStyle: TextStyle(
-                                          color: Colors.white,
+                                  theme: picker.DatePickerTheme(
+                                      headerColor: ColorPalette.primaryOrange,
+                                      backgroundColor: ColorPalette.coolGray,
+                                      itemStyle: const TextStyle(
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18),
-                                      doneStyle: TextStyle(
+                                      doneStyle: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16)), onChanged: (date) {
-                                viewModel.birthDay = date;
+                                viewModel.setBirthday(date);
                               },
                                   onConfirm: (date) {},
                                   currentTime: viewModel.birthDay,
@@ -96,7 +96,7 @@ class _AddContactViewState extends State<AddContactView> {
                             child: Text(
                               viewModel.birthDay.toString().split(" ")[0],
                               style:
-                                  TextStyle(color: Colors.blue, fontSize: 21),
+                                  const TextStyle(color: Colors.blue, fontSize: 21),
                             )),
                       ],
                     ))
@@ -105,7 +105,7 @@ class _AddContactViewState extends State<AddContactView> {
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
               child: Column(children: [
-                Row(
+                const Row(
                   children: [
                     Text(
                       "Timezone",
@@ -155,7 +155,7 @@ class _AddContactViewState extends State<AddContactView> {
               onChange: (value) {
                 viewModel.notes = value;
               },
-              hintText: "Nates",
+              hintText: "Notes",
               tall: true,
             ),
             Padding(
