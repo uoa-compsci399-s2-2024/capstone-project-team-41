@@ -41,10 +41,15 @@ class _ContactViewState extends State<ContactView> {
             viewModel.contact != null
                 ? ContactBodyView(uio: viewModel.contact!)
                 : Container(),
-            const Row(
+            Row(
               children: [
                 Padding(padding: EdgeInsets.only(left: 16)),
                 Text("Upcoming Reminders", style: Textstyles.B1),
+                TextButton(
+                    onPressed: () {
+                      AppState().setAppState(UIOAppState.addReminder);
+                    },
+                    child: Text("Add reminder")),
                 Padding(padding: EdgeInsets.only(left: 100)),
               ],
             ),

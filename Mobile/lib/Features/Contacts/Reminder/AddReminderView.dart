@@ -1,6 +1,10 @@
 import 'package:RemindMate/Features/Contacts/Reminder/AddReminderViewModel.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Views/ColorPalette.dart';
+import 'package:RemindMate/Features/Views/SaveButton.dart';
+import 'package:RemindMate/Features/Views/TextFieldView.dart';
+import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
@@ -35,78 +39,125 @@ class _AddReminderViewState extends State<AddReminderView> {
                       AppState().setAppState(UIOAppState.home);
                     },
                     icon: Icon(Icons.arrow_back)),
-                Text("Add A Reminder"),
+                Text(
+                  "Add A Reminder",
+                  style: Textstyles.P0,
+                ),
               ],
             ),
-            TextField(
+            Textfieldview(
               controller: titleTextEditingController,
-              onChanged: (value) {
+              onChange: (value) {
                 viewModel.title = value;
               },
+              hintText: "Title",
             ),
-            TextButton(
-                onPressed: () {
-                  picker.DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime(2018, 3, 5),
-                      maxTime: DateTime(2019, 6, 7),
-                      theme: picker.DatePickerTheme(
-                          headerColor: Colors.orange,
-                          backgroundColor: Colors.blue,
-                          itemStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          doneStyle:
-                              TextStyle(color: Colors.white, fontSize: 16)),
-                      onChanged: (date) {
-                    viewModel.startTime = date;
-                  },
-                      onConfirm: (date) {},
-                      currentTime: viewModel.startTime,
-                      locale: picker.LocaleType.en);
-                },
-                child: Text(
-                  'Start time',
-                  style: TextStyle(color: Colors.blue),
-                )),
-            TextButton(
-                onPressed: () {
-                  picker.DatePicker.showDateTimePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime(2018, 3, 5),
-                      maxTime: DateTime(2019, 6, 7),
-                      theme: picker.DatePickerTheme(
-                          headerColor: Colors.orange,
-                          backgroundColor: Colors.blue,
-                          itemStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
-                          doneStyle:
-                              TextStyle(color: Colors.white, fontSize: 16)),
-                      onChanged: (date) {
-                    viewModel.endTime = date;
-                  },
-                      onConfirm: (date) {},
-                      currentTime: viewModel.endTime,
-                      locale: picker.LocaleType.en);
-                },
-                child: Text(
-                  'End time',
-                  style: TextStyle(color: Colors.blue),
-                )),
-            TextField(
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Column(children: [
+                const Row(
+                  children: [
+                    Text(
+                      "Start Time",
+                      style: Textstyles.P1,
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              picker.DatePicker.showDateTimePicker(context,
+                                  showTitleActions: true,
+                                  minTime: DateTime(1900, 0, 0),
+                                  maxTime: DateTime(2025, 0, 0),
+                                  theme: picker.DatePickerTheme(
+                                      headerColor: ColorPalette.primaryOrange,
+                                      backgroundColor: ColorPalette.coolGray,
+                                      itemStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                      doneStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16)), onChanged: (date) {
+                                viewModel.endTime = date;
+                              },
+                                  onConfirm: (date) {},
+                                  currentTime: viewModel.startTime,
+                                  locale: picker.LocaleType.en);
+                            },
+                            child: Text(
+                              viewModel.getDateTimeString(viewModel.startTime),
+                              style: const TextStyle(
+                                  color: Colors.blue, fontSize: 21),
+                            )),
+                      ],
+                    ))
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Column(children: [
+                const Row(
+                  children: [
+                    Text(
+                      "End Time",
+                      style: Textstyles.P1,
+                    ),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              picker.DatePicker.showDateTimePicker(context,
+                                  showTitleActions: true,
+                                  minTime: DateTime(1900, 0, 0),
+                                  maxTime: DateTime(2025, 0, 0),
+                                  theme: picker.DatePickerTheme(
+                                      headerColor: ColorPalette.primaryOrange,
+                                      backgroundColor: ColorPalette.coolGray,
+                                      itemStyle: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                      doneStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16)), onChanged: (date) {
+                                viewModel.endTime = date;
+                              },
+                                  onConfirm: (date) {},
+                                  currentTime: viewModel.endTime,
+                                  locale: picker.LocaleType.en);
+                            },
+                            child: Text(
+                              viewModel.getDateTimeString(viewModel.endTime),
+                              style: const TextStyle(
+                                  color: Colors.blue, fontSize: 21),
+                            )),
+                      ],
+                    ))
+              ]),
+            ),
+            Textfieldview(
               controller: notesTextEditingController,
-              onChanged: (value) {
+              onChange: (value) {
                 viewModel.notes = value;
               },
+              hintText: "Notes",
+              tall: true,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  viewModel.saveReminder();
-                },
-                child: Text("Save"))
+            Padding(
+              padding: const EdgeInsets.only(left: 32, right: 32),
+              child: SaveButtonView(onPress: () {
+                viewModel.saveReminder();
+              }),
+            )
           ],
         ),
       ));
