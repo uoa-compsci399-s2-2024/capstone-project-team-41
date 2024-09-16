@@ -48,8 +48,17 @@ message UpdateMyDataResponse {
 
 }
 
+message AddFcmTokenRequest {
+  string fcmToken = 1;
+}
+
+message AddFcmTokenResponse {
+  bool success = 1;
+}
 
 service RemindMateService {
   rpc getMyData(GetMyDataRequest) returns (GetMyDataResponse) {}
   rpc updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
+  rpc addFcmToken(AddFcmTokenRequest) returns (AddFcmTokenResponse);
+
 }

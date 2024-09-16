@@ -16,16 +16,24 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+
 import 'Domain/GrpcConnector/ExampleGrpcConnector.dart';
 import 'Features/Main/MainView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  //Always initialize the grpc connector
   await ExampleGrpcConnector().init();
   await RemindMateGrpcConnector().init();
   await DatabaseConnector().init();
   await Auth0Connector().init();
-  await Firebase.initializeApp();
   NotificationService.initNotification();
   await FirebaseMessaging.instance.getInitialMessage();
   await FirebaseMessaging.instance.requestPermission();

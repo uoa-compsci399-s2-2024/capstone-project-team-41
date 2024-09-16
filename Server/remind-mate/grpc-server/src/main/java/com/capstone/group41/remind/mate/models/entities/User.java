@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import java.util.List;
 
 @Document(collection = "users")
 public class User {
@@ -21,4 +21,6 @@ public class User {
     @Getter @Setter
     private String emailAddress; //?? don't know if we need this
 
+    @Getter @Setter
+    private List<String> fcmTokens;
 }

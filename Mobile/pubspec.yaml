@@ -39,14 +39,15 @@ dependencies:
   auth0_flutter: ^1.7.2
   intl: ^0.19.0
   instant: ^0.5.1
-  isar: *isar_version
-  isar_flutter_libs: *isar_version
+  isar: 3.1.0
+  isar_flutter_libs: 3.1.0
   path_provider: ^2.1.4
   flutter_datetime_picker_plus: ^2.2.0
   syncfusion_flutter_datepicker: ^26.2.13
   firebase_messaging: ^14.7.10
   firebase_core: ^2.24.2
   flutter_local_notifications: ^16.3.1+1
+
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +59,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
-  isar_generator: *isar_version
+  isar_generator: 3.1.0
   build_runner: any
 
 # For information on the generic Dart part of this file, see the
