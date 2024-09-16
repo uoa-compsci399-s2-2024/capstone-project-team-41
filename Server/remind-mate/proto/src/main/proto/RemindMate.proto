@@ -22,6 +22,7 @@ message FriendReminders {
   int64 endDateTime = 3;
   bool showTime = 4;
   ReminderType reminderType = 5;
+  string reminderId = 6;
 }
 
 enum RelationshipType {
