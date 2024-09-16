@@ -31,9 +31,6 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private static final String CONNECTION_STRING = "mongodb://houseTargaryen:h0useTargaryen@docdb-2024-08-19-02-29-402.ci7bv0oxri6k.ap-southeast-2.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&retryWrites=false";
-    private static final String DATABASE_NAME = "MyDatabase";
-    private static final String COLLECTION_NAME = "users";
     private final Region region = Region.AP_SOUTHEAST_2;
 
     public AddFcmTokenResponse addFcmToken(AddFcmTokenRequest request) {
