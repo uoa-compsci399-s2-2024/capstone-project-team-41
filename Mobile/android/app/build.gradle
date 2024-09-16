@@ -6,6 +6,7 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -45,7 +46,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
-        manifestPlaceholders += [auth0Domain: "dev-omhf4f5ly70nx3i0.us.auth0.com", auth0Scheme: "https"]
+        manifestPlaceholders['auth0Domain'] = "dev-omhf4f5ly70nx3i0.us.auth0.com"
+        manifestPlaceholders['auth0Scheme'] = "auth0-remind-mate"
     }
 
     buildTypes {

@@ -1,1 +1,1 @@
-enum UIOAppState { splash, login, home, contact, addReminder }
+enum UIOAppState { splash, login, home, contact, addReminder, addContact, calendar }

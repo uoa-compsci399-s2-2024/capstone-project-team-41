@@ -1,6 +1,8 @@
 import 'package:RemindMate/Features/Contacts/List/ContactsViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Models/UIOContantsContainer.dart';
 import 'package:RemindMate/Features/Contacts/List/Views/ContactCardsContainerView.dart';
+import 'package:RemindMate/Features/Main/AppState.dart';
+import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
@@ -17,33 +19,35 @@ class _ContactsViewState extends State<ContactsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[50],
         body: Consumer<ContactsViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50, left: 16),
-              child: Row(
-                children: [
-                  Text(
-                    "Contacts",
-                    style: Textstyles.H1,
-                  )
-                ],
-              ),
-            ),
+            const Padding(padding: EdgeInsets.only(top: 70)),
             Row(
               children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 0, left: 16),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Contacts",
+                        style: Textstyles.H1,
+                      )
+                    ],
+                  ),
+                ),
                 Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: GestureDetector(onTap: () {}, child: Icon(Icons.add)),
+                  padding: const EdgeInsets.only(right: 25),
+                  child: GestureDetector(
+                      onTap: () {
+                        AppState().setAppState(UIOAppState.addContact);
+                      },
+                      child: Icon(Icons.add_circle_outline, size: 30)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: GestureDetector(onTap: () {}, child: Icon(Icons.list)),
-                )
               ],
             ),
             ListView.builder(

@@ -1,6 +1,6 @@
 grpc:
   server:
     port: 9191
-
+    address: 0.0.0.0
 app:
   overrideJwt: false

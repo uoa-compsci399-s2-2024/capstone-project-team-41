@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
@@ -9,9 +11,10 @@ class ContactsViewModel extends ChangeNotifier {
 
   ContactsViewModel() {
     populateFromDatabase();
+    watchChanges();
   }
 
-  watchChanges() {
+  void watchChanges() {
     final database = DatabaseConnector.instance.isar;
     Stream<void> contactsChanged = database.contacts.watchLazy();
     contactsChanged.listen((contacts) {
@@ -20,6 +23,8 @@ class ContactsViewModel extends ChangeNotifier {
   }
 
   Future<void>? populateFromDatabase() async {
+    contacts = [];
+
     final database = DatabaseConnector.instance.isar;
     var dbContacts = await database.contacts.where().findAll();
     for (final contact in dbContacts) {

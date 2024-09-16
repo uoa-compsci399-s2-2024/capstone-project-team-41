@@ -4,6 +4,8 @@ import 'package:RemindMate/Features/Contacts/Contact/Views/ContactTitleView.dart
 import 'package:RemindMate/Features/Home/Views/ReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:RemindMate/Features/Views/ColorPalette.dart';
+import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +32,7 @@ class _ContactViewState extends State<ContactView> {
                     onPressed: () {
                       AppState().setAppState(UIOAppState.home);
                     },
-                    icon: Icon(Icons.arrow_back))
+                    icon: const Icon(Icons.arrow_back))
               ],
             ),
             viewModel.contact != null
@@ -41,11 +43,18 @@ class _ContactViewState extends State<ContactView> {
                 : Container(),
             Row(
               children: [
-                Text("${viewModel.contact?.name ?? ""}'s Upcoming Reminders"),
-                ElevatedButton(onPressed: () {}, child: Text("Add Reminder"))
+                Padding(padding: EdgeInsets.only(left: 16)),
+                Text("Upcoming Reminders", style: Textstyles.B1),
+                TextButton(
+                    onPressed: () {
+                      AppState().setAppState(UIOAppState.addReminder);
+                    },
+                    child: Text("Add reminder")),
+                Padding(padding: EdgeInsets.only(left: 100)),
               ],
             ),
             ListView.builder(
+              padding: const EdgeInsets.all(0),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: viewModel.reminders.length,

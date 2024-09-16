@@ -10,7 +10,7 @@ class ContactTitleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 32),
+      padding: const EdgeInsets.only(left: 32),
       child: Row(
         children: [
           uio.profileImageUrl == null
