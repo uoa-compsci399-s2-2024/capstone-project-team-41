@@ -23,6 +23,9 @@ message FriendReminders {
   bool showTime = 4;
   ReminderType reminderType = 5;
   string reminderId = 6;
+  bool recurringReminder = 7;
+  string intervalUnit = 8; // 'days', 'weeks' or 'months'
+  int64 interval = 9;
 }
 
 enum RelationshipType {
