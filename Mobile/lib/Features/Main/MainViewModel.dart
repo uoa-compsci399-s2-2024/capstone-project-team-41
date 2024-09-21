@@ -152,11 +152,11 @@ class MainViewModel extends ChangeNotifier {
         .hasValidCredentials()) {
       AppState().setAppState(UIOAppState.home);
       exampleRequest();
-      populateDatabase();
+      //populateDatabase();
     } else {
       AppState().setAppState(UIOAppState.login);
       exampleRequest();
-      populateDatabase();
+      //spopulateDatabase();
     }
   }
 }

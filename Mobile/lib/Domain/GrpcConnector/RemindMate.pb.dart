@@ -101,6 +101,7 @@ class FriendReminders extends $pb.GeneratedMessage {
     $fixnum.Int64? endDateTime,
     $core.bool? showTime,
     ReminderType? reminderType,
+    $core.String? reminderId,
   }) {
     final $result = create();
     if (title != null) {
@@ -118,6 +119,9 @@ class FriendReminders extends $pb.GeneratedMessage {
     if (reminderType != null) {
       $result.reminderType = reminderType;
     }
+    if (reminderId != null) {
+      $result.reminderId = reminderId;
+    }
     return $result;
   }
   FriendReminders._() : super();
@@ -130,6 +134,7 @@ class FriendReminders extends $pb.GeneratedMessage {
     ..aInt64(3, _omitFieldNames ? '' : 'endDateTime', protoName: 'endDateTime')
     ..aOB(4, _omitFieldNames ? '' : 'showTime', protoName: 'showTime')
     ..e<ReminderType>(5, _omitFieldNames ? '' : 'reminderType', $pb.PbFieldType.OE, protoName: 'reminderType', defaultOrMaker: ReminderType.EVENT, valueOf: ReminderType.valueOf, enumValues: ReminderType.values)
+    ..aOS(6, _omitFieldNames ? '' : 'reminderId', protoName: 'reminderId')
     ..hasRequiredFields = false
   ;
 
@@ -198,6 +203,15 @@ class FriendReminders extends $pb.GeneratedMessage {
   $core.bool hasReminderType() => $_has(4);
   @$pb.TagNumber(5)
   void clearReminderType() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get reminderId => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set reminderId($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasReminderId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearReminderId() => clearField(6);
 }
 
 class Friend extends $pb.GeneratedMessage {
@@ -416,6 +430,106 @@ class UpdateMyDataResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UpdateMyDataResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateMyDataResponse>(create);
   static UpdateMyDataResponse? _defaultInstance;
+}
+
+class AddFcmTokenRequest extends $pb.GeneratedMessage {
+  factory AddFcmTokenRequest({
+    $core.String? fcmToken,
+  }) {
+    final $result = create();
+    if (fcmToken != null) {
+      $result.fcmToken = fcmToken;
+    }
+    return $result;
+  }
+  AddFcmTokenRequest._() : super();
+  factory AddFcmTokenRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddFcmTokenRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddFcmTokenRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'remind.mate.grpc'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'fcmToken', protoName: 'fcmToken')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddFcmTokenRequest clone() => AddFcmTokenRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddFcmTokenRequest copyWith(void Function(AddFcmTokenRequest) updates) => super.copyWith((message) => updates(message as AddFcmTokenRequest)) as AddFcmTokenRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddFcmTokenRequest create() => AddFcmTokenRequest._();
+  AddFcmTokenRequest createEmptyInstance() => create();
+  static $pb.PbList<AddFcmTokenRequest> createRepeated() => $pb.PbList<AddFcmTokenRequest>();
+  @$core.pragma('dart2js:noInline')
+  static AddFcmTokenRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddFcmTokenRequest>(create);
+  static AddFcmTokenRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get fcmToken => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set fcmToken($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFcmToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFcmToken() => clearField(1);
+}
+
+class AddFcmTokenResponse extends $pb.GeneratedMessage {
+  factory AddFcmTokenResponse({
+    $core.bool? success,
+  }) {
+    final $result = create();
+    if (success != null) {
+      $result.success = success;
+    }
+    return $result;
+  }
+  AddFcmTokenResponse._() : super();
+  factory AddFcmTokenResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AddFcmTokenResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddFcmTokenResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'remind.mate.grpc'), createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  AddFcmTokenResponse clone() => AddFcmTokenResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  AddFcmTokenResponse copyWith(void Function(AddFcmTokenResponse) updates) => super.copyWith((message) => updates(message as AddFcmTokenResponse)) as AddFcmTokenResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AddFcmTokenResponse create() => AddFcmTokenResponse._();
+  AddFcmTokenResponse createEmptyInstance() => create();
+  static $pb.PbList<AddFcmTokenResponse> createRepeated() => $pb.PbList<AddFcmTokenResponse>();
+  @$core.pragma('dart2js:noInline')
+  static AddFcmTokenResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AddFcmTokenResponse>(create);
+  static AddFcmTokenResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
 }
 
 

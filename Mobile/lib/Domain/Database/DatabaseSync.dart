@@ -12,12 +12,15 @@ import 'package:fixnum/fixnum.dart' as fixnum;
 class DatabaseSync {
   Future<void> init() async {
     await populateDatabase();
+    observeDatabaseChanges();
   }
 
   Future<void> observeDatabaseChanges() async {
     final database = DatabaseConnector.instance.isar;
     Stream<void> contactsChanged = database.contacts.watchLazy();
-    contactsChanged.listen((contacts) {});
+    contactsChanged.listen((contacts) {
+      updateBackend();
+    });
   }
 
   Future<void> updateBackend() async {
@@ -36,18 +39,22 @@ class DatabaseSync {
                 fixnum.Int64(reminder.startTime!.millisecondsSinceEpoch),
             endDateTime: fixnum.Int64(reminder.endTime!.millisecondsSinceEpoch),
             showTime: reminder.showTime,
-            reminderType: ReminderType.EVENT));
+            reminderType: ReminderType.EVENT,
+            reminderId: reminder.id));
       }
 
       request.friends.add(Friend(
           name: contact.name,
           email: contact.email,
           phone: contact.phoneNumber,
+          birthday: contact.birthday,
           relationship: RelationshipType.FRIEND,
           timezone: contact.timezone,
           notes: contact.notes,
           reminders: reminders));
     }
+
+    print(request);
 
     await RemindMateGrpcConnector.instance.remindMateServiceClient.updateMyData(
         request,
@@ -61,6 +68,8 @@ class DatabaseSync {
         .getMyData(GetMyDataRequest(),
             options:
                 CallOptions(metadata: {"authorization": credentials.idToken}));
+
+    print(data);
 
     final database = DatabaseConnector.instance.isar;
     await database.writeTxn(() async {
@@ -76,6 +85,7 @@ class DatabaseSync {
               ..endTime = DateTime.fromMillisecondsSinceEpoch(
                   reminder.endDateTime.toInt())
               ..showTime = reminder.showTime
+              ..id = reminder.reminderId
               ..reminderType = rt.ReminderType.event,
           );
         }

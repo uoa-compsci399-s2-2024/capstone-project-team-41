@@ -1814,24 +1814,29 @@ const ContactReminderSchema = Schema(
       name: r'endTime',
       type: IsarType.dateTime,
     ),
-    r'name': PropertySchema(
+    r'id': PropertySchema(
       id: 1,
+      name: r'id',
+      type: IsarType.string,
+    ),
+    r'name': PropertySchema(
+      id: 2,
       name: r'name',
       type: IsarType.string,
     ),
     r'reminderType': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'reminderType',
       type: IsarType.string,
       enumMap: _ContactReminderreminderTypeEnumValueMap,
     ),
     r'showTime': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'showTime',
       type: IsarType.bool,
     ),
     r'startTime': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'startTime',
       type: IsarType.dateTime,
     )
@@ -1848,6 +1853,12 @@ int _contactReminderEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final value = object.id;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.name;
     if (value != null) {
@@ -1870,10 +1881,11 @@ void _contactReminderSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDateTime(offsets[0], object.endTime);
-  writer.writeString(offsets[1], object.name);
-  writer.writeString(offsets[2], object.reminderType?.name);
-  writer.writeBool(offsets[3], object.showTime);
-  writer.writeDateTime(offsets[4], object.startTime);
+  writer.writeString(offsets[1], object.id);
+  writer.writeString(offsets[2], object.name);
+  writer.writeString(offsets[3], object.reminderType?.name);
+  writer.writeBool(offsets[4], object.showTime);
+  writer.writeDateTime(offsets[5], object.startTime);
 }
 
 ContactReminder _contactReminderDeserialize(
@@ -1884,11 +1896,12 @@ ContactReminder _contactReminderDeserialize(
 ) {
   final object = ContactReminder();
   object.endTime = reader.readDateTimeOrNull(offsets[0]);
-  object.name = reader.readStringOrNull(offsets[1]);
+  object.id = reader.readStringOrNull(offsets[1]);
+  object.name = reader.readStringOrNull(offsets[2]);
   object.reminderType = _ContactReminderreminderTypeValueEnumMap[
-      reader.readStringOrNull(offsets[2])];
-  object.showTime = reader.readBoolOrNull(offsets[3]);
-  object.startTime = reader.readDateTimeOrNull(offsets[4]);
+      reader.readStringOrNull(offsets[3])];
+  object.showTime = reader.readBoolOrNull(offsets[4]);
+  object.startTime = reader.readDateTimeOrNull(offsets[5]);
   return object;
 }
 
@@ -1904,11 +1917,13 @@ P _contactReminderDeserializeProp<P>(
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
+      return (reader.readStringOrNull(offset)) as P;
+    case 3:
       return (_ContactReminderreminderTypeValueEnumMap[
           reader.readStringOrNull(offset)]) as P;
-    case 3:
-      return (reader.readBoolOrNull(offset)) as P;
     case 4:
+      return (reader.readBoolOrNull(offset)) as P;
+    case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1994,6 +2009,160 @@ extension ContactReminderQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'id',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'id',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      idIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'id',
+        value: '',
       ));
     });
   }

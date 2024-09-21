@@ -29,6 +29,10 @@ class RemindMateServiceClient extends $grpc.Client {
       '/remind.mate.grpc.RemindMateService/updateMyData',
       ($0.UpdateMyDataRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.UpdateMyDataResponse.fromBuffer(value));
+  static final _$addFcmToken = $grpc.ClientMethod<$0.AddFcmTokenRequest, $0.AddFcmTokenResponse>(
+      '/remind.mate.grpc.RemindMateService/addFcmToken',
+      ($0.AddFcmTokenRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.AddFcmTokenResponse.fromBuffer(value));
 
   RemindMateServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -42,6 +46,10 @@ class RemindMateServiceClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.UpdateMyDataResponse> updateMyData($0.UpdateMyDataRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateMyData, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.AddFcmTokenResponse> addFcmToken($0.AddFcmTokenRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$addFcmToken, request, options: options);
   }
 }
 
@@ -64,6 +72,13 @@ abstract class RemindMateServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.UpdateMyDataRequest.fromBuffer(value),
         ($0.UpdateMyDataResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.AddFcmTokenRequest, $0.AddFcmTokenResponse>(
+        'addFcmToken',
+        addFcmToken_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.AddFcmTokenRequest.fromBuffer(value),
+        ($0.AddFcmTokenResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.GetMyDataResponse> getMyData_Pre($grpc.ServiceCall call, $async.Future<$0.GetMyDataRequest> request) async {
@@ -74,6 +89,11 @@ abstract class RemindMateServiceBase extends $grpc.Service {
     return updateMyData(call, await request);
   }
 
+  $async.Future<$0.AddFcmTokenResponse> addFcmToken_Pre($grpc.ServiceCall call, $async.Future<$0.AddFcmTokenRequest> request) async {
+    return addFcmToken(call, await request);
+  }
+
   $async.Future<$0.GetMyDataResponse> getMyData($grpc.ServiceCall call, $0.GetMyDataRequest request);
   $async.Future<$0.UpdateMyDataResponse> updateMyData($grpc.ServiceCall call, $0.UpdateMyDataRequest request);
+  $async.Future<$0.AddFcmTokenResponse> addFcmToken($grpc.ServiceCall call, $0.AddFcmTokenRequest request);
 }
