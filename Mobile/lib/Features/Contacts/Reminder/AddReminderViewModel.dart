@@ -8,6 +8,7 @@ import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
+import 'package:uuid/uuid.dart';
 
 class AddRedminderViewModel extends ChangeNotifier {
   String title = "";
@@ -25,7 +26,8 @@ class AddRedminderViewModel extends ChangeNotifier {
       ..startTime = startTime
       ..endTime = endTime
       ..showTime = true
-      ..reminderType = ReminderType.event);
+      ..reminderType = ReminderType.event
+      ..id = Uuid().v4());
     contact.reminders = reminders;
     database.writeTxnSync(() {
       database.contacts.putSync(contact);

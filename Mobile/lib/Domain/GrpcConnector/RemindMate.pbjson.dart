@@ -68,6 +68,7 @@ const FriendReminders$json = {
     {'1': 'endDateTime', '3': 3, '4': 1, '5': 3, '10': 'endDateTime'},
     {'1': 'showTime', '3': 4, '4': 1, '5': 8, '10': 'showTime'},
     {'1': 'reminderType', '3': 5, '4': 1, '5': 14, '6': '.remind.mate.grpc.ReminderType', '10': 'reminderType'},
+    {'1': 'reminderId', '3': 6, '4': 1, '5': 9, '10': 'reminderId'},
   ],
 };
 
@@ -76,7 +77,8 @@ final $typed_data.Uint8List friendRemindersDescriptor = $convert.base64Decode(
     'Cg9GcmllbmRSZW1pbmRlcnMSFAoFdGl0bGUYASABKAlSBXRpdGxlEiQKDXN0YXJ0RGF0ZVRpbW'
     'UYAiABKANSDXN0YXJ0RGF0ZVRpbWUSIAoLZW5kRGF0ZVRpbWUYAyABKANSC2VuZERhdGVUaW1l'
     'EhoKCHNob3dUaW1lGAQgASgIUghzaG93VGltZRJCCgxyZW1pbmRlclR5cGUYBSABKA4yHi5yZW'
-    '1pbmQubWF0ZS5ncnBjLlJlbWluZGVyVHlwZVIMcmVtaW5kZXJUeXBl');
+    '1pbmQubWF0ZS5ncnBjLlJlbWluZGVyVHlwZVIMcmVtaW5kZXJUeXBlEh4KCnJlbWluZGVySWQY'
+    'BiABKAlSCnJlbWluZGVySWQ=');
 
 @$core.Deprecated('Use friendDescriptor instead')
 const Friend$json = {
@@ -123,4 +125,28 @@ const UpdateMyDataResponse$json = {
 /// Descriptor for `UpdateMyDataResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateMyDataResponseDescriptor = $convert.base64Decode(
     'ChRVcGRhdGVNeURhdGFSZXNwb25zZQ==');
+
+@$core.Deprecated('Use addFcmTokenRequestDescriptor instead')
+const AddFcmTokenRequest$json = {
+  '1': 'AddFcmTokenRequest',
+  '2': [
+    {'1': 'fcmToken', '3': 1, '4': 1, '5': 9, '10': 'fcmToken'},
+  ],
+};
+
+/// Descriptor for `AddFcmTokenRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addFcmTokenRequestDescriptor = $convert.base64Decode(
+    'ChJBZGRGY21Ub2tlblJlcXVlc3QSGgoIZmNtVG9rZW4YASABKAlSCGZjbVRva2Vu');
+
+@$core.Deprecated('Use addFcmTokenResponseDescriptor instead')
+const AddFcmTokenResponse$json = {
+  '1': 'AddFcmTokenResponse',
+  '2': [
+    {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `AddFcmTokenResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List addFcmTokenResponseDescriptor = $convert.base64Decode(
+    'ChNBZGRGY21Ub2tlblJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
 

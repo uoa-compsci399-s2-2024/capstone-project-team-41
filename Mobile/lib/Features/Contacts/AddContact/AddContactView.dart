@@ -95,8 +95,8 @@ class _AddContactViewState extends State<AddContactView> {
                             },
                             child: Text(
                               viewModel.birthDay.toString().split(" ")[0],
-                              style:
-                                  const TextStyle(color: Colors.blue, fontSize: 21),
+                              style: const TextStyle(
+                                  color: Colors.blue, fontSize: 21),
                             )),
                       ],
                     ))
@@ -139,14 +139,14 @@ class _AddContactViewState extends State<AddContactView> {
             Textfieldview(
               controller: phoneTextEditingController,
               onChange: (value) {
-                viewModel.notes = value;
+                viewModel.phone = value;
               },
               hintText: "Phone",
             ),
             Textfieldview(
               controller: emailTextEditingController,
               onChange: (value) {
-                viewModel.notes = value;
+                viewModel.email = value;
               },
               hintText: "Email",
             ),

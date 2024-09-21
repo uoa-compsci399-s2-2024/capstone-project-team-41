@@ -22,6 +22,7 @@ message FriendReminders {
   int64 endDateTime = 3;
   bool showTime = 4;
   ReminderType reminderType = 5;
+  string reminderId = 6;
 }
 
 enum RelationshipType {
@@ -47,8 +48,17 @@ message UpdateMyDataResponse {
 
 }
 
+message AddFcmTokenRequest {
+  string fcmToken = 1;
+}
+
+message AddFcmTokenResponse {
+  bool success = 1;
+}
 
 service RemindMateService {
   rpc getMyData(GetMyDataRequest) returns (GetMyDataResponse) {}
   rpc updateMyData(UpdateMyDataRequest) returns (UpdateMyDataResponse) {}
+  rpc addFcmToken(AddFcmTokenRequest) returns (AddFcmTokenResponse);
+
 }

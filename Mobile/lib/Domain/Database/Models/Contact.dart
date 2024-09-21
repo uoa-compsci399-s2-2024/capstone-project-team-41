@@ -27,6 +27,7 @@ class ContactReminder {
   bool? showTime;
   DateTime? startTime;
   DateTime? endTime;
+  String? id;
 
   @Enumerated(EnumType.name)
   ReminderType? reminderType;
