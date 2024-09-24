@@ -69,6 +69,9 @@ const FriendReminders$json = {
     {'1': 'showTime', '3': 4, '4': 1, '5': 8, '10': 'showTime'},
     {'1': 'reminderType', '3': 5, '4': 1, '5': 14, '6': '.remind.mate.grpc.ReminderType', '10': 'reminderType'},
     {'1': 'reminderId', '3': 6, '4': 1, '5': 9, '10': 'reminderId'},
+    {'1': 'recurringReminder', '3': 7, '4': 1, '5': 8, '10': 'recurringReminder'},
+    {'1': 'intervalUnit', '3': 8, '4': 1, '5': 9, '10': 'intervalUnit'},
+    {'1': 'interval', '3': 9, '4': 1, '5': 3, '10': 'interval'},
   ],
 };
 
@@ -78,7 +81,9 @@ final $typed_data.Uint8List friendRemindersDescriptor = $convert.base64Decode(
     'UYAiABKANSDXN0YXJ0RGF0ZVRpbWUSIAoLZW5kRGF0ZVRpbWUYAyABKANSC2VuZERhdGVUaW1l'
     'EhoKCHNob3dUaW1lGAQgASgIUghzaG93VGltZRJCCgxyZW1pbmRlclR5cGUYBSABKA4yHi5yZW'
     '1pbmQubWF0ZS5ncnBjLlJlbWluZGVyVHlwZVIMcmVtaW5kZXJUeXBlEh4KCnJlbWluZGVySWQY'
-    'BiABKAlSCnJlbWluZGVySWQ=');
+    'BiABKAlSCnJlbWluZGVySWQSLAoRcmVjdXJyaW5nUmVtaW5kZXIYByABKAhSEXJlY3VycmluZ1'
+    'JlbWluZGVyEiIKDGludGVydmFsVW5pdBgIIAEoCVIMaW50ZXJ2YWxVbml0EhoKCGludGVydmFs'
+    'GAkgASgDUghpbnRlcnZhbA==');
 
 @$core.Deprecated('Use friendDescriptor instead')
 const Friend$json = {

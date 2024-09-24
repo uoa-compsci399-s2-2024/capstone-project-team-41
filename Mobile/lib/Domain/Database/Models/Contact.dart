@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:RemindMate/Domain/Database/Models/ContactType.dart';
 import 'package:RemindMate/Domain/Database/Models/ReminderType.dart';
 import 'package:isar/isar.dart';
@@ -28,6 +30,9 @@ class ContactReminder {
   DateTime? startTime;
   DateTime? endTime;
   String? id;
+  String? recurringIntervalUnit;
+  bool? isRecurring;
+  int? recurringInterval;
 
   @Enumerated(EnumType.name)
   ReminderType? reminderType;
