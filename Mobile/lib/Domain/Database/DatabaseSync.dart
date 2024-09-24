@@ -40,7 +40,10 @@ class DatabaseSync {
             endDateTime: fixnum.Int64(reminder.endTime!.millisecondsSinceEpoch),
             showTime: reminder.showTime,
             reminderType: ReminderType.EVENT,
-            reminderId: reminder.id));
+            reminderId: reminder.id,
+            recurringReminder: reminder.isRecurring,
+            interval: fixnum.Int64(reminder.recurringInterval!),
+            intervalUnit: reminder.recurringIntervalUnit));
       }
 
       request.friends.add(Friend(
@@ -86,7 +89,10 @@ class DatabaseSync {
                   reminder.endDateTime.toInt())
               ..showTime = reminder.showTime
               ..id = reminder.reminderId
-              ..reminderType = rt.ReminderType.event,
+              ..reminderType = rt.ReminderType.event
+              ..recurringInterval = reminder.interval.toInt()
+              ..recurringIntervalUnit = reminder.intervalUnit
+              ..isRecurring = reminder.recurringReminder,
           );
         }
 

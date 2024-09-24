@@ -11,6 +11,9 @@ final class UIOReminderCard {
   late DateTime dateTime;
   late DateTime dateEndTime;
   late bool showTime;
+  late bool isRecurring;
+  late int recurringInterval;
+  late String recurringUnit;
 
   UIOReminderCard(
       {required this.title,
@@ -18,7 +21,10 @@ final class UIOReminderCard {
       required this.contact,
       required this.dateTime,
       required this.dateEndTime,
-      required this.showTime});
+      required this.showTime,
+      required this.isRecurring,
+      required this.recurringInterval,
+      required this.recurringUnit});
 
   UIOReminderCard.db(ContactReminder reminder, UIOContact uioContact) {
     this.title = reminder.name!;
@@ -33,6 +39,9 @@ final class UIOReminderCard {
     this.dateTime = reminder.startTime!;
     this.dateEndTime = reminder.endTime!;
     this.showTime = reminder.showTime!;
+    this.isRecurring = reminder.isRecurring!;
+    this.recurringInterval = reminder.recurringInterval!;
+    this.recurringUnit = reminder.recurringIntervalUnit!;
   }
 
   String getStartDateTimeAsString(String format) {

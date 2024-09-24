@@ -102,6 +102,9 @@ class FriendReminders extends $pb.GeneratedMessage {
     $core.bool? showTime,
     ReminderType? reminderType,
     $core.String? reminderId,
+    $core.bool? recurringReminder,
+    $core.String? intervalUnit,
+    $fixnum.Int64? interval,
   }) {
     final $result = create();
     if (title != null) {
@@ -122,6 +125,15 @@ class FriendReminders extends $pb.GeneratedMessage {
     if (reminderId != null) {
       $result.reminderId = reminderId;
     }
+    if (recurringReminder != null) {
+      $result.recurringReminder = recurringReminder;
+    }
+    if (intervalUnit != null) {
+      $result.intervalUnit = intervalUnit;
+    }
+    if (interval != null) {
+      $result.interval = interval;
+    }
     return $result;
   }
   FriendReminders._() : super();
@@ -135,6 +147,9 @@ class FriendReminders extends $pb.GeneratedMessage {
     ..aOB(4, _omitFieldNames ? '' : 'showTime', protoName: 'showTime')
     ..e<ReminderType>(5, _omitFieldNames ? '' : 'reminderType', $pb.PbFieldType.OE, protoName: 'reminderType', defaultOrMaker: ReminderType.EVENT, valueOf: ReminderType.valueOf, enumValues: ReminderType.values)
     ..aOS(6, _omitFieldNames ? '' : 'reminderId', protoName: 'reminderId')
+    ..aOB(7, _omitFieldNames ? '' : 'recurringReminder', protoName: 'recurringReminder')
+    ..aOS(8, _omitFieldNames ? '' : 'intervalUnit', protoName: 'intervalUnit')
+    ..aInt64(9, _omitFieldNames ? '' : 'interval')
     ..hasRequiredFields = false
   ;
 
@@ -212,6 +227,33 @@ class FriendReminders extends $pb.GeneratedMessage {
   $core.bool hasReminderId() => $_has(5);
   @$pb.TagNumber(6)
   void clearReminderId() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get recurringReminder => $_getBF(6);
+  @$pb.TagNumber(7)
+  set recurringReminder($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasRecurringReminder() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearRecurringReminder() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get intervalUnit => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set intervalUnit($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasIntervalUnit() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearIntervalUnit() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $fixnum.Int64 get interval => $_getI64(8);
+  @$pb.TagNumber(9)
+  set interval($fixnum.Int64 v) { $_setInt64(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasInterval() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearInterval() => clearField(9);
 }
 
 class Friend extends $pb.GeneratedMessage {

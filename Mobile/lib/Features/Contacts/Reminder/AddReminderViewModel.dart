@@ -15,6 +15,9 @@ class AddRedminderViewModel extends ChangeNotifier {
   String notes = "";
   DateTime startTime = DateTime.now();
   DateTime endTime = DateTime.now();
+  bool isRecurring = true;
+  int recurringInterval = 2;
+  String recurringIntervalUnit = "days";
 
   Future<void> saveReminder() async {
     final database = DatabaseConnector.instance.isar;
@@ -27,7 +30,10 @@ class AddRedminderViewModel extends ChangeNotifier {
       ..endTime = endTime
       ..showTime = true
       ..reminderType = ReminderType.event
-      ..id = Uuid().v4());
+      ..id = Uuid().v4()
+      ..isRecurring = isRecurring
+      ..recurringInterval = recurringInterval
+      ..recurringIntervalUnit = recurringIntervalUnit);
     contact.reminders = reminders;
     database.writeTxnSync(() {
       database.contacts.putSync(contact);
