@@ -72,7 +72,8 @@ public class GetMyDataService {
         long currentEpochSeconds = Instant.now().getEpochSecond();
         for (Friend friend : response.getFriendsList()) {
             List<FriendReminders> modifiableReminders = new ArrayList<>(friend.getRemindersList());
-            modifiableReminders.removeIf(reminder -> currentEpochSeconds > reminder.getEndDateTime());
+            modifiableReminders.removeIf(reminder ->
+                    currentEpochSeconds > Long.parseLong(reminder.getEndDateTime()) & reminder.getRecurringReminder() == false);
             friend = friend.toBuilder().clearReminders().addAllReminders(modifiableReminders).build();
         }
         return response;

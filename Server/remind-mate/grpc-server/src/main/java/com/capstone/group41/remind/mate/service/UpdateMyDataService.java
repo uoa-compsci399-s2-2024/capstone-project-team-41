@@ -64,12 +64,12 @@ public class UpdateMyDataService {
                 .build();
         GetItemResponse result = dynamoDbClient.getItem(getRequest);
         List<String> fcmTokens = result.item().get("fcmTokens").ss();
-        syncDatabases(request, fcmTokens);
+        syncDatabases(request, fcmTokens, userId);
 
         return UpdateMyDataResponse.newBuilder().build();
     }
 
-    private void syncDatabases(UpdateMyDataRequest request, List<String> fcmTokens) {
+    private void syncDatabases(UpdateMyDataRequest request, List<String> fcmTokens, String userId) {
         String accessKeyId = "AKIAWBKIEPYFPAIMBUOW";
         String secretAccessKey = "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";
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
@@ -108,6 +108,11 @@ public class UpdateMyDataService {
                         newItem.put("showTime", AttributeValue.builder().bool(reminder.getShowTime()).build());
                         newItem.put("reminderType", AttributeValue.builder().s(reminder.getReminderType().toString()).build());
                         newItem.put("fcmTokens", AttributeValue.builder().ss(fcmTokens).build());
+                        newItem.put("recurringReminder", AttributeValue.builder().bool(reminder.getRecurringReminder()).build());
+                        newItem.put("interval", AttributeValue.builder().n(Integer.toString(reminder.getInterval())).build());
+                        newItem.put("intervalUnit", AttributeValue.builder().s(reminder.getIntervalUnit()).build());
+                        newItem.put("userId", AttributeValue.builder().s(userId).build());
+
 
                         PutItemRequest putItemRequest = PutItemRequest.builder()
                                 .tableName(pendingNotificationsTable)

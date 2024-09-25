@@ -1,16 +1,19 @@
 package com.capstone.group41.remind.mate.service;
 
 import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.FirebaseMessaging;
+import remind.mate.grpc.GetMyDataResponse;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
-
+import remind.mate.grpc.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -54,7 +57,7 @@ public class FcmService {
         List<Map<String, AttributeValue>> items = queryResponse.items();
 
         for (Map<String, AttributeValue> item : items) {
-            String notificationId = item.get("notificationid").s();
+            String reminderId = item.get("reminderId").s();
             String name = item.get("name").s();
             String messageBody = item.get("message").s();
             List<String> fcmDevices = item.get("fcmDevices").ss();
@@ -63,6 +66,7 @@ public class FcmService {
             boolean recurringReminder = item.get("recurringReminder").bool();
             int interval = Integer.parseInt(item.get("interval").n());
             String intervalUnit = item.get("intervalUnit").s();
+            String userId = item.get("userId").s();
 
             for (String fcmtoken : fcmDevices) {
                 Message notification = Message.builder()
@@ -103,9 +107,9 @@ public class FcmService {
                 long newEndDateTime = endLocalDateTime.toEpochSecond(ZoneOffset.UTC);
 
 
-                // Update the reminder in DynamoDB with new times
+                // Update the reminder in pending-notifications with new times
                 Map<String, AttributeValue> key = new HashMap<>();
-                key.put("notificationid", AttributeValue.builder().s(notificationId).build());
+                key.put("reminderId", AttributeValue.builder().s(reminderId).build());
 
                 Map<String, AttributeValueUpdate> updatedDateTimes = new HashMap<>();
                 updatedDateTimes.put("startDateTime", AttributeValueUpdate.builder()
@@ -117,18 +121,64 @@ public class FcmService {
                         .action(AttributeAction.PUT)
                         .build());
 
-                UpdateItemRequest updateRequest = UpdateItemRequest.builder()
+                UpdateItemRequest notificationUpdateRequest = UpdateItemRequest.builder()
                         .tableName("pending-notifications")
                         .key(key)
                         .attributeUpdates(updatedDateTimes)
                         .build();
+                dynamoDbClient.updateItem(notificationUpdateRequest);
 
-                dynamoDbClient.updateItem(updateRequest);
+                // update MyData user data
+                Map<String, AttributeValue> databaseKey = new HashMap<>();
+                databaseKey.put("key", AttributeValue.builder().s(userId).build());
+
+                String tableName = "database";
+                GetItemRequest getItemRequest = GetItemRequest.builder()
+                        .tableName(tableName)
+                        .key(databaseKey)
+                        .build();
+
+                GetItemResponse getItemResponse = dynamoDbClient.getItem(getItemRequest);
+
+                if (getItemResponse.hasItem()) {
+                    SdkBytes friendsListBytes = getItemResponse.item().get("FriendsList").b();
+                    byte[] serializedFriendsList = friendsListBytes.asByteArray();
+                    GetMyDataResponse friendData = null; // shouldn't matter if type's Get-Response or Update-Request
+                    try {
+                        friendData = GetMyDataResponse.parseFrom(serializedFriendsList);
+                    } catch (InvalidProtocolBufferException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    for (Friend friend : friendData.getFriendsList()) {
+                        for (FriendReminders reminder : friend.getRemindersList()) {
+                            if (reminder.getReminderId().equals(reminderId)) {
+                                reminder = reminder.toBuilder()
+                                        .setStartDateTime(Long.toString(newStartDateTime))
+                                        .setEndDateTime(Long.toString(newEndDateTime))
+                                        .build();
+                            }
+                        }
+                    }
+                    SdkBytes updatedSdkBytes = SdkBytes.fromByteArray(friendData.toByteArray());
+
+                    Map<String, AttributeValue> updatedItemValues = new HashMap<>();
+                    updatedItemValues.put("key", AttributeValue.builder().s(userId).build());
+                    updatedItemValues.put("FriendsList", AttributeValue.builder().b(updatedSdkBytes).build());
+
+                    PutItemRequest putItemRequest = PutItemRequest.builder()
+                            .tableName("database")
+                            .item(updatedItemValues)
+                            .build();
+
+                    dynamoDbClient.putItem(putItemRequest);
+                }
+
             } else {
                 // delete reminder from the DynamoDB table
                 DeleteItemRequest deleteRequest = DeleteItemRequest.builder()
                         .tableName("pending-notifications")
-                        .key(Map.of("notificationid", AttributeValue.builder().s(notificationId).build()))
+                        .key(Map.of("reminderId", AttributeValue.builder().s(reminderId).build()))
                         .build();
 
                 dynamoDbClient.deleteItem(deleteRequest);
