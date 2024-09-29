@@ -12,8 +12,11 @@ import 'package:fixnum/fixnum.dart' as fixnum;
 
 class DatabaseSync {
   Future<void> init() async {
-    await populateDatabase();
-    observeDatabaseChanges();
+    if (await Auth0Connector.instance.auth0.credentialsManager
+        .hasValidCredentials()) {
+      await populateDatabase();
+      observeDatabaseChanges();
+    }
   }
 
   Future<void> observeDatabaseChanges() async {

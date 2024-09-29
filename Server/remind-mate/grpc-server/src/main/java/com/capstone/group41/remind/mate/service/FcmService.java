@@ -1,6 +1,7 @@
 package com.capstone.group41.remind.mate.service;
 
 import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Notification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.google.firebase.messaging.Message;
@@ -57,8 +58,10 @@ public class FcmService {
             for (String fcmtoken : fcmDevices) {
                 Message notification = Message.builder()
                         .setToken(fcmtoken)
-                        .putData("title", name)
-                        .build();
+                        .setNotification(Notification.builder()
+                                .setTitle("Reminder")
+                                .setBody(name)
+                        .build()).build();
 
                 try {
                     String response = FirebaseMessaging.getInstance().send(notification);
