@@ -39,9 +39,6 @@ final class UIOReminderCard {
     this.dateTime = reminder.startTime!;
     this.dateEndTime = reminder.endTime!;
     this.showTime = reminder.showTime!;
-    this.isRecurring = reminder.isRecurring!;
-    this.recurringInterval = reminder.recurringInterval!;
-    this.recurringUnit = reminder.recurringIntervalUnit!;
   }
 
   String getStartDateTimeAsString(String format) {

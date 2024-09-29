@@ -1,6 +1,7 @@
 package com.capstone.group41.remind.mate.service;
 
 import com.auth0.jwt.JWT;
+import com.capstone.group41.remind.mate.config.GrpcInterceptor;
 import io.grpc.Context;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Attr;
@@ -28,8 +29,7 @@ public class UpdateMyDataService {
     private final Region region = Region.AP_SOUTHEAST_2;
     public UpdateMyDataResponse updateMyData(UpdateMyDataRequest request) {
 
-        Context.Key<String> TOKEN_KEY = Context.key("userId");
-        String token = TOKEN_KEY.get();
+        String token = GrpcInterceptor.AUTHORIZATION.get().toString();
         String userId = JWT.decode(token).getSubject();
 
         // dynamodb
@@ -48,6 +48,7 @@ public class UpdateMyDataService {
         byte[] serializedUserList = request.toByteArray();
         SdkBytes sdkBytes = SdkBytes.fromByteArray(serializedUserList);
         itemValues.put("FriendsList", AttributeValue.builder().b(sdkBytes).build());
+        itemValues.put("fcmToken", AttributeValue.builder().s(request.getFcmToken()).build());
 
         PutItemRequest putItemRequest = PutItemRequest.builder()
                 .tableName("database")
@@ -62,9 +63,7 @@ public class UpdateMyDataService {
                 .key(newKey)
                 .projectionExpression("fcmTokens") // Fetch only the 'title' field
                 .build();
-        GetItemResponse result = dynamoDbClient.getItem(getRequest);
-        List<String> fcmTokens = result.item().get("fcmTokens").ss();
-        syncDatabases(request, fcmTokens);
+        syncDatabases(request, List.of(request.getFcmToken()));
 
         return UpdateMyDataResponse.newBuilder().build();
     }

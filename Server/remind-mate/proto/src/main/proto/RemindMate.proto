@@ -45,6 +45,7 @@ message Friend {
 
 message UpdateMyDataRequest {
   repeated Friend friends = 1;
+  string fcmToken = 2;
 }
 
 message UpdateMyDataResponse {

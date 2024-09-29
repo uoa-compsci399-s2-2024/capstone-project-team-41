@@ -7,6 +7,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:grpc/grpc.dart';
 
+String fcmToken = "";
+
 class NotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -26,18 +28,9 @@ class NotificationService {
     );
 
     FirebaseMessaging.instance.getToken().then((value) {
-      updateFcm(value);
+      fcmToken = value ?? "";
       print("TOKEN IS :: :: $value");
     });
-  }
-
-  Future<void> updateFcm(String? token) async {
-    final credentials =
-        await Auth0Connector.instance.auth0.credentialsManager.credentials();
-    var data = await RemindMateGrpcConnector.instance.remindMateServiceClient
-        .addFcmToken(AddFcmTokenRequest(fcmToken: token),
-            options:
-                CallOptions(metadata: {"authorization": credentials.idToken}));
   }
 
   static showLocalNotification(String title, String body, String payload) {

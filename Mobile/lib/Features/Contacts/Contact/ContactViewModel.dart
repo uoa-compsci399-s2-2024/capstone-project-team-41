@@ -41,9 +41,11 @@ class ContactViewModel extends ChangeNotifier {
         .get(SelectedContactRepo.instance.getSelectedContactId());
     contact = UIOContact(dbContact!);
 
-    reminders = [];
-    for (final reminder in dbContact.reminders!) {
-      reminders.add(UIOReminderCard.db(reminder, contact!));
+    DateTime aWeekFromNow = DateTime.now().add(const Duration(days: 7));
+    for (ContactReminder r in dbContact.reminders!) {
+      if (r.startTime!.compareTo(aWeekFromNow) <= 0) {
+        reminders.add(UIOReminderCard.db(r, contact!));
+      }
     }
 
     reminders.sort((a, b) => a.dateTime.compareTo(b.dateTime));

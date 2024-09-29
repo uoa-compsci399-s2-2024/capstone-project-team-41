@@ -1,6 +1,7 @@
 package com.capstone.group41.remind.mate.service;
 
 import com.auth0.jwt.JWT;
+import com.capstone.group41.remind.mate.config.GrpcInterceptor;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.grpc.Context;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,14 @@ import software.amazon.awssdk.core.SdkBytes;
 import java.time.Instant;
 import java.util.*;
 
+import static com.capstone.group41.remind.mate.config.ConstantProvider.AUTHORIZATION_HEADER_KEY;
+
 @Service
 public class GetMyDataService {
 
 
     public GetMyDataResponse getMyData(GetMyDataRequest request) {
-        Context.Key<String> TOKEN_KEY = Context.key("userId");
-        String token = TOKEN_KEY.get();
+        String token = GrpcInterceptor.AUTHORIZATION.get().toString();
         String userId = JWT.decode(token).getSubject();
         String accessKeyId = "AKIAWBKIEPYFPAIMBUOW";
         String secretAccessKey = "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";
@@ -69,13 +71,15 @@ public class GetMyDataService {
     }
 
     public static GetMyDataResponse cleanReminders(GetMyDataResponse response) {
-        long currentEpochSeconds = Instant.now().getEpochSecond();
+        long currentEpochTime = Instant.now().toEpochMilli();
+        List<Friend> friends = new ArrayList<>();
         for (Friend friend : response.getFriendsList()) {
             List<FriendReminders> modifiableReminders = new ArrayList<>(friend.getRemindersList());
-            modifiableReminders.removeIf(reminder -> currentEpochSeconds > reminder.getEndDateTime());
-            friend = friend.toBuilder().clearReminders().addAllReminders(modifiableReminders).build();
+            modifiableReminders.removeIf(reminder -> currentEpochTime > reminder.getEndDateTime());
+            friends.add(friend.toBuilder().clearReminders().addAllReminders(modifiableReminders).build());
         }
-        return response;
+
+        return GetMyDataResponse.newBuilder().addAllFriends(friends).build();
     }
 
 

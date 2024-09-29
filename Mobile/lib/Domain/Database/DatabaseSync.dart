@@ -5,6 +5,7 @@ import 'package:RemindMate/Domain/Database/Models/ContactType.dart';
 import 'package:RemindMate/Domain/Database/Models/ReminderType.dart' as rt;
 import 'package:RemindMate/Domain/GrpcConnector/RemindMate.pb.dart';
 import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
+import 'package:RemindMate/Domain/Notifications/NotificationService.dart';
 import 'package:grpc/grpc.dart';
 import 'package:isar/isar.dart';
 import 'package:fixnum/fixnum.dart' as fixnum;
@@ -57,7 +58,7 @@ class DatabaseSync {
           reminders: reminders));
     }
 
-    print(request);
+    request.fcmToken = fcmToken;
 
     await RemindMateGrpcConnector.instance.remindMateServiceClient.updateMyData(
         request,

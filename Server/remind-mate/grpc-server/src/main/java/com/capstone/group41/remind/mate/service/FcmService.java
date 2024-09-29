@@ -22,7 +22,7 @@ import java.util.Map;
 public class FcmService {
 
     @Scheduled(fixedRate = 60000)
-    public void sendReminderNotification(String message, List<String> fcmTokens) {
+    public void sendReminderNotification() {
 
         String accessKeyId = "AKIAWBKIEPYFPAIMBUOW";
         String secretAccessKey = "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";
@@ -34,105 +34,45 @@ public class FcmService {
                 .region(region)
                 .build();
 
-        long currentEpochTime = Instant.now().getEpochSecond();
-
-        Map<String, String> expressionAttributesNames = new HashMap<>();
-        expressionAttributesNames.put("#endDateTime", "endDateTime");
+        long currentEpochTime = Instant.now().toEpochMilli();
 
         Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
         expressionAttributeValues.put(":currentEpoch", AttributeValue.builder().n(Long.toString(currentEpochTime)).build());
 
-        QueryRequest queryRequest = QueryRequest.builder()
+        ScanRequest scanRequest = ScanRequest.builder()
                 .tableName("pending-notifications")
-                .keyConditionExpression("#endDateTime < :currentEpoch")
-                .expressionAttributeNames(expressionAttributesNames)
+                .filterExpression("endDateTime < :currentEpoch")
                 .expressionAttributeValues(expressionAttributeValues)
                 .build();
 
-        QueryResponse queryResponse = dynamoDbClient.query(queryRequest);
+        ScanResponse queryResponse = dynamoDbClient.scan(scanRequest);
 
         List<Map<String, AttributeValue>> items = queryResponse.items();
 
         for (Map<String, AttributeValue> item : items) {
-            String notificationId = item.get("notificationid").s();
-            String name = item.get("name").s();
-            String messageBody = item.get("message").s();
-            List<String> fcmDevices = item.get("fcmDevices").ss();
-            long startDateTime = Long.parseLong(item.get("startDateTime").n());
-            long endDateTime = Long.parseLong(item.get("endDateTime").n());
-            boolean recurringReminder = item.get("recurringReminder").bool();
-            int interval = Integer.parseInt(item.get("interval").n());
-            String intervalUnit = item.get("intervalUnit").s();
+            String notificationId = item.get("reminderId").s();
+            String name = item.get("title").s();
+            List<String> fcmDevices = item.get("fcmTokens").ss();
 
             for (String fcmtoken : fcmDevices) {
                 Message notification = Message.builder()
                         .setToken(fcmtoken)
                         .putData("title", name)
-                        .putData("body", messageBody)
                         .build();
 
                 try {
                     String response = FirebaseMessaging.getInstance().send(notification);
+                    response.equals("success");
                 } catch (FirebaseMessagingException e) {
                 }
             }
 
-            if (recurringReminder) {
-                // Calculate new startDateTime and endDateTime based on the intervalUnit
-                LocalDateTime startLocalDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(startDateTime), ZoneOffset.UTC);
-                LocalDateTime endLocalDateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(endDateTime), ZoneOffset.UTC);
+            DeleteItemRequest deleteRequest = DeleteItemRequest.builder()
+                    .tableName("pending-notifications")
+                    .key(Map.of("reminderId", AttributeValue.builder().s(notificationId).build()))
+                    .build();
 
-                switch (intervalUnit.toLowerCase()) {
-                    case "days":
-                        startLocalDateTime = startLocalDateTime.plusDays(interval);
-                        endLocalDateTime = endLocalDateTime.plusDays(interval);
-                        break;
-                    case "weeks":
-                        startLocalDateTime = startLocalDateTime.plusWeeks(interval);
-                        endLocalDateTime = endLocalDateTime.plusWeeks(interval);
-                        break;
-                    case "months":
-                        startLocalDateTime = startLocalDateTime.plusMonths(interval);
-                        endLocalDateTime = endLocalDateTime.plusMonths(interval);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unsupported interval unit: " + intervalUnit + ". Use 'days', 'weeks' or 'months'.");
-                }
-
-                long newStartDateTime = startLocalDateTime.toEpochSecond(ZoneOffset.UTC);
-                long newEndDateTime = endLocalDateTime.toEpochSecond(ZoneOffset.UTC);
-
-
-                // Update the reminder in DynamoDB with new times
-                Map<String, AttributeValue> key = new HashMap<>();
-                key.put("notificationid", AttributeValue.builder().s(notificationId).build());
-
-                Map<String, AttributeValueUpdate> updatedDateTimes = new HashMap<>();
-                updatedDateTimes.put("startDateTime", AttributeValueUpdate.builder()
-                        .value(AttributeValue.builder().n(Long.toString(newStartDateTime)).build())
-                        .action(AttributeAction.PUT)
-                        .build());
-                updatedDateTimes.put("endDateTime", AttributeValueUpdate.builder()
-                        .value(AttributeValue.builder().n(Long.toString(newEndDateTime)).build())
-                        .action(AttributeAction.PUT)
-                        .build());
-
-                UpdateItemRequest updateRequest = UpdateItemRequest.builder()
-                        .tableName("pending-notifications")
-                        .key(key)
-                        .attributeUpdates(updatedDateTimes)
-                        .build();
-
-                dynamoDbClient.updateItem(updateRequest);
-            } else {
-                // delete reminder from the DynamoDB table
-                DeleteItemRequest deleteRequest = DeleteItemRequest.builder()
-                        .tableName("pending-notifications")
-                        .key(Map.of("notificationid", AttributeValue.builder().s(notificationId).build()))
-                        .build();
-
-                dynamoDbClient.deleteItem(deleteRequest);
-            }
+            dynamoDbClient.deleteItem(deleteRequest);
         }
     }
 }

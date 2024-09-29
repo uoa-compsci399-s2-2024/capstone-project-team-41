@@ -1,6 +1,7 @@
 package com.capstone.group41.remind.mate.service;
 
 import com.auth0.jwt.JWT;
+import com.capstone.group41.remind.mate.config.GrpcInterceptor;
 import io.grpc.Context;
 import remind.mate.grpc.*;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
-import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
-import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
-import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
+import software.amazon.awssdk.services.dynamodb.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,8 +29,7 @@ public class UserService {
     private final Region region = Region.AP_SOUTHEAST_2;
 
     public AddFcmTokenResponse addFcmToken(AddFcmTokenRequest request) {
-        Context.Key<String> TOKEN_KEY = Context.key("userId");
-        String token = TOKEN_KEY.get();
+        String token = GrpcInterceptor.AUTHORIZATION.get().toString();
         String userId = JWT.decode(token).getSubject();
 
         // dynamodb
@@ -61,8 +55,15 @@ public class UserService {
                 .expressionAttributeValues(expressionValues)
                 .build();
 
+
         // Update the DynamoDB entry
-        UpdateItemResponse updateResponse = dynamoDbClient.updateItem(updateRequest);
+        try {
+            dynamoDbClient.updateItem(updateRequest);
+        } catch (Exception e) {
+            return AddFcmTokenResponse.newBuilder()
+                    .setSuccess(false)
+                    .build();
+        }
 
         return AddFcmTokenResponse.newBuilder()
                 .setSuccess(true)

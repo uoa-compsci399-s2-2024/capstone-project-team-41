@@ -2,8 +2,11 @@ import 'package:RemindMate/Domain/GrpcConnector/RemindMate.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class RemindMateGrpcConnector {
-  String baseUrl = const String.fromEnvironment("GRPC_BASE_URL",
-      defaultValue: "54.253.175.109");
+  // String baseUrl = const String.fromEnvironment("GRPC_BASE_URL",
+  //     defaultValue: "54.253.175.109");
+
+  String baseUrl =
+      const String.fromEnvironment("GRPC_BASE_URL", defaultValue: "localhost");
   RemindMateGrpcConnector.internal();
 
   static final RemindMateGrpcConnector _instance =
