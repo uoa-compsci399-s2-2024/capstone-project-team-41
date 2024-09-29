@@ -401,10 +401,14 @@ class Friend extends $pb.GeneratedMessage {
 class UpdateMyDataRequest extends $pb.GeneratedMessage {
   factory UpdateMyDataRequest({
     $core.Iterable<Friend>? friends,
+    $core.String? fcmToken,
   }) {
     final $result = create();
     if (friends != null) {
       $result.friends.addAll(friends);
+    }
+    if (fcmToken != null) {
+      $result.fcmToken = fcmToken;
     }
     return $result;
   }
@@ -414,6 +418,7 @@ class UpdateMyDataRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'UpdateMyDataRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'remind.mate.grpc'), createEmptyInstance: create)
     ..pc<Friend>(1, _omitFieldNames ? '' : 'friends', $pb.PbFieldType.PM, subBuilder: Friend.create)
+    ..aOS(2, _omitFieldNames ? '' : 'fcmToken', protoName: 'fcmToken')
     ..hasRequiredFields = false
   ;
 
@@ -440,6 +445,15 @@ class UpdateMyDataRequest extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Friend> get friends => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get fcmToken => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set fcmToken($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFcmToken() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFcmToken() => clearField(2);
 }
 
 class UpdateMyDataResponse extends $pb.GeneratedMessage {

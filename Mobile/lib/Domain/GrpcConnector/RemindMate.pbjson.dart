@@ -114,13 +114,14 @@ const UpdateMyDataRequest$json = {
   '1': 'UpdateMyDataRequest',
   '2': [
     {'1': 'friends', '3': 1, '4': 3, '5': 11, '6': '.remind.mate.grpc.Friend', '10': 'friends'},
+    {'1': 'fcmToken', '3': 2, '4': 1, '5': 9, '10': 'fcmToken'},
   ],
 };
 
 /// Descriptor for `UpdateMyDataRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updateMyDataRequestDescriptor = $convert.base64Decode(
     'ChNVcGRhdGVNeURhdGFSZXF1ZXN0EjIKB2ZyaWVuZHMYASADKAsyGC5yZW1pbmQubWF0ZS5ncn'
-    'BjLkZyaWVuZFIHZnJpZW5kcw==');
+    'BjLkZyaWVuZFIHZnJpZW5kcxIaCghmY21Ub2tlbhgCIAEoCVIIZmNtVG9rZW4=');
 
 @$core.Deprecated('Use updateMyDataResponseDescriptor instead')
 const UpdateMyDataResponse$json = {

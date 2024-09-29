@@ -84,8 +84,11 @@ class _AddReminderViewState extends State<AddReminderView> {
                                           color: Colors.white,
                                           fontSize: 16)), onChanged: (date) {
                                 viewModel.endTime = date;
+                              }, onConfirm: (date) {
+                                setState(() {
+                                  viewModel.startTime = date;
+                                });
                               },
-                                  onConfirm: (date) {},
                                   currentTime: viewModel.startTime,
                                   locale: picker.LocaleType.en);
                             },
@@ -130,8 +133,11 @@ class _AddReminderViewState extends State<AddReminderView> {
                                           color: Colors.white,
                                           fontSize: 16)), onChanged: (date) {
                                 viewModel.endTime = date;
+                              }, onConfirm: (date) {
+                                setState(() {
+                                  viewModel.endTime = date;
+                                });
                               },
-                                  onConfirm: (date) {},
                                   currentTime: viewModel.endTime,
                                   locale: picker.LocaleType.en);
                             },

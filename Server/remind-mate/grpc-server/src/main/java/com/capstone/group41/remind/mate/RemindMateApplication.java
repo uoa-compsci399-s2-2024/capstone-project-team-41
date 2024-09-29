@@ -5,20 +5,27 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @SpringBootApplication
+@EnableScheduling
 public class RemindMateApplication {
+
 
     public static void main(String[] args) {
 
         SpringApplication.run(RemindMateApplication.class, args);
         try {
+
+            ClassPathResource resource = new ClassPathResource("firebase-service-acc-credentials.json");
+
             FileInputStream serviceAccount =
-                    new FileInputStream("Server/remind-mate/grpc-server/src/main/resources/config/firebase-service-acc-credentials.json");
+                    new FileInputStream(resource.getFile().getAbsolutePath());
             // ^ the file in this path is confidential and so has been kept from the repo.
             // Contact me for a copy, add it to this path and include it in remind-mate/.gitignore
 

@@ -1819,24 +1819,39 @@ const ContactReminderSchema = Schema(
       name: r'id',
       type: IsarType.string,
     ),
-    r'name': PropertySchema(
+    r'isRecurring': PropertySchema(
       id: 2,
+      name: r'isRecurring',
+      type: IsarType.bool,
+    ),
+    r'name': PropertySchema(
+      id: 3,
       name: r'name',
       type: IsarType.string,
     ),
+    r'recurringInterval': PropertySchema(
+      id: 4,
+      name: r'recurringInterval',
+      type: IsarType.long,
+    ),
+    r'recurringIntervalUnit': PropertySchema(
+      id: 5,
+      name: r'recurringIntervalUnit',
+      type: IsarType.string,
+    ),
     r'reminderType': PropertySchema(
-      id: 3,
+      id: 6,
       name: r'reminderType',
       type: IsarType.string,
       enumMap: _ContactReminderreminderTypeEnumValueMap,
     ),
     r'showTime': PropertySchema(
-      id: 4,
+      id: 7,
       name: r'showTime',
       type: IsarType.bool,
     ),
     r'startTime': PropertySchema(
-      id: 5,
+      id: 8,
       name: r'startTime',
       type: IsarType.dateTime,
     )
@@ -1866,6 +1881,12 @@ int _contactReminderEstimateSize(
     }
   }
   {
+    final value = object.recurringIntervalUnit;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.reminderType;
     if (value != null) {
       bytesCount += 3 + value.name.length * 3;
@@ -1882,10 +1903,13 @@ void _contactReminderSerialize(
 ) {
   writer.writeDateTime(offsets[0], object.endTime);
   writer.writeString(offsets[1], object.id);
-  writer.writeString(offsets[2], object.name);
-  writer.writeString(offsets[3], object.reminderType?.name);
-  writer.writeBool(offsets[4], object.showTime);
-  writer.writeDateTime(offsets[5], object.startTime);
+  writer.writeBool(offsets[2], object.isRecurring);
+  writer.writeString(offsets[3], object.name);
+  writer.writeLong(offsets[4], object.recurringInterval);
+  writer.writeString(offsets[5], object.recurringIntervalUnit);
+  writer.writeString(offsets[6], object.reminderType?.name);
+  writer.writeBool(offsets[7], object.showTime);
+  writer.writeDateTime(offsets[8], object.startTime);
 }
 
 ContactReminder _contactReminderDeserialize(
@@ -1897,11 +1921,14 @@ ContactReminder _contactReminderDeserialize(
   final object = ContactReminder();
   object.endTime = reader.readDateTimeOrNull(offsets[0]);
   object.id = reader.readStringOrNull(offsets[1]);
-  object.name = reader.readStringOrNull(offsets[2]);
+  object.isRecurring = reader.readBoolOrNull(offsets[2]);
+  object.name = reader.readStringOrNull(offsets[3]);
+  object.recurringInterval = reader.readLongOrNull(offsets[4]);
+  object.recurringIntervalUnit = reader.readStringOrNull(offsets[5]);
   object.reminderType = _ContactReminderreminderTypeValueEnumMap[
-      reader.readStringOrNull(offsets[3])];
-  object.showTime = reader.readBoolOrNull(offsets[4]);
-  object.startTime = reader.readDateTimeOrNull(offsets[5]);
+      reader.readStringOrNull(offsets[6])];
+  object.showTime = reader.readBoolOrNull(offsets[7]);
+  object.startTime = reader.readDateTimeOrNull(offsets[8]);
   return object;
 }
 
@@ -1917,13 +1944,19 @@ P _contactReminderDeserializeProp<P>(
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
+      return (reader.readLongOrNull(offset)) as P;
+    case 5:
+      return (reader.readStringOrNull(offset)) as P;
+    case 6:
       return (_ContactReminderreminderTypeValueEnumMap[
           reader.readStringOrNull(offset)]) as P;
-    case 4:
+    case 7:
       return (reader.readBoolOrNull(offset)) as P;
-    case 5:
+    case 8:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2168,6 +2201,34 @@ extension ContactReminderQueryFilter
   }
 
   QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      isRecurringIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isRecurring',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      isRecurringIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isRecurring',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      isRecurringEqualTo(bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isRecurring',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
       nameIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -2316,6 +2377,235 @@ extension ContactReminderQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'recurringInterval',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'recurringInterval',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'recurringInterval',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'recurringInterval',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'recurringInterval',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'recurringInterval',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'recurringIntervalUnit',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'recurringIntervalUnit',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'recurringIntervalUnit',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'recurringIntervalUnit',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'recurringIntervalUnit',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'recurringIntervalUnit',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'recurringIntervalUnit',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'recurringIntervalUnit',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'recurringIntervalUnit',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitMatches(String pattern,
+          {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'recurringIntervalUnit',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'recurringIntervalUnit',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<ContactReminder, ContactReminder, QAfterFilterCondition>
+      recurringIntervalUnitIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'recurringIntervalUnit',
         value: '',
       ));
     });
