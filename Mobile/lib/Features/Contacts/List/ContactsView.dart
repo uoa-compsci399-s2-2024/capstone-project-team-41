@@ -33,7 +33,7 @@ class _ContactsViewState extends State<ContactsView> {
                   child: Row(
                     children: [
                       Text(
-                        "Contacts",
+                        "Your Mates",
                         style: Textstyles.H1,
                       )
                     ],
