@@ -36,7 +36,7 @@ class AddRedminderViewModel extends ChangeNotifier {
       ..recurringIntervalUnit = recurringIntervalUnit);
 
     if (isRecurring) {
-      for (int i = 0; i < 50; i++) {
+      for (int i = 1; i < 50; i++) {
         switch (recurringIntervalUnit) {
           case "days":
             {

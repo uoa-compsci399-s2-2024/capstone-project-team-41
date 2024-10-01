@@ -39,7 +39,12 @@ class ContactViewModel extends ChangeNotifier {
     final database = DatabaseConnector.instance.isar;
     var dbContact = await database.contacts
         .get(SelectedContactRepo.instance.getSelectedContactId());
-    contact = UIOContact(dbContact!);
+    if (dbContact == null) {
+      return;
+    }
+    contact = UIOContact(dbContact);
+
+    reminders = [];
 
     DateTime aWeekFromNow = DateTime.now().add(const Duration(days: 7));
     for (ContactReminder r in dbContact.reminders!) {

@@ -87,7 +87,7 @@ class _AddContactViewState extends State<AddContactView> {
                                       doneStyle: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16)), onChanged: (date) {
-                                viewModel.setBirthday(date);
+                                viewModel.updateBirthdayDate(date);
                               },
                                   onConfirm: (date) {},
                                   currentTime: viewModel.birthDay,

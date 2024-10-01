@@ -26,14 +26,14 @@ class RootTabBarView extends StatelessWidget {
             screen: const ContactsView(),
             item: ItemConfig(
               icon: const Icon(Icons.contacts, size: 24,),
-              title: "Contacts",
+              title: "Mates",
             ),
           ),
           PersistentTabConfig(
             screen: const CalenderView(),
             item: ItemConfig(
               icon: const Icon(Icons.calendar_month),
-              title: "Calender",
+              title: "Calendar",
             ),
           ),
           PersistentTabConfig(

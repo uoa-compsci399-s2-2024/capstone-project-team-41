@@ -52,4 +52,12 @@ class ContactsViewModel extends ChangeNotifier {
     keyList.sort();
     return keyList;
   }
+
+  Future<void> deleteContact(int id) async {
+    final database = DatabaseConnector.instance.isar;
+    await database.writeTxn(() async {
+      await database.contacts.delete(id);
+    });
+    notifyListeners();
+  }
 }

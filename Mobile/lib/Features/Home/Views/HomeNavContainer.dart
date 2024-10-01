@@ -20,7 +20,7 @@ class HomeNavContainer extends StatelessWidget {
               children: [
                 Expanded(child: HomeNavButton(buttonTitle: "Calender", iconWidget: Icon(Icons.calendar_month, color: Colors.white,), tabIndex: 2,)),
                 Padding(padding: EdgeInsets.only(right: 14)),
-                Expanded(child: HomeNavButton(buttonTitle: "Contacts", iconWidget: Icon(Icons.contacts, color: Colors.white), tabIndex: 1),),
+                Expanded(child: HomeNavButton(buttonTitle: "Mates", iconWidget: Icon(Icons.contacts, color: Colors.white), tabIndex: 1),),
               ],
             ),
             Padding(padding: EdgeInsets.only(bottom: 14)),
