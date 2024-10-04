@@ -35,7 +35,7 @@ class AddContactViewModel extends ChangeNotifier {
     String contactName = contact!.name!;
     DateTime birthday = DateTime.parse(contact.birthday!);
     DateTime nextBirthday = DateTime(DateTime.now().year, birthday.month, birthday.day);
-    if (nextBirthday.compareTo(DateTime.now()) < 0) {
+    if (nextBirthday.compareTo(DateTime.now().add(Duration(days: -1))) < 0) {
       nextBirthday = DateTime(DateTime.now().year + 1, birthday.month, birthday.day);
     }
 
@@ -59,15 +59,6 @@ class AddContactViewModel extends ChangeNotifier {
     });
   }
 
-      //   ..name = title
-      // ..startTime = startTime
-      // ..endTime = endTime
-      // ..showTime = true
-      // ..reminderType = ReminderType.event
-      // ..id = Uuid().v4()
-      // ..isRecurring = isRecurring
-      // ..recurringInterval = recurringInterval
-      // ..recurringIntervalUnit = recurringIntervalUnit);
 
 
   Null updateBirthdayDate(DateTime date) {

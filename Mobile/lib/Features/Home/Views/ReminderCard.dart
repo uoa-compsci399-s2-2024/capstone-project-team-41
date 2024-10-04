@@ -3,7 +3,6 @@ import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
-import 'package:RemindMate/Features/Views/Images.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +34,7 @@ class ReminderCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: ColorPalette.primaryPink,
                     borderRadius: const BorderRadius.all(Radius.circular(8))),
-                child: Icon(Icons.calendar_today, color: Colors.white, size: 20),
+                child: const Icon(Icons.calendar_today, color: Colors.white, size: 20),
               ),
             ),
             Padding(
@@ -43,8 +42,21 @@ class ReminderCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(uio.title, style: Textstyles.boldSmall,),
-                  const Spacer(),
+                  Row(children: [
+                    Text(uio.title, style: Textstyles.boldSmall,),
+                    const Padding(padding: EdgeInsets.only(right: 10)),
+                    uio.isRecurring?
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      decoration: BoxDecoration(
+                        color: ColorPalette.secondaryPink,
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        border: Border.all(color: Colors.white, width: 2.0)
+                      ),
+                      child: const Text("recurring", style: Textstyles.smallDate,)
+                    )
+                    :Container()
+                  ],),
                   Text(uio.contact.name)
                 ],
               ),
@@ -58,18 +70,18 @@ class ReminderCard extends StatelessWidget {
                     color: ColorPalette.secondaryGreen,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                   ),
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   child: Text(uio.getStartDateTimeAsString("dd MMM"), style: Textstyles.smallDate,)
                 ),
                 const Padding(padding: EdgeInsets.only(right:6)),
                 const Padding(padding: EdgeInsets.only(right:6)),
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   child: Text(uio.getStartDateTimeAsString("HH:mm a"), style: Textstyles.smallDate,)
                 ),
               ],
             ),
-            Padding(padding: EdgeInsets.only(right: 10))
+            const Padding(padding: EdgeInsets.only(right: 10))
           ],
         ),
       )

@@ -10,7 +10,7 @@ class ContactsViewModel extends ChangeNotifier {
   List<UIOContact> contacts = [];
 
   ContactsViewModel() {
-    populateFromDatabase();
+    lockPopulate();
     watchChanges();
   }
 
@@ -18,8 +18,23 @@ class ContactsViewModel extends ChangeNotifier {
     final database = DatabaseConnector.instance.isar;
     Stream<void> contactsChanged = database.contacts.watchLazy();
     contactsChanged.listen((contacts) {
-      populateFromDatabase();
+      lockPopulate();
     });
+  }
+
+  Future<void>? _currentTask;
+
+  Future<void> lockPopulate() {
+    if (_currentTask != null) {
+      return _currentTask!;
+    }
+
+    _currentTask = populateFromDatabase();
+
+    return _currentTask!.whenComplete(() {
+      _currentTask = null;
+    }
+    );
   }
 
   Future<void>? populateFromDatabase() async {
@@ -51,13 +66,5 @@ class ContactsViewModel extends ChangeNotifier {
     var keyList = contactMap().keys.toList();
     keyList.sort();
     return keyList;
-  }
-
-  Future<void> deleteContact(int id) async {
-    final database = DatabaseConnector.instance.isar;
-    await database.writeTxn(() async {
-      await database.contacts.delete(id);
-    });
-    notifyListeners();
   }
 }

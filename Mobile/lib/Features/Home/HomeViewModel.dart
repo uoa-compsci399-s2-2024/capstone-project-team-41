@@ -41,7 +41,7 @@ class HomeViewModel extends ChangeNotifier {
 
     for (Contact c in dbcontacts) {
       for (ContactReminder r in c.reminders!) {
-        if (r.startTime!.compareTo(aWeekFromNow) <= 0) {
+        if (r.endTime!.compareTo(aWeekFromNow) <= 0) {
           upcomingReminders.add(UIOReminderCard.db(r, UIOContact(c)));
         }
       }

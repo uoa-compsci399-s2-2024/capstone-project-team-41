@@ -36,7 +36,7 @@ class _ContactViewState extends State<ContactView> {
               ],
             ),
             viewModel.contact != null
-                ? ContactTitleView(uio: viewModel.contact!)
+                ? ContactTitleView(uio: viewModel.contact!, viewModel: viewModel,)
                 : Container(),
             viewModel.contact != null
                 ? ContactBodyView(uio: viewModel.contact!)

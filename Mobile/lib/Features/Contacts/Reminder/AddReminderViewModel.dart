@@ -2,12 +2,10 @@ import 'package:RemindMate/Domain/Contact/SelectedContactRepo.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Domain/Database/Models/ReminderType.dart';
-import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:isar/isar.dart';
 import 'package:uuid/uuid.dart';
 
 class AddRedminderViewModel extends ChangeNotifier {
@@ -15,7 +13,7 @@ class AddRedminderViewModel extends ChangeNotifier {
   String notes = "";
   DateTime startTime = DateTime.now();
   DateTime endTime = DateTime.now();
-  bool isRecurring = true;
+  bool isRecurring = false;
   int recurringInterval = 7;
   String recurringIntervalUnit = "days";
 

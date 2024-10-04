@@ -5,6 +5,8 @@ import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
 import 'package:RemindMate/Domain/Database/Models/Contact.dart';
 import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
+import 'package:RemindMate/Features/Main/AppState.dart';
+import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
 
 class ContactViewModel extends ChangeNotifier {
@@ -46,15 +48,20 @@ class ContactViewModel extends ChangeNotifier {
 
     reminders = [];
 
-    DateTime aWeekFromNow = DateTime.now().add(const Duration(days: 7));
     for (ContactReminder r in dbContact.reminders!) {
-      if (r.startTime!.compareTo(aWeekFromNow) <= 0) {
-        reminders.add(UIOReminderCard.db(r, contact!));
-      }
+      reminders.add(UIOReminderCard.db(r, contact!));
     }
 
     reminders.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
     notifyListeners();
+  }
+
+  Future<void> deleteContact(int id) async {
+    final database = DatabaseConnector.instance.isar;
+    await database.writeTxn(() async {
+      await database.contacts.delete(id);
+    });
+    AppState().setAppState(UIOAppState.home);
   }
 }

@@ -40,7 +40,7 @@ Future<void> main() async {
   await FirebaseMessaging.onMessageOpenedApp.listen((event) {
     print(("THIS IS EVENT :: :: $event"));
   });
-  await DatabaseSync().init();
+  // await DatabaseSync().init();
   runApp(const MyApp());
 }
 
