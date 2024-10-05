@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 
 class RemindersViewModel extends ChangeNotifier {
+  Map<String, List<String>> yearMap = {};
   Map<String, List<UIOReminderCard>> eventMap = {};
   DateTime selectedTime = DateTime.now();
 
@@ -27,24 +28,30 @@ class RemindersViewModel extends ChangeNotifier {
     var dbContacts = await database.contacts.where().findAll();
 
     eventMap = {};
+    yearMap = {};
 
     for (final contact in dbContacts) {
       for (final reminder in contact.reminders!) {
-        if (!eventMap.containsKey(reminder.startTime!
+        String key = reminder.startTime!
             .toIso8601String()
             .split("T")[0]
-            .substring(0, 7))) {
-          eventMap[reminder.startTime!
-              .toIso8601String()
-              .split("T")[0]
-              .substring(0, 7)] = [];
-        }
-        eventMap[reminder.startTime!
-                .toIso8601String()
-                .split("T")[0]
-                .substring(0, 7)]
-            ?.add(UIOReminderCard.db(reminder, UIOContact(contact)));
+            .substring(0, 7);
+        if (!eventMap.containsKey(key)) {eventMap[key] = [];}
+        eventMap[key]?.add(UIOReminderCard.db(reminder, UIOContact(contact)));
+
+        String yearKey = reminder.startTime!
+            .toIso8601String()
+            .split("T")[0]
+            .substring(0, 4);
+        if (!yearMap.containsKey(yearKey)) {yearMap[yearKey] = [];}
+        if (!yearMap[yearKey]!.contains(key)) {yearMap[yearKey]?.add(key);}
       }
+    }
+
+    print(yearMap["2024"]);
+
+    for (String i in yearMap.keys) {
+      yearMap[i]!.sort();
     }
 
     for (String i in eventMap.keys) {
@@ -56,6 +63,12 @@ class RemindersViewModel extends ChangeNotifier {
 
   List<String> sortedEventMappKeys() {
     var keyList = eventMap.keys.toList();
+    keyList.sort();
+    return keyList;
+  }
+
+    List<String> sortedYearMapKeys() {
+    var keyList = yearMap.keys.toList();
     keyList.sort();
     return keyList;
   }
