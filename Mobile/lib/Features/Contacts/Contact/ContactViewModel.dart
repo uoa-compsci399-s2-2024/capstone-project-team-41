@@ -72,7 +72,7 @@ class ContactViewModel extends ChangeNotifier {
     final List<ContactReminder> newReminders = [];
     for (ContactReminder r in contact!.reminders!) {
       if (r.id == reminderId && r.isRecurring!) {
-        throw Exception("Unable to delete recurring reminder")l
+        throw Exception("Unable to delete recurring reminder");
       }
 
       if (r.id != reminderId) {

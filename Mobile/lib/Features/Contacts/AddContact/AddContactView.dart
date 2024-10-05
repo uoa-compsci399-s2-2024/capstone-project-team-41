@@ -160,9 +160,9 @@ class _AddContactViewState extends State<AddContactView> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 32, right: 32),
-              child: SaveButtonView(onPress: () {
+              child: SaveButtonView(onPress: () async {
                 try {
-                  viewModel.saveContact();
+                  await viewModel.saveContact();
                 } catch (_) {
                   const snackBar = SnackBar(
                     content: Text("Friend with same name already exists"),
