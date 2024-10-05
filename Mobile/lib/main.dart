@@ -1,5 +1,6 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
+import 'package:RemindMate/Domain/Database/DatabaseSync.dart';
 import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
 import 'package:RemindMate/Domain/Notifications/NotificationService.dart';
 import 'package:RemindMate/Features/Calender/CalenderViewModel.dart';
@@ -38,7 +39,7 @@ Future<void> main() async {
   await FirebaseMessaging.onMessageOpenedApp.listen((event) {
     print(("THIS IS EVENT :: :: $event"));
   });
-  // await DatabaseSync().init();
+  await DatabaseSync().init();
   runApp(const MyApp());
 }
 

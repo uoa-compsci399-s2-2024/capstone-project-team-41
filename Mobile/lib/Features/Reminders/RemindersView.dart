@@ -16,8 +16,9 @@ class RemindersView extends StatefulWidget {
 class _RemindersViewState extends State<RemindersView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-        Consumer<RemindersViewModel>(builder: (context, viewModel, child) {
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      body: Consumer<RemindersViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
         child: Column(
           children: [
@@ -30,7 +31,7 @@ class _RemindersViewState extends State<RemindersView> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 16),
+              padding: EdgeInsets.only(left: 16, bottom: 30),
               child: Row(
                 children: [
                   Text("Your upcoming reminders", style: Textstyles.S1,),
@@ -40,10 +41,10 @@ class _RemindersViewState extends State<RemindersView> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: viewModel.sortedEventMappKeys().length,
+              itemCount: viewModel.sortedYearMapKeys().length,
               itemBuilder: (context, index) {
-                final key = viewModel.sortedEventMappKeys()[index];
-                final reminders = viewModel.eventMap[key];
+                final key = viewModel.sortedYearMapKeys()[index];
+                final eventKeys = viewModel.yearMap[key];
                 return Column(
                   children: [
                     Container(
@@ -52,32 +53,55 @@ class _RemindersViewState extends State<RemindersView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(DateFormat("MMMM").format(DateTime.parse("$key-01")), style: Textstyles.P1,),
-                          Divider(
-                            height: 20,
-                            thickness: 3,
-                            color: ColorPalette.primaryPink,
-                          )
+                          Text(DateFormat("y").format(DateTime.parse("$key-01-01")), style: Textstyles.H1,),
+
                         ]
                       )
                     ),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: reminders!.length,
+                      itemCount: eventKeys!.length,
                       itemBuilder: (context, index) {
-                        final reminder = reminders[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-                          child: ReminderCard(uio: reminder)
+                        final key = eventKeys[index];
+                        final reminders = viewModel.eventMap[key];
+                        return Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(DateFormat("MMMM").format(DateTime.parse("$key-01")), style: Textstyles.P1,),
+                                  Divider(
+                                    height: 20,
+                                    thickness: 3,
+                                    color: ColorPalette.primaryPink,
+                                  )
+                                ]
+                              )
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: reminders!.length,
+                              itemBuilder: (context, index) {
+                                final reminder = reminders[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+                                  child: ReminderCard(uio: reminder)
+                                );
+                              },
+                            ),
+                            const Padding(padding: EdgeInsets.only(bottom: 10))
+                          ],
                         );
-                      },
-                    ),
-                    const Padding(padding: EdgeInsets.only(bottom: 50))
-                  ],
+                      })
+                  ]
                 );
-              },
-            ),
+              }
+            )
           ],
         ),
       );
