@@ -59,6 +59,21 @@ class AddContactViewModel extends ChangeNotifier {
       ..recurringInterval = 1
       ..recurringIntervalUnit = "years");
 
+    const int catchUpPeriod = 3;
+    DateTime catchUp = DateTime(DateTime.now().year, DateTime.now().month + catchUpPeriod, DateTime.now().day, 10, 00);
+
+    reminders.add(ContactReminder()
+    ..name = "Catch up with $contactName"
+    ..startTime = catchUp
+    ..endTime = catchUp.add(const Duration(hours: 12))
+    ..showTime = true
+    ..reminderType = ReminderType.event
+    ..id = const Uuid().v4()
+    ..isRecurring = true
+    ..recurringInterval = catchUpPeriod
+    ..recurringIntervalUnit = "Months"
+    );
+
     contact.reminders = reminders;
 
     database.writeTxnSync(() {

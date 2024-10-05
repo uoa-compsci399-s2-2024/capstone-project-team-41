@@ -48,8 +48,6 @@ class RemindersViewModel extends ChangeNotifier {
       }
     }
 
-    print(yearMap["2024"]);
-
     for (String i in yearMap.keys) {
       yearMap[i]!.sort();
     }

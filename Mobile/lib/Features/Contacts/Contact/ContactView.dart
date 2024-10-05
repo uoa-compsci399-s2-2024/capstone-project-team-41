@@ -71,20 +71,19 @@ class _ContactViewState extends State<ContactView> {
                       key: Key(reminder.id),
                       background: const Dismissbackground(),
                       confirmDismiss: (direction) async {
-                        return !reminder.isRecurring;
+                        if (reminder.isRecurring) {
+                          const snackBar = SnackBar(
+                              content: Text("Unable to delete recurring reminder"),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return false;
+                        }
+                        return true;
                       },
                       direction: DismissDirection.endToStart,
                       onDismissed: (direction) async {
-                        try {
-                          await viewModel.deleteReminder(
+                        viewModel.deleteReminder(
                               reminder.id, reminder.contact.id);
-                        } catch (_) {
-                          const snackBar = SnackBar(
-                            content:
-                                Text("Unable to delete recurring reminder"),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
                       },
                       child: ReminderCard(uio: reminder),
                     ));
