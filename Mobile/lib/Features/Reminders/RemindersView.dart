@@ -81,7 +81,7 @@ class _RemindersViewState extends State<RemindersView> {
                         );
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(bottom: 50))
+                    const Padding(padding: EdgeInsets.only(bottom: 50))
                   ],
                 );
               },

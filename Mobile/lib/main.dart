@@ -1,6 +1,5 @@
 import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
 import 'package:RemindMate/Domain/Database/DatabaseConnector.dart';
-import 'package:RemindMate/Domain/Database/DatabaseSync.dart';
 import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
 import 'package:RemindMate/Domain/Notifications/NotificationService.dart';
 import 'package:RemindMate/Features/Calender/CalenderViewModel.dart';
@@ -17,7 +16,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 import 'Domain/GrpcConnector/ExampleGrpcConnector.dart';

@@ -3,10 +3,7 @@ import 'package:RemindMate/Features/Home/Views/HomeNavContainer.dart';
 import 'package:RemindMate/Features/Home/Views/RemindersContainer.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
@@ -39,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text("Good Morning,", style: Textstyles.H1),
-                            Text("${viewModel.username}",
+                            Text(viewModel.username,
                                 style: Textstyles.H1Bold),
                             Text("You have $l upcoming events this week",
                                 style: TextStyle(

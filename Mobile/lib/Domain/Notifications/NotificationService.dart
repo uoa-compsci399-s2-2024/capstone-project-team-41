@@ -1,11 +1,5 @@
-import 'dart:async';
-
-import 'package:RemindMate/Domain/Auth/Auth0Connector.dart';
-import 'package:RemindMate/Domain/GrpcConnector/RemindMate.pbgrpc.dart';
-import 'package:RemindMate/Domain/GrpcConnector/RemindMateGrpcConnector.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:grpc/grpc.dart';
 
 String fcmToken = "";
 

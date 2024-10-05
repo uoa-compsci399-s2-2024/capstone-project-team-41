@@ -1,6 +1,4 @@
 import 'package:RemindMate/Domain/Contact/SelectedContactRepo.dart';
-import 'package:RemindMate/Features/Home/HomeView.dart';
-import 'package:RemindMate/Features/Home/HomeViewModel.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
@@ -51,7 +49,7 @@ class ReminderCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(uio.contact.name),
-                        Padding(padding: EdgeInsets.only(right: 10)),
+                        const Padding(padding: EdgeInsets.only(right: 10)),
                         uio.isRecurring?
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
