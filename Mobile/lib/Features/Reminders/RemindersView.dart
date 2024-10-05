@@ -1,18 +1,10 @@
-import 'package:RemindMate/Features/Calender/CalenderViewModel.dart';
-import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
-import 'package:RemindMate/Features/Contacts/Contact/Views/ContactBodyView.dart';
-import 'package:RemindMate/Features/Contacts/Contact/Views/ContactTitleView.dart';
-import 'package:RemindMate/Features/Home/HomeViewModel.dart';
 import 'package:RemindMate/Features/Home/Views/ReminderCard.dart';
-import 'package:RemindMate/Features/Main/AppState.dart';
-import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:RemindMate/Features/Reminders/RemindersViewModel.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class RemindersView extends StatefulWidget {
   const RemindersView({super.key});

@@ -1,5 +1,4 @@
-import 'package:RemindMate/Features/Views/ColorPalette.dart';
-import 'package:RemindMate/Features/Views/TextStyles.dart';
+
 import 'package:flutter/material.dart';
 
 class SaveButtonView extends StatelessWidget {

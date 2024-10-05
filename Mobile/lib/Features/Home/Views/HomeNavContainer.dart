@@ -1,7 +1,5 @@
 import 'package:RemindMate/Features/Home/Views/HomeNavButton.dart';
-import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 
 class HomeNavContainer extends StatelessWidget {

@@ -1,12 +1,8 @@
-import 'package:RemindMate/Features/Main/AppState.dart';
-import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
-import 'package:RemindMate/Features/TabBar/RootTabBarView.dart';
 import 'package:RemindMate/Features/TabBar/TabBarState.dart';
 import 'package:RemindMate/Features/Views/ColorPalette.dart';
-import 'package:RemindMate/Features/Views/Images.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+
 
 
 class HomeNavButton extends StatelessWidget {
