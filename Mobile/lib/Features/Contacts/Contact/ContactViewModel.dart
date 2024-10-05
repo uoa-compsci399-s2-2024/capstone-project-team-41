@@ -71,6 +71,10 @@ class ContactViewModel extends ChangeNotifier {
     Contact? contact = await database.contacts.get(contactId);
     final List<ContactReminder> newReminders = [];
     for (ContactReminder r in contact!.reminders!) {
+      if (r.id == reminderId && r.isRecurring!) {
+        throw Exception("Unable to delete recurring reminder")l
+      }
+
       if (r.id != reminderId) {
         newReminders.add(r);
       }
