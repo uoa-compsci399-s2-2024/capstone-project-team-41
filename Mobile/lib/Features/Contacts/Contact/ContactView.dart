@@ -36,7 +36,10 @@ class _ContactViewState extends State<ContactView> {
               ],
             ),
             viewModel.contact != null
-                ? ContactTitleView(uio: viewModel.contact!, viewModel: viewModel,)
+                ? ContactTitleView(
+                    uio: viewModel.contact!,
+                    viewModel: viewModel,
+                  )
                 : Container(),
             viewModel.contact != null
                 ? ContactBodyView(uio: viewModel.contact!)
@@ -62,21 +65,29 @@ class _ContactViewState extends State<ContactView> {
                 final reminder = viewModel.reminders[index];
 
                 return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 8, bottom: 8),
-                  child: Dismissible(
-                    key: Key(reminder.id), 
-                    background: const Dismissbackground(),
-                    confirmDismiss: (direction) async {
-                      return !reminder.isRecurring;
-                    },
-                    direction: DismissDirection.endToStart,
-                    onDismissed: (direction) {
-                      viewModel.deleteReminder(reminder.id, reminder.contact.id);
-                    },
-                    child: ReminderCard(uio: reminder),
-                  )
-                );
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 8, bottom: 8),
+                    child: Dismissible(
+                      key: Key(reminder.id),
+                      background: const Dismissbackground(),
+                      confirmDismiss: (direction) async {
+                        return !reminder.isRecurring;
+                      },
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (direction) {
+                        try {
+                          viewModel.deleteReminder(
+                              reminder.id, reminder.contact.id);
+                        } catch (_) {
+                          const snackBar = SnackBar(
+                            content:
+                                Text("Unable to delete recurring reminder"),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      },
+                      child: ReminderCard(uio: reminder),
+                    ));
               },
             ),
           ],

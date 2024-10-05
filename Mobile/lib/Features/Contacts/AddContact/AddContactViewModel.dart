@@ -5,6 +5,7 @@ import 'package:RemindMate/Domain/Database/Models/ReminderType.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 import 'package:uuid/uuid.dart';
 
 class AddContactViewModel extends ChangeNotifier {
@@ -17,6 +18,11 @@ class AddContactViewModel extends ChangeNotifier {
 
   Future<void> saveContact() async {
     final database = DatabaseConnector.instance.isar;
+    final currentContacts = await database.contacts.where().findAll();
+
+    if (currentContacts.where((c) => c.name == name).isNotEmpty) {
+      throw ErrorDescription("Friend with this name already exists");
+    }
 
     int id = database.writeTxnSync<int>(() {
       return database.contacts.putSync(Contact()
@@ -34,23 +40,24 @@ class AddContactViewModel extends ChangeNotifier {
     var contact = await database.contacts.get(id);
     String contactName = contact!.name!;
     DateTime birthday = DateTime.parse(contact.birthday!);
-    DateTime nextBirthday = DateTime(DateTime.now().year, birthday.month, birthday.day);
+    DateTime nextBirthday =
+        DateTime(DateTime.now().year, birthday.month, birthday.day);
     if (nextBirthday.compareTo(DateTime.now().add(Duration(days: -1))) < 0) {
-      nextBirthday = DateTime(DateTime.now().year + 1, birthday.month, birthday.day);
+      nextBirthday =
+          DateTime(DateTime.now().year + 1, birthday.month, birthday.day);
     }
 
     List<ContactReminder> reminders = contact.reminders!.toList();
     reminders.add(ContactReminder()
-    ..name = "$contactName's Birthday"
-    ..startTime = nextBirthday
-    ..endTime = nextBirthday.add(const Duration(hours: 11, minutes: 59))
-    ..showTime = true
-    ..reminderType = ReminderType.event
-    ..id = const Uuid().v4()
-    ..isRecurring = true
-    ..recurringInterval = 1
-    ..recurringIntervalUnit = "years"
-    );
+      ..name = "$contactName's Birthday"
+      ..startTime = nextBirthday
+      ..endTime = nextBirthday.add(const Duration(hours: 11, minutes: 59))
+      ..showTime = true
+      ..reminderType = ReminderType.event
+      ..id = const Uuid().v4()
+      ..isRecurring = true
+      ..recurringInterval = 1
+      ..recurringIntervalUnit = "years");
 
     contact.reminders = reminders;
 
@@ -58,8 +65,6 @@ class AddContactViewModel extends ChangeNotifier {
       database.contacts.putSync(contact);
     });
   }
-
-
 
   Null updateBirthdayDate(DateTime date) {
     birthDay = date;

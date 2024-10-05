@@ -161,7 +161,14 @@ class _AddContactViewState extends State<AddContactView> {
             Padding(
               padding: const EdgeInsets.only(left: 32, right: 32),
               child: SaveButtonView(onPress: () {
-                viewModel.saveContact();
+                try {
+                  viewModel.saveContact();
+                } catch (_) {
+                  const snackBar = SnackBar(
+                    content: Text("Friend with same name already exists"),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
               }),
             ),
           ],
