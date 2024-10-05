@@ -27,6 +27,8 @@ class CalenderViewModel extends ChangeNotifier {
     final database = DatabaseConnector.instance.isar;
     var dbContacts = await database.contacts.where().findAll();
 
+    eventMap = {};
+
     for (final contact in dbContacts) {
       for (final reminder in contact.reminders!) {
         if (!eventMap

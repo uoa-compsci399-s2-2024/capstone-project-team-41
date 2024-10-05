@@ -7,6 +7,7 @@ import 'package:RemindMate/Features/Contacts/Models/UIOContact.dart';
 import 'package:RemindMate/Features/Home/Models/UIOReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ContactViewModel extends ChangeNotifier {
@@ -63,5 +64,20 @@ class ContactViewModel extends ChangeNotifier {
       await database.contacts.delete(id);
     });
     AppState().setAppState(UIOAppState.home);
+  }
+
+  Future<void> deleteReminder(String reminderId, int contactId) async {
+    final database = DatabaseConnector.instance.isar;
+    Contact? contact = await database.contacts.get(contactId);
+    final List<ContactReminder> newReminders = [];
+    for (ContactReminder r in contact!.reminders!) {
+      if (r.id != reminderId) {
+        newReminders.add(r);
+      }
+    }
+    contact.reminders = newReminders;
+    await database.writeTxnSync(() async {
+      database.contacts.putSync(contact);
+    });
   }
 }

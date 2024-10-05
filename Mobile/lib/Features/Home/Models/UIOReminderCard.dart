@@ -5,6 +5,7 @@ import 'package:RemindMate/Features/Home/Models/UIOReminderCardType.dart';
 import 'package:intl/intl.dart';
 
 final class UIOReminderCard {
+  late String id;
   late String title;
   late UIOReminderCardType cardType;
   late UIOContact contact;
@@ -16,7 +17,8 @@ final class UIOReminderCard {
   late String recurringUnit;
 
   UIOReminderCard(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.cardType,
       required this.contact,
       required this.dateTime,
@@ -24,9 +26,10 @@ final class UIOReminderCard {
       required this.showTime,
       required this.isRecurring,
       required this.recurringInterval,
-      required this.recurringUnit});
+      required this.recurringUnit,});
 
   UIOReminderCard.db(ContactReminder reminder, UIOContact uioContact) {
+    this.id = reminder.id!;
     this.title = reminder.name!;
     switch (reminder.reminderType) {
       case null:

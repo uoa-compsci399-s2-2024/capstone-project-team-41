@@ -2,6 +2,7 @@ import 'package:RemindMate/Features/Calender/CalenderViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Contact/Views/ContactBodyView.dart';
 import 'package:RemindMate/Features/Contacts/Contact/Views/ContactTitleView.dart';
+import 'package:RemindMate/Features/Home/HomeViewModel.dart';
 import 'package:RemindMate/Features/Home/Views/ReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';

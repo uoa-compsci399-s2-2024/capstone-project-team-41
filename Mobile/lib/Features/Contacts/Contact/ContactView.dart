@@ -1,10 +1,10 @@
 import 'package:RemindMate/Features/Contacts/Contact/ContactViewModel.dart';
 import 'package:RemindMate/Features/Contacts/Contact/Views/ContactBodyView.dart';
 import 'package:RemindMate/Features/Contacts/Contact/Views/ContactTitleView.dart';
+import 'package:RemindMate/Features/Contacts/Contact/Views/DismissBackground.dart';
 import 'package:RemindMate/Features/Home/Views/ReminderCard.dart';
 import 'package:RemindMate/Features/Main/AppState.dart';
 import 'package:RemindMate/Features/Main/Models/UIOAppState.dart';
-import 'package:RemindMate/Features/Views/ColorPalette.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +64,18 @@ class _ContactViewState extends State<ContactView> {
                 return Padding(
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 8, bottom: 8),
-                  child: ReminderCard(uio: reminder),
+                  child: Dismissible(
+                    key: Key(reminder.id), 
+                    background: const Dismissbackground(),
+                    confirmDismiss: (direction) async {
+                      return !reminder.isRecurring;
+                    },
+                    direction: DismissDirection.endToStart,
+                    onDismissed: (direction) {
+                      viewModel.deleteReminder(reminder.id, reminder.contact.id);
+                    },
+                    child: ReminderCard(uio: reminder),
+                  )
                 );
               },
             ),
