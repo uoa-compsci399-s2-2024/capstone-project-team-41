@@ -74,9 +74,9 @@ class _ContactViewState extends State<ContactView> {
                         return !reminder.isRecurring;
                       },
                       direction: DismissDirection.endToStart,
-                      onDismissed: (direction) {
+                      onDismissed: (direction) async {
                         try {
-                          viewModel.deleteReminder(
+                          await viewModel.deleteReminder(
                               reminder.id, reminder.contact.id);
                         } catch (_) {
                           const snackBar = SnackBar(
