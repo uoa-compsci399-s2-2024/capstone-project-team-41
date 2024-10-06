@@ -26,4 +26,6 @@ final class Textstyles {
       TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500);
   static const TextStyle smallDate =
       TextStyle(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400);
+  static TextStyle textHint = 
+      TextStyle(color: ColorPalette.primaryPink, fontSize: 17, fontWeight: FontWeight.w500);
 }

@@ -25,7 +25,7 @@ class Textfieldview extends StatelessWidget {
             children: [
               Text(
                 hintText,
-                style: Textstyles.P1,
+                style: Textstyles.textHint,
               ),
             ],
           ),

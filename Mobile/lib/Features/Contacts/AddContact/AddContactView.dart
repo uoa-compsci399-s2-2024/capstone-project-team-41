@@ -7,6 +7,7 @@ import 'package:RemindMate/Features/Views/TextFieldView.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:instant/instant.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as picker;
@@ -30,8 +31,9 @@ class _AddContactViewState extends State<AddContactView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-        Consumer<AddContactViewModel>(builder: (context, viewModel, child) {
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      body: Consumer<AddContactViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.only(top: 50),
@@ -45,11 +47,12 @@ class _AddContactViewState extends State<AddContactView> {
                     },
                     icon: const Icon(Icons.arrow_back)),
                 const Text(
-                  "Add A Friend",
+                  "Add A Mate",
                   style: Textstyles.P0,
                 ),
               ],
             ),
+            Padding(padding: EdgeInsets.only(bottom: 30)),
             Textfieldview(
                 controller: nameTextEditingController,
                 onChange: (value) {
@@ -57,18 +60,18 @@ class _AddContactViewState extends State<AddContactView> {
                 },
                 hintText: "Name"),
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Column(children: [
-                const Row(
+                Row(
                   children: [
                     Text(
                       "Birthday",
-                      style: Textstyles.P1,
+                      style: Textstyles.textHint,
                     ),
                   ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 0),
                     child: Row(
                       children: [
                         TextButton(
@@ -94,38 +97,41 @@ class _AddContactViewState extends State<AddContactView> {
                                   locale: picker.LocaleType.en);
                             },
                             child: Text(
-                              viewModel.birthDay.toString().split(" ")[0],
-                              style: const TextStyle(
-                                  color: Colors.blue, fontSize: 21),
+                              DateFormat("MMM d, y").format(viewModel.birthDay),
+                              style: TextStyle(
+                                  color: ColorPalette.primaryOrange, fontSize: 21),
                             )),
                       ],
                     ))
               ]),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Column(children: [
-                const Row(
+                Row(
                   children: [
                     Text(
                       "Timezone",
-                      style: Textstyles.P1,
+                      style: Textstyles.textHint,
                     ),
                   ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(left: 12),
                     child: Row(
                       children: [
                         DropdownButton(
                           value: viewModel.timeZone,
                           icon: const Icon(Icons.keyboard_arrow_down),
                           items: timeZoneOffsets.keys.map((String items) {
+                            String timeZoneNumber = timeZoneOffsets[items].toString();
+                            if (timeZoneNumber[0] != "-") {timeZoneNumber = "+" + timeZoneNumber;}
                             return DropdownMenuItem(
                               value: items,
-                              child: Text(items),
+                              child: Text("$items $timeZoneNumber"),
                             );
                           }).toList(),
+                          style: TextStyle(color: ColorPalette.primaryOrange, fontSize: 19, fontWeight: FontWeight.w500),
                           onChanged: (String? newValue) {
                             setState(() {
                               viewModel.timeZone = newValue!;
@@ -136,6 +142,7 @@ class _AddContactViewState extends State<AddContactView> {
                     ))
               ]),
             ),
+            const Padding(padding: EdgeInsets.only(top: 16)),
             Textfieldview(
               controller: phoneTextEditingController,
               onChange: (value) {
@@ -143,6 +150,7 @@ class _AddContactViewState extends State<AddContactView> {
               },
               hintText: "Phone",
             ),
+            const Padding(padding: EdgeInsets.only(top: 16)),
             Textfieldview(
               controller: emailTextEditingController,
               onChange: (value) {
@@ -150,6 +158,7 @@ class _AddContactViewState extends State<AddContactView> {
               },
               hintText: "Email",
             ),
+            const Padding(padding: EdgeInsets.only(top: 16)),
             Textfieldview(
               controller: notesTextEditingController,
               onChange: (value) {
@@ -159,7 +168,7 @@ class _AddContactViewState extends State<AddContactView> {
               tall: true,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 32, right: 32),
+              padding: const EdgeInsets.only(top: 30, left: 32, right: 32),
               child: SaveButtonView(onPress: () async {
                 try {
                   await viewModel.saveContact();
