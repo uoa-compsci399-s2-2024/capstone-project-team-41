@@ -25,8 +25,9 @@ class _AddReminderViewState extends State<AddReminderView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-        Consumer<AddRedminderViewModel>(builder: (context, viewModel, child) {
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      body: Consumer<AddRedminderViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.only(top: 50),
@@ -53,18 +54,18 @@ class _AddReminderViewState extends State<AddReminderView> {
               hintText: "Title",
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Column(children: [
-                const Row(
+                Row(
                   children: [
                     Text(
                       "Start Time",
-                      style: Textstyles.P1,
+                      style: Textstyles.textHint,
                     ),
                   ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 0),
                     child: Row(
                       children: [
                         TextButton(
@@ -94,26 +95,26 @@ class _AddReminderViewState extends State<AddReminderView> {
                             },
                             child: Text(
                               viewModel.getDateTimeString(viewModel.startTime),
-                              style: const TextStyle(
-                                  color: Colors.blue, fontSize: 21),
+                              style: TextStyle(
+                                  color: ColorPalette.primaryOrange, fontSize: 21),
                             )),
                       ],
                     ))
               ]),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Column(children: [
-                const Row(
+                Row(
                   children: [
                     Text(
                       "End Time",
-                      style: Textstyles.P1,
+                      style: Textstyles.textHint,
                     ),
                   ],
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 0),
                     child: Row(
                       children: [
                         TextButton(
@@ -143,8 +144,8 @@ class _AddReminderViewState extends State<AddReminderView> {
                             },
                             child: Text(
                               viewModel.getDateTimeString(viewModel.endTime),
-                              style: const TextStyle(
-                                  color: Colors.blue, fontSize: 21),
+                              style: TextStyle(
+                                  color: ColorPalette.primaryOrange, fontSize: 21),
                             )),
                       ],
                     ))

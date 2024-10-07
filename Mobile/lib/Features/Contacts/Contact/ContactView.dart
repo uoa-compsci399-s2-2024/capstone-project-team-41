@@ -20,6 +20,7 @@ class _ContactViewState extends State<ContactView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[50],
         body: Consumer<ContactViewModel>(builder: (context, viewModel, child) {
       return SingleChildScrollView(
           child: Padding(
@@ -52,8 +53,7 @@ class _ContactViewState extends State<ContactView> {
                     onPressed: () {
                       AppState().setAppState(UIOAppState.addReminder);
                     },
-                    child: Text("Add reminder")),
-                Padding(padding: EdgeInsets.only(left: 100)),
+                    child: Text("Add Reminder", style: Textstyles.textHint),),
               ],
             ),
             ListView.builder(
