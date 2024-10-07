@@ -62,11 +62,17 @@ class _AddContactViewState extends State<AddContactView> {
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Column(children: [
+
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Birthday",
                       style: Textstyles.textHint,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Text("Catch Up Reminders", style: Textstyles.textHint)
                     ),
                   ],
                 ),
@@ -100,7 +106,36 @@ class _AddContactViewState extends State<AddContactView> {
                               DateFormat("MMM d, y").format(viewModel.birthDay),
                               style: TextStyle(
                                   color: ColorPalette.primaryOrange, fontSize: 21),
-                            )),
+                            )
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 63),
+                          child: Row(
+                            children: [
+                              Switch(
+                                value: viewModel.isCatchup,
+                                inactiveTrackColor: Colors.grey[50],
+                                activeColor: ColorPalette.primaryOrange,
+                                onChanged: (value) {
+                                  setState(() {viewModel.isCatchup = value;});
+                                }),
+                              const Padding(padding: EdgeInsets.only(right: 16)),
+                              DropdownButton(
+                                value: viewModel.selectedPeriod,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: viewModel.catchUpPeriods,
+                                style: TextStyle(color: ColorPalette.primaryOrange, fontSize: 17, fontWeight: FontWeight.w500),
+                                onChanged: (value) {
+                                  setState(() {
+                                    viewModel.selectedPeriod = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          )
+                        )
+                        
+
                       ],
                     ))
               ]),

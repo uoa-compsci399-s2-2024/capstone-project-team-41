@@ -15,6 +15,13 @@ class AddContactViewModel extends ChangeNotifier {
   String email = "";
   String timeZone = "NZDT";
   DateTime birthDay = DateTime.now();
+  bool isCatchup = false;
+  List<DropdownMenuItem<String>> catchUpPeriods = [
+    const DropdownMenuItem(value: "Monthly", child: Text("Monthly")),
+    const DropdownMenuItem(value: "Quarterly", child: Text("Quarterly")),
+    const DropdownMenuItem(value: "Bi-Yearly", child: Text("Bi-Yearly")),
+  ];
+  String selectedPeriod = "Monthly";
 
   Future<void> saveContact() async {
     final database = DatabaseConnector.instance.isar;
@@ -48,8 +55,9 @@ class AddContactViewModel extends ChangeNotifier {
     }
 
     List<ContactReminder> reminders = contact.reminders!.toList();
+    String nameTrimmed = contactName.trim();
     reminders.add(ContactReminder()
-      ..name = "$contactName's Birthday"
+      ..name = "$nameTrimmed Birthday"
       ..startTime = nextBirthday
       ..endTime = nextBirthday.add(const Duration(hours: 11, minutes: 59))
       ..showTime = true
@@ -59,20 +67,29 @@ class AddContactViewModel extends ChangeNotifier {
       ..recurringInterval = 1
       ..recurringIntervalUnit = "years");
 
-    const int catchUpPeriod = 3;
-    DateTime catchUp = DateTime(DateTime.now().year, DateTime.now().month + catchUpPeriod, DateTime.now().day, 10, 00);
+    if (isCatchup) {
+      int interval = 1;
 
-    reminders.add(ContactReminder()
-    ..name = "Catch up with $contactName"
-    ..startTime = catchUp
-    ..endTime = catchUp.add(const Duration(hours: 12))
-    ..showTime = true
-    ..reminderType = ReminderType.event
-    ..id = const Uuid().v4()
-    ..isRecurring = true
-    ..recurringInterval = catchUpPeriod
-    ..recurringIntervalUnit = "Months"
-    );
+      switch (selectedPeriod) {
+        case "Monthly": interval = 1;
+        case "Quarterly": interval = 3;
+        case "Bi-Yearly": interval = 6;
+      }
+
+      DateTime catchUp = DateTime(DateTime.now().year, DateTime.now().month + interval, DateTime.now().day, 10, 00);
+
+      reminders.add(ContactReminder()
+      ..name = "Catch up with $contactName"
+      ..startTime = catchUp
+      ..endTime = catchUp.add(const Duration(hours: 12))
+      ..showTime = true
+      ..reminderType = ReminderType.event
+      ..id = const Uuid().v4()
+      ..isRecurring = true
+      ..recurringInterval = interval
+      ..recurringIntervalUnit = "Months"
+      );
+    }
 
     contact.reminders = reminders;
 
@@ -80,6 +97,8 @@ class AddContactViewModel extends ChangeNotifier {
       database.contacts.putSync(contact);
     });
   }
+
+  
 
   Null updateBirthdayDate(DateTime date) {
     birthDay = date;
