@@ -119,7 +119,7 @@ class _AddContactViewState extends State<AddContactView> {
                                 onChanged: (value) {
                                   setState(() {viewModel.isCatchup = value;});
                                 }),
-                              const Padding(padding: EdgeInsets.only(right: 16)),
+                              const Padding(padding: EdgeInsets.only(right: 13)),
                               DropdownButton(
                                 value: viewModel.selectedPeriod,
                                 icon: const Icon(Icons.keyboard_arrow_down),

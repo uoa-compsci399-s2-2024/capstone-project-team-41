@@ -57,7 +57,7 @@ class AddContactViewModel extends ChangeNotifier {
     List<ContactReminder> reminders = contact.reminders!.toList();
     String nameTrimmed = contactName.trim();
     reminders.add(ContactReminder()
-      ..name = "$nameTrimmed Birthday"
+      ..name = "$nameTrimmed's Birthday"
       ..startTime = nextBirthday
       ..endTime = nextBirthday.add(const Duration(hours: 11, minutes: 59))
       ..showTime = true
