@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as picker;
+import 'package:input_quantity/input_quantity.dart';
 
 class AddContactView extends StatefulWidget {
   const AddContactView({super.key});
@@ -54,33 +55,27 @@ class _AddContactViewState extends State<AddContactView> {
             ),
             Padding(padding: EdgeInsets.only(bottom: 30)),
             Textfieldview(
-                controller: nameTextEditingController,
-                onChange: (value) {
-                  viewModel.name = value;
-                },
-                hintText: "Name"),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: Column(children: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Birthday",
-                      style: Textstyles.textHint,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Text("Catch Up Reminders", style: Textstyles.textHint)
-                    ),
-                  ],
-                ),
+              controller: nameTextEditingController,
+              onChange: (value) {
+                viewModel.name = value;
+              },
+              hintText: "Name"
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Padding(
-                    padding: const EdgeInsets.only(top: 0),
-                    child: Row(
-                      children: [
-                        TextButton(
+                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Birthday",
+                        style: Textstyles.textHint,
+                      ),
+                      Row(
+                        children: [
+                          TextButton(
                             onPressed: () {
                               picker.DatePicker.showDatePicker(context,
                                   showTitleActions: true,
@@ -98,28 +93,39 @@ class _AddContactViewState extends State<AddContactView> {
                                           fontSize: 16)), onChanged: (date) {
                                 viewModel.updateBirthdayDate(date);
                               },
-                                  onConfirm: (date) {},
-                                  currentTime: viewModel.birthDay,
-                                  locale: picker.LocaleType.en);
+                              onConfirm: (date) {},
+                              currentTime: viewModel.birthDay,
+                              locale: picker.LocaleType.en);
                             },
                             child: Text(
                               DateFormat("MMM d, y").format(viewModel.birthDay),
                               style: TextStyle(
-                                  color: ColorPalette.primaryOrange, fontSize: 21),
+                                color: ColorPalette.primaryOrange, fontSize: 21),
                             )
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 63),
-                          child: Row(
+                          ),
+                        ],
+                      )
+                    ]
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16, right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Catch Up Reminders", style: Textstyles.textHint,),
+                      Row(
+                        children: [
+                          Switch(
+                            value: viewModel.isCatchup,
+                            inactiveTrackColor: Colors.grey[50],
+                            activeColor: ColorPalette.primaryOrange,
+                            onChanged: (value) {
+                              setState(() {viewModel.isCatchup = value;});
+                            }),
+                          const Padding(padding: EdgeInsets.only(right: 13)),
+                          Column(
                             children: [
-                              Switch(
-                                value: viewModel.isCatchup,
-                                inactiveTrackColor: Colors.grey[50],
-                                activeColor: ColorPalette.primaryOrange,
-                                onChanged: (value) {
-                                  setState(() {viewModel.isCatchup = value;});
-                                }),
-                              const Padding(padding: EdgeInsets.only(right: 13)),
                               DropdownButton(
                                 value: viewModel.selectedPeriod,
                                 icon: const Icon(Icons.keyboard_arrow_down),
@@ -131,14 +137,31 @@ class _AddContactViewState extends State<AddContactView> {
                                   });
                                 },
                               ),
+                              InputQty(
+                                maxVal: 50,
+                                initVal: 1,
+                                steps: 1,
+                                minVal: 1,
+                                onQtyChanged: (val) {
+                                  setState(() {
+                                    viewModel.selectedInterval = val.toInt();
+                                  });
+                                },
+                                qtyFormProps: const QtyFormProps(enableTyping: false),
+                                decoration: QtyDecorationProps(
+                                  isBordered: false,
+                                  btnColor: ColorPalette.primaryOrange,
+                                  borderShape: BorderShapeBtn.circle,
+                                ),
+                              ),
                             ],
                           )
-                        )
-                        
-
-                      ],
-                    ))
-              ]),
+                        ],
+                      )
+                    ]
+                  )
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),

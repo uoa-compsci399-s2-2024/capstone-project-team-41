@@ -17,11 +17,12 @@ class AddContactViewModel extends ChangeNotifier {
   DateTime birthDay = DateTime.now();
   bool isCatchup = false;
   List<DropdownMenuItem<String>> catchUpPeriods = [
-    const DropdownMenuItem(value: "Monthly", child: Text("Monthly")),
-    const DropdownMenuItem(value: "Quarterly", child: Text("Quarterly")),
-    const DropdownMenuItem(value: "Bi-Yearly", child: Text("Bi-Yearly")),
+    const DropdownMenuItem(value: "Days", child: Text("Days")),
+    const DropdownMenuItem(value: "Weeks", child: Text("Weeks")),
+    const DropdownMenuItem(value: "Months", child: Text("Months")),
   ];
-  String selectedPeriod = "Monthly";
+  String selectedPeriod = "Days";
+  int selectedInterval = 1;
 
   Future<void> saveContact() async {
     final database = DatabaseConnector.instance.isar;
@@ -68,26 +69,31 @@ class AddContactViewModel extends ChangeNotifier {
       ..recurringIntervalUnit = "years");
 
     if (isCatchup) {
-      int interval = 1;
+      DateTime? catchUp;
+      int interval = selectedInterval;
+      String intervalUnitString = "Days";
 
       switch (selectedPeriod) {
-        case "Monthly": interval = 1;
-        case "Quarterly": interval = 3;
-        case "Bi-Yearly": interval = 6;
+        case "Days":
+          catchUp = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + interval, 10, 00);
+        case "Weeks": 
+          interval = interval*7;
+          catchUp = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + interval , 10, 00);
+        case "Months":
+          catchUp = DateTime(DateTime.now().year, DateTime.now().month + interval, DateTime.now().day, 10, 00);
+          intervalUnitString = "Months";
       }
-
-      DateTime catchUp = DateTime(DateTime.now().year, DateTime.now().month + interval, DateTime.now().day, 10, 00);
 
       reminders.add(ContactReminder()
       ..name = "Catch up with $contactName"
       ..startTime = catchUp
-      ..endTime = catchUp.add(const Duration(hours: 12))
+      ..endTime = catchUp!.add(const Duration(hours: 12))
       ..showTime = true
       ..reminderType = ReminderType.event
       ..id = const Uuid().v4()
       ..isRecurring = true
-      ..recurringInterval = interval
-      ..recurringIntervalUnit = "Months"
+      ..recurringInterval = selectedInterval
+      ..recurringIntervalUnit = intervalUnitString
       );
     }
 
