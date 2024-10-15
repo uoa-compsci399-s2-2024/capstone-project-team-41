@@ -60,7 +60,7 @@ class ContactBodyView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(padding: EdgeInsets.only(bottom: 20)),
-                  const Text("Phone", style: Textstyles.boldSmall),
+                  const Text("Contact Method", style: Textstyles.boldSmall),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 7),
                     width: double.infinity,
@@ -69,17 +69,6 @@ class ContactBodyView extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
                     child: Text(uio.phoneNumber)
-                  ),
-                  const Padding(padding: EdgeInsets.only(bottom: 20)),
-                  const Text("Email", style: Textstyles.boldSmall),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 7),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: ColorPalette.coolGray,
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Text(uio.email),
                   ),
                   const Padding(padding: EdgeInsets.only(bottom: 20)),
                   const Text("Notes", style: Textstyles.boldSmall),

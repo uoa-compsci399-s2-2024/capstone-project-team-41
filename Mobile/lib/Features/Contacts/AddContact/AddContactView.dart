@@ -53,7 +53,7 @@ class _AddContactViewState extends State<AddContactView> {
                 ),
               ],
             ),
-            Padding(padding: EdgeInsets.only(bottom: 30)),
+            const Padding(padding: EdgeInsets.only(bottom: 30)),
             Textfieldview(
               controller: nameTextEditingController,
               onChange: (value) {
@@ -62,6 +62,7 @@ class _AddContactViewState extends State<AddContactView> {
               hintText: "Name"
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
@@ -104,16 +105,50 @@ class _AddContactViewState extends State<AddContactView> {
                             )
                           ),
                         ],
-                      )
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Timezone",
+                            style: Textstyles.textHint,
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 12),
+                              child: Row(
+                                children: [
+                                  DropdownButton(
+                                    value: viewModel.timeZone,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: timeZoneOffsets.keys.map((String items) {
+                                      String timeZoneNumber = timeZoneOffsets[items].toString();
+                                      if (timeZoneNumber[0] != "-") {timeZoneNumber = "+" + timeZoneNumber;}
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text("$items $timeZoneNumber"),
+                                      );
+                                    }).toList(),
+                                    style: TextStyle(color: ColorPalette.primaryOrange, fontSize: 19, fontWeight: FontWeight.w500),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        viewModel.timeZone = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ))
+                        ]
+                      ),
                     ]
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16, right: 16),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text("Catch Up Reminders", style: Textstyles.textHint,),
+                      const Padding(padding: EdgeInsets.only(bottom: 16)),
                       Row(
                         children: [
                           Switch(
@@ -123,38 +158,44 @@ class _AddContactViewState extends State<AddContactView> {
                             onChanged: (value) {
                               setState(() {viewModel.isCatchup = value;});
                             }),
-                          const Padding(padding: EdgeInsets.only(right: 13)),
-                          Column(
-                            children: [
-                              DropdownButton(
-                                value: viewModel.selectedPeriod,
-                                icon: const Icon(Icons.keyboard_arrow_down),
-                                items: viewModel.catchUpPeriods,
-                                style: TextStyle(color: ColorPalette.primaryOrange, fontSize: 17, fontWeight: FontWeight.w500),
-                                onChanged: (value) {
-                                  setState(() {
-                                    viewModel.selectedPeriod = value!;
-                                  });
-                                },
-                              ),
-                              InputQty(
-                                maxVal: 50,
-                                initVal: 1,
-                                steps: 1,
-                                minVal: 1,
-                                onQtyChanged: (val) {
-                                  setState(() {
-                                    viewModel.selectedInterval = val.toInt();
-                                  });
-                                },
-                                qtyFormProps: const QtyFormProps(enableTyping: false),
-                                decoration: QtyDecorationProps(
-                                  isBordered: false,
-                                  btnColor: ColorPalette.primaryOrange,
-                                  borderShape: BorderShapeBtn.circle,
+                          Container(
+                            padding: const EdgeInsets.only(left: 6, right: 6, bottom: 12),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[600]!, width: 2),
+                              borderRadius: BorderRadius.all(Radius.circular(16))
+                            ),
+                            child: Column(
+                              children: [
+                                DropdownButton(
+                                  value: viewModel.selectedPeriod,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: viewModel.catchUpPeriods,
+                                  style: TextStyle(color: ColorPalette.primaryOrange, fontSize: 17, fontWeight: FontWeight.w500),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      viewModel.selectedPeriod = value!;
+                                    });
+                                  },
                                 ),
-                              ),
-                            ],
+                                InputQty(
+                                  maxVal: 50,
+                                  initVal: 1,
+                                  steps: 1,
+                                  minVal: 1,
+                                  onQtyChanged: (val) {
+                                    setState(() {
+                                      viewModel.selectedInterval = val.toInt();
+                                    });
+                                  },
+                                  qtyFormProps: const QtyFormProps(enableTyping: false),
+                                  decoration: QtyDecorationProps(
+                                    isBordered: false,
+                                    btnColor: ColorPalette.primaryOrange,
+                                    borderShape: BorderShapeBtn.circle,
+                                  ),
+                                ),
+                              ],
+                            )
                           )
                         ],
                       )
@@ -163,58 +204,13 @@ class _AddContactViewState extends State<AddContactView> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: Column(children: [
-                Row(
-                  children: [
-                    Text(
-                      "Timezone",
-                      style: Textstyles.textHint,
-                    ),
-                  ],
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(left: 12),
-                    child: Row(
-                      children: [
-                        DropdownButton(
-                          value: viewModel.timeZone,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: timeZoneOffsets.keys.map((String items) {
-                            String timeZoneNumber = timeZoneOffsets[items].toString();
-                            if (timeZoneNumber[0] != "-") {timeZoneNumber = "+" + timeZoneNumber;}
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text("$items $timeZoneNumber"),
-                            );
-                          }).toList(),
-                          style: TextStyle(color: ColorPalette.primaryOrange, fontSize: 19, fontWeight: FontWeight.w500),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              viewModel.timeZone = newValue!;
-                            });
-                          },
-                        ),
-                      ],
-                    ))
-              ]),
-            ),
-            const Padding(padding: EdgeInsets.only(top: 16)),
+            const Padding(padding: EdgeInsets.only(top: 64)),
             Textfieldview(
               controller: phoneTextEditingController,
               onChange: (value) {
                 viewModel.phone = value;
               },
-              hintText: "Phone",
-            ),
-            const Padding(padding: EdgeInsets.only(top: 16)),
-            Textfieldview(
-              controller: emailTextEditingController,
-              onChange: (value) {
-                viewModel.email = value;
-              },
-              hintText: "Email",
+              hintText: "Contact Method",
             ),
             const Padding(padding: EdgeInsets.only(top: 16)),
             Textfieldview(

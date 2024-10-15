@@ -6,6 +6,7 @@ import 'package:RemindMate/Features/Views/SaveButton.dart';
 import 'package:RemindMate/Features/Views/TextFieldView.dart';
 import 'package:RemindMate/Features/Views/TextStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as picker;
@@ -94,7 +95,7 @@ class _AddReminderViewState extends State<AddReminderView> {
                                   locale: picker.LocaleType.en);
                             },
                             child: Text(
-                              viewModel.getDateTimeString(viewModel.startTime),
+                              DateFormat("dd MMMM, y - H:mm").format(viewModel.startTime),
                               style: TextStyle(
                                   color: ColorPalette.primaryOrange, fontSize: 21),
                             )),
@@ -143,7 +144,7 @@ class _AddReminderViewState extends State<AddReminderView> {
                                   locale: picker.LocaleType.en);
                             },
                             child: Text(
-                              viewModel.getDateTimeString(viewModel.endTime),
+                              DateFormat("dd MMMM, y - H:mm").format(viewModel.endTime),
                               style: TextStyle(
                                   color: ColorPalette.primaryOrange, fontSize: 21),
                             )),
