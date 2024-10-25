@@ -3,6 +3,10 @@ package com.capstone.group41.remind.mate;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
+import remind.mate.grpc.Friend;
+import remind.mate.grpc.FriendReminders;
+import remind.mate.grpc.RelationshipType;
+import remind.mate.grpc.ReminderType;
 
 @SpringBootTest
 class RemindMateApplicationTests {
@@ -39,8 +43,8 @@ class FriendAndReminderTests {
     void testFriendReminders() {
         FriendReminders reminder = FriendReminders.newBuilder()
                 .setTitle("Meeting with Sarah")
-                .setStartDateTime(1633036800L) // Example Unix timestamp
-                .setEndDateTime(1633040400L)
+                .setStartDateTime(String.valueOf(1633036800L)) // Example Unix timestamp
+                .setEndDateTime(String.valueOf(1633040400L))
                 .setShowTime(true)
                 .setReminderType(ReminderType.EVENT)
                 .setReminderId("abc123")
@@ -50,8 +54,8 @@ class FriendAndReminderTests {
                 .build();
 
         assertEquals("Meeting with Sarah", reminder.getTitle());
-        assertEquals(1633036800L, reminder.getStartDateTime());
-        assertEquals(1633040400L, reminder.getEndDateTime());
+        assertEquals(String.valueOf(1633036800L), reminder.getStartDateTime());
+        assertEquals(String.valueOf(1633040400L), reminder.getEndDateTime());
         assertTrue(reminder.getShowTime());
         assertEquals(ReminderType.EVENT, reminder.getReminderType());
         assertEquals("abc123", reminder.getReminderId());
